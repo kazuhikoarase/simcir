@@ -7,7 +7,7 @@ package com.d_project.simcir.ui.workspaceClasses {
 	import com.d_project.simcir.ui.NodeUI;
 	import com.d_project.simcir.ui.UIConstants;
 	import com.d_project.simcir.ui.Workspace;
-
+	
 	import flash.display.Graphics;
 	import flash.events.Event;
 	import flash.events.MouseEvent;

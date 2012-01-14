@@ -1,6 +1,5 @@
 package com.d_project.ui {
 
-	import flash.display.ColorCorrection;
 	import flash.display.Graphics;
 
 	/**

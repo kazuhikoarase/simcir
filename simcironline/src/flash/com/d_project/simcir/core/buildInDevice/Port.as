@@ -3,7 +3,7 @@ package com.d_project.simcir.core.buildInDevice {
 	import com.d_project.simcir.core.Device;
 	import com.d_project.simcir.core.DeviceLoaderContext;
 	import com.d_project.simcir.core.NodeEvent;
-
+	
 	import flash.display.DisplayObject;
 
 	/**

@@ -4,7 +4,7 @@ package com.d_project.simcir.ui.workspaceClasses {
 	import com.d_project.simcir.core.simcir_core;
 	import com.d_project.simcir.ui.DeviceUI;
 	import com.d_project.simcir.ui.Workspace;
-
+	
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 

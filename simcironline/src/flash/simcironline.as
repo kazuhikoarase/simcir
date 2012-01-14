@@ -1,7 +1,6 @@
 package {
 
 	import com.adobe.images.PNGEncoder;
-	import com.d_project.simcir.core.Device;
 	import com.d_project.simcir.core.DeviceLoader;
 	import com.d_project.simcir.core.buildInDevice.DeviceRef;
 	import com.d_project.simcir.ui.DeviceBody;
