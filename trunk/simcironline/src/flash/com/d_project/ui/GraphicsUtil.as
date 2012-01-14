@@ -1,7 +1,12 @@
 package com.d_project.ui {
+
 	import flash.display.ColorCorrection;
 	import flash.display.Graphics;
 
+	/**
+	 * GraphicsUtil
+	 * @author kazuhiko arase
+	 */
 	public class GraphicsUtil {
 		
 		public static function draw3DRect(

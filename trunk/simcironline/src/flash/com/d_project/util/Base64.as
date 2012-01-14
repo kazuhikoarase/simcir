@@ -2,6 +2,10 @@ package com.d_project.util {
 
 	import flash.utils.ByteArray;
 
+	/**
+	 * Base64
+	 * @author kazuhiko arase
+	 */
 	public class Base64 {
 
 		public function Base64() {

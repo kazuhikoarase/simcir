@@ -1,5 +1,9 @@
 package com.d_project.util {
 
+	/**
+	 * Base64EncodeOutputStream
+	 * @author kazuhiko arase
+	 */
 	public class Base64EncodeOutputStream {
 
 		private var _buffer : int = 0;
