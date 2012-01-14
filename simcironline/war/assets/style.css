@@ -1,0 +1,106 @@
+
+* {
+	font-family: sans-serif;
+	font-size: 12pt;
+}
+
+H1 { font-size: 18pt; margin: 0px; padding: 8px 0px 8px 0px; }
+H2 { font-size: 16pt; margin: 0px; padding: 8px 0px 8px 0px; }
+H3 { font-size: 14pt; margin: 0px; padding: 8px 0px 8px 0px; }
+H4 { font-size: 12pt; margin: 0px; padding: 8px 0px 8px 0px; }
+H5 { font-size: 10pt; margin: 0px; padding: 8px 0px 8px 0px; }
+H6 { font-size: 9pt; margin: 0px; padding: 8px 0px 8px 0px; }
+
+BODY {
+	margin: 0px;
+}
+
+FORM {
+	margin: 0px;
+	padding: 0px;
+}
+
+.error {
+	color: #ff0000;
+}
+
+.header {
+	color: #ffffff;
+	background-color: #000000;
+}
+.logo {
+	font-weight: bold;
+}
+
+.header-item {
+	cursor: pointer;
+	display: inline-block;
+	padding: 4px;
+	white-space: nowrap;
+}
+
+.header-item-over {
+	background-color: #666666;
+}
+
+.header-item-active {
+	background-color: #666666;
+}
+
+.account-menu {
+	cursor: pointer;
+	color: #ffffff;
+	background-color: #000000;
+}
+
+.account {
+	float: right;
+}
+
+.content {
+	padding: 20px 8px 20px 8px;
+}
+
+.title {
+	font-size: 12pt;
+	font-weight: bold;
+}
+
+.button {
+	display: inline-block;
+	margin: 2px;
+	padding: 2px 8px 2px 8px;
+	cursor: pointer;
+	background-color:#ccffcc;
+	border: #999999 1px solid;
+	font-size: 12pt;
+	font-weight: bold;
+}
+
+.button-over {
+	border-color: #99ff99;
+}
+
+.delete-button {
+	display: inline-block;
+	margin: 2px;
+	padding: 2px 8px 2px 8px;
+	cursor: pointer;
+	background-color:#ccffcc;
+	border: #999999 1px solid;
+	font-size: 12pt;
+	font-weight: bold;
+}
+
+.delete-button-over {
+	border-color: #99ff99;
+}
+
+.circuit {
+}
+
+.list-item {
+	background-color: #f0f0f0;
+	padding: 4px;
+	margin: 4px 0px 4px 0px;
+}

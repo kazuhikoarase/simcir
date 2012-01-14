@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" version="2.5"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+	<filter>
+		<filter-name>DefaultFilter</filter-name>
+		<filter-class>com.d_project.simcir.filter.DefaultFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>DefaultFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<servlet>
+		<servlet-name>Simcir</servlet-name>
+		<servlet-class>com.d_project.simcir.servlet.SimcirServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>Simcir</servlet-name>
+		<url-pattern>/index</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Simcir</servlet-name>
+		<url-pattern>/circuit</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Simcir</servlet-name>
+		<url-pattern>/icon</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Simcir</servlet-name>
+		<url-pattern>/BasicSet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>Simcir</servlet-name>
+		<url-pattern>/user/account</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Simcir</servlet-name>
+		<url-pattern>/user/toolbox-list</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Simcir</servlet-name>
+		<url-pattern>/user/circuits</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Simcir</servlet-name>
+		<url-pattern>/user/edit</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Simcir</servlet-name>
+		<url-pattern>/user/library</url-pattern>
+	</servlet-mapping>
+
+	<welcome-file-list>
+		<welcome-file>index</welcome-file>
+	</welcome-file-list>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>simcir</web-resource-name>
+			<url-pattern>/user/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>*</role-name>
+		</auth-constraint>
+	</security-constraint>
+	
+</web-app>
+

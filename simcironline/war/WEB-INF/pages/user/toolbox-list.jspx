@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:s="urn:jsptagdir:/WEB-INF/tags/s"
+	xmlns="http://www.w3.org/1999/xhtml"
+>
+
+	<jsp:directive.page import="com.d_project.simcir.datastore.SimcirstoreServiceFactory"/>
+	<jsp:directive.page import="com.d_project.simcir.datastore.SimcirstoreService"/>
+
+	<jsp:scriptlet><![CDATA[
+
+	SimcirstoreService ss = SimcirstoreServiceFactory.getSimcirstoreService();
+	pageContext.setAttribute("user", ss.getUser() );
+
+	]]></jsp:scriptlet>
+	
+	<jsp:directive.page contentType="application/xml;charset=UTF-8" />
+
+	<c:choose>
+		<c:when test="${not empty user.toolboxListXml}">
+			<c:out value="${user.toolboxListXml}" escapeXml="false" />
+		</c:when>
+		<c:otherwise>
+			<simcir xmlns="http://www.d-project.com/simcir/2012">
+				<device label="BasicSet" type="Ref">
+					<param name="url" value="/BasicSet"/> 
+				</device>
+			</simcir>
+		</c:otherwise>
+	</c:choose>
+
+</jsp:root>

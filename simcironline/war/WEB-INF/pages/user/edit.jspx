@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:s="urn:jsptagdir:/WEB-INF/tags/s"
+	xmlns="http://www.w3.org/1999/xhtml"
+>
+	<jsp:directive.page import="com.d_project.simcir.Util"/>
+	<jsp:directive.page import="com.d_project.simcir.datastore.SimcirstoreServiceFactory"/>
+	<jsp:directive.page import="com.d_project.simcir.datastore.SimcirstoreService"/>
+
+	<jsp:scriptlet><![CDATA[
+
+if ("POST".equals(request.getMethod() ) ) {
+
+	SimcirstoreService ss = SimcirstoreServiceFactory.getSimcirstoreService();
+	
+	String title = Util.truncate(
+		Util.trim(request.getParameter("title") ), 30);
+	if (Util.isEmpty(title) ) {
+		title = "untitled";
+	}
+	
+	String key = ss.putCircuit(
+		request.getParameter("key"),
+		title,
+		request.getParameter("xml"),
+		request.getParameter("img"),
+		request.getParameter("tn"),
+		"1".equals(request.getParameter("private") )
+	);
+
+	ss.putToolboxList(request.getParameter("tlxml") );
+
+	response.sendRedirect(
+			request.getContextPath() +
+			"/circuit?key=" + key);
+	return;
+
+} else if ("GET".equals(request.getMethod() ) ) {
+
+	SimcirstoreService ss = SimcirstoreServiceFactory.getSimcirstoreService();
+	pageContext.setAttribute("circuit", ss.getCircuit(request.getParameter("key") ) );
+}
+
+	]]></jsp:scriptlet>
+
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+
+	<s:page>
+
+		<s:script><![CDATA[
+
+var save_clickHandler = function() {
+	var data = document.getElementById('simcir').getData();
+	var form = document.forms[0];
+	form.method = 'POST';
+	form.action = contextPath + '/user/edit'; 
+	form.elements['xml'].value = data.xml;
+	form.elements['img'].value = data.img;
+	form.elements['tn'].value = data.tn;
+	form.elements['tlxml'].value = data.tlxml;
+	form.submit();
+};
+
+		]]></s:script>
+
+		<div class="circuit">
+
+			<form onsubmit="return false;">
+
+				<input type="hidden" name="key" value="${param.key}"/>
+				<input type="hidden" name="xml" value=""/>
+				<input type="hidden" name="img" value=""/>
+				<input type="hidden" name="tn"  value=""/>
+				<input type="hidden" name="tlxml" value=""/>
+
+				<div style="margin: 0px 0px 2px 0px;">
+					<span class="title">Title: </span>
+					<c:set var="title">
+						<c:out value="${circuit.title}"/>
+					</c:set>
+					<input type="text" name="title" size="20" maxlength="30" style="width: 200px;" value="${title}" />
+					<c:choose>
+						<c:when test="${circuit.private}">
+							<input type="checkbox" name="private" value="1" checked="checked" />
+						</c:when>
+						<c:otherwise>
+							<input type="checkbox" name="private" value="1" />
+						</c:otherwise>
+					</c:choose>
+					<span>Private</span>
+				</div>
+			</form>
+
+			<c:set var="movie">
+				<jsp:text>${contextPath}/simcironline.swf</jsp:text>
+
+				<jsp:text>?t=</jsp:text>
+<!-- 
+				<s:encodeURL>${contextPath}/BasicSet</s:encodeURL>
+				<s:encodeURL>http://localhost:1080/zzz/BasicSet.xml</s:encodeURL>
+ -->
+				<jsp:text>&amp;tl=</jsp:text>
+				<s:encodeURL>${contextPath}/user/toolbox-list</s:encodeURL>
+				
+				<jsp:text>&amp;l=</jsp:text>
+				<s:encodeURL>${contextPath}/user/library?fmt=xml</s:encodeURL>
+						
+				<c:if test="${not empty param.key}">
+					<jsp:text>&amp;c=</jsp:text>
+					<s:encodeURL>
+						<jsp:text>${contextPath}/circuit?fmt=xml</jsp:text>
+						<jsp:text>&amp;key=${param.key}</jsp:text>
+					</s:encodeURL>
+				</c:if>
+			</c:set>			
+
+			<s:swf 
+				id="simcir"
+				movie="${movie}"
+				width="928"
+				height="450" />
+
+			<div>
+				<s:button click="save_clickHandler()" label="Save"/>
+			</div>
+
+		</div>
+
+	</s:page>
+
+</jsp:root>

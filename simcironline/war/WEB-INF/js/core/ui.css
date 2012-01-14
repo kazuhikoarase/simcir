@@ -1,0 +1,69 @@
+/**
+ * ui style
+ * @author Kazuhiko Arase
+ */
+
+.ui-base {
+	display: inline-block;
+}
+
+.ui-error {
+	color: #ff0000;
+}
+
+.ui-lock-layer {
+	position: absolute;
+	cursor: default;
+	background-color: #000000;
+	opacity: 0.1;
+	filter: alpha(opacity=10);
+}
+
+.ui-button {
+	cursor: pointer;
+	display: inline-block;
+	padding: 2px 4px 2px 4px;
+	margin: 2px 2px 2px 2px;
+	border: #999999 1px solid;
+	font-weight: bold;
+}
+
+.ui-button-over {
+	background-color: #ffeecc;
+}
+
+.ui-link {
+	cursor: pointer;
+	text-decoration: underline;
+}
+
+.ui-link-over {
+	background-color: #ffeecc;
+}
+
+.ui-dialog {
+	position: absolute;
+	cursor: default;
+	background-color: #ffffff;
+	border: #666666 2px solid;
+	padding: 8px;
+}
+
+.ui-dialog-buttons {
+	text-align: center;
+	margin: 8px 0px 0px 0px;
+}
+
+.ui-popup {
+	position: absolute;
+	cursor: default;
+}
+
+.ui-alert-buttons {
+	text-align: center;
+	margin: 8px 0px 0px 0px;
+}
+
+.ui-over {
+	border-color: #ffcc00;
+}

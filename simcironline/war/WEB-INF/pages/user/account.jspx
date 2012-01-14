@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:s="urn:jsptagdir:/WEB-INF/tags/s"
+	xmlns="http://www.w3.org/1999/xhtml"
+>
+	<jsp:directive.page import="java.util.Map"/>
+	<jsp:directive.page import="java.util.HashMap"/>
+
+	<jsp:directive.page import="com.d_project.simcir.Util"/>
+	<jsp:directive.page import="com.d_project.simcir.datastore.SimcirstoreServiceFactory"/>
+	<jsp:directive.page import="com.d_project.simcir.datastore.SimcirstoreService"/>
+
+	<jsp:scriptlet><![CDATA[
+
+if ("POST".equals(request.getMethod() ) ) {
+
+	SimcirstoreService ss = SimcirstoreServiceFactory.getSimcirstoreService();
+
+	String nickname = Util.truncate(
+			Util.trim(request.getParameter("nickname") ), 30);
+	String url = Util.truncate(
+			Util.trim(request.getParameter("url") ), 200);
+
+	Map<String,Object> user = new HashMap<String,Object>();
+	user.put("nickname", nickname);
+	user.put("url", url);
+	pageContext.setAttribute("user", user);
+	
+	Map<String,String> errors = new HashMap<String,String>();
+	pageContext.setAttribute("errors", errors);
+
+	if (Util.isEmpty(nickname) ) {
+		errors.put("nickname_error", "Enter your nickname.");
+	}
+	
+	if (errors.isEmpty() ) {
+		ss.putUser(nickname, url);
+		response.sendRedirect(
+				request.getContextPath() +
+				"/user/circuits");
+		return;
+	}
+
+} else if ("GET".equals(request.getMethod() ) ) {
+
+	SimcirstoreService ss = SimcirstoreServiceFactory.getSimcirstoreService();
+	pageContext.setAttribute("user", ss.getUser() );
+}
+
+	]]></jsp:scriptlet>
+	
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+
+	<s:page>
+
+		<s:script><![CDATA[
+
+var save_clickHandler = function() {
+	var form = document.forms[0];
+	form.method = 'POST';
+	form.action = contextPath + '/user/account'; 
+	form.submit();
+};
+
+		]]></s:script>
+		
+		<h3>Account Settings</h3>
+
+		<form>
+			<table>
+				<tr>
+					<c:set var="nickname">
+						<c:out value="${user.nickname}"/>
+					</c:set>
+					<td class="title" align="right">Nickname: </td>
+					<td>
+						<input type="text" name="nickname" value="${nickname}" maxlength="30" />
+						<span class="error"><c:out value="${errors.nickname_error}"/></span>
+					</td>
+				</tr>
+				<tr>
+					<c:set var="url">
+						<c:out value="${user.url}"/>
+					</c:set>
+					<td class="title" align="right">URL: </td>
+					<td>
+						<input type="text" name="url" value="${url}" maxlength="200" />
+						<span class="error"><c:out value="${errors.url_error}"/></span>
+					</td>
+				</tr>
+			</table>
+		</form>
+
+		<div>
+			<s:button click="save_clickHandler()" label="Save"/>
+		</div>
+
+	</s:page>
+
+</jsp:root>

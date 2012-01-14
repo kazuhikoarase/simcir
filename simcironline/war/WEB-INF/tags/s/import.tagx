@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns="http://www.w3.org/1999/xhtml"
+>
+
+	<jsp:directive.tag import="java.io.InputStreamReader"/>
+	<jsp:directive.tag import="java.io.BufferedReader"/>
+	<jsp:directive.tag import="java.io.Reader"/>
+	<jsp:directive.tag import="java.io.ByteArrayOutputStream"/>
+	<jsp:directive.tag import="java.io.BufferedOutputStream"/>
+	<jsp:directive.tag import="java.io.OutputStream"/>
+	<jsp:directive.tag import="java.io.FileInputStream"/>
+	<jsp:directive.tag import="java.io.BufferedInputStream"/>
+	<jsp:directive.tag import="java.io.InputStream"/>
+
+	<jsp:directive.attribute name="path" required="true" />
+	<jsp:directive.attribute name="charEncoding" required="true" />
+
+	<jsp:scriptlet><![CDATA[
+
+String path = (String)jspContext.findAttribute("path");
+if (!path.startsWith("/") ) {
+	// relative path
+	String servletPath = request.getServletPath();
+	int index = servletPath.lastIndexOf("/");
+	path = servletPath.substring(0, index + 1) + path;
+}
+
+path = application.getRealPath(path);
+
+String charEncoding = (String)jspContext.findAttribute("charEncoding");
+Reader resIn = new BufferedReader(new InputStreamReader(
+		new FileInputStream(path), charEncoding) );
+
+try {
+	char[] buffer = new char[4096];
+	int length;
+	while ( (length = resIn.read(buffer) ) != -1) {
+		out.write(buffer, 0, length);
+	}
+} finally {
+	resIn.close();
+}
+
+	]]></jsp:scriptlet>
+
+</jsp:root>

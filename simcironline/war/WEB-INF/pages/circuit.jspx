@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:s="urn:jsptagdir:/WEB-INF/tags/s"
+	xmlns="http://www.w3.org/1999/xhtml"
+>
+	<jsp:directive.page import="com.d_project.simcir.datastore.Circuit"/>
+	<jsp:directive.page import="com.d_project.simcir.datastore.SimcirstoreServiceFactory"/>
+	<jsp:directive.page import="com.d_project.simcir.datastore.SimcirstoreService"/>
+
+	<jsp:directive.page import="java.io.OutputStream"/>
+
+	<jsp:scriptlet><![CDATA[
+
+try {
+	SimcirstoreService ss = SimcirstoreServiceFactory.getSimcirstoreService();
+	Circuit circuit = ss.getCircuit(request.getParameter("key") );
+	pageContext.setAttribute("circuit", circuit);
+	pageContext.setAttribute("editable",
+		ss.isUserLoggedIn() && 
+		ss.getUser().getUserId().equals(circuit.getUser().getUserId() ) );
+
+} catch(Exception e) {
+	e.printStackTrace();
+	response.sendError(HttpServletResponse.SC_NOT_FOUND);
+	return;
+}
+
+	]]></jsp:scriptlet>
+
+	<c:choose>
+
+		<c:when test="${param.fmt == 'xml'}">
+			<jsp:scriptlet><![CDATA[
+			response.setContentType("application/xml;charset=UTF-8");
+			]]></jsp:scriptlet>
+	
+			<c:out value="${circuit.xml}" escapeXml="false" />
+		</c:when>
+
+		<c:when test="${param.fmt == 'img'}">
+			<jsp:scriptlet><![CDATA[
+
+{			                        
+	Circuit circuit = (Circuit)pageContext.getAttribute("circuit");
+	byte[] bytes = circuit.getImage();
+	response.setContentType("image/png");
+	OutputStream rawOut = response.getOutputStream();
+	try {
+		rawOut.write(bytes);
+	} finally {
+		rawOut.close();			
+	}
+}
+
+			]]></jsp:scriptlet>
+		</c:when>
+
+		<c:when test="${param.fmt == 'tn'}">
+			<jsp:scriptlet><![CDATA[
+
+{			                        
+	Circuit circuit = (Circuit)pageContext.getAttribute("circuit");
+	byte[] bytes = circuit.getThumbnail();
+	response.setContentType("image/png");
+	OutputStream rawOut = response.getOutputStream();
+	try {
+		rawOut.write(bytes);
+	} finally {
+		rawOut.close();			
+	}
+}
+
+			]]></jsp:scriptlet>
+		</c:when>
+
+		<c:otherwise>
+			<jsp:scriptlet><![CDATA[
+			response.setContentType("text/html;charset=UTF-8");
+			]]></jsp:scriptlet>
+	
+			<s:page title=" - ${circuit.title}">
+		
+				<s:script><![CDATA[
+
+var edit_clickHandler = function() {
+	var form = document.forms[0];
+	location.href = contextPath + '/user/edit?key=' + form.elements['key'].value;
+};
+
+var addToLibrary_clickHandler = function() {
+	var form = document.forms[0];
+	form.method = 'POST';
+	form.action = contextPath + '/user/library';
+	form.elements['op'].value = 'put';
+	form.submit();
+};
+
+var openCircuitHandler = function(url) {
+	// TODO
+	var prefix = contextPath + '/circuit?fmt=xml&';
+	if (url.indexOf(prefix) != 0) {
+		return;
+	}
+	var newUrl = contextPath + '/circuit?' + url.substring(prefix.length);
+	window.open(newUrl, '_blank');
+};
+
+				]]></s:script>
+	
+				<div class="circuit">
+		
+					<form onsubmit="return false;">
+						<input type="hidden" name="key" value="${param.key}"/>
+						<input type="hidden" name="op" value=""/>
+					</form>
+	
+					<div style="margin: 0px 0px 2px 0px;">
+						<span class="title">
+							<c:out value="${circuit.title}"/>
+						</span>
+						<c:if test="${circuit.private}">
+							<jsp:text>&#xa0;</jsp:text>
+							<span>(Private)</span>
+						</c:if>
+						<br/>
+						<c:if test="${empty circuit.user.url}">
+							<span><c:out value="${circuit.user.nickname}"/></span>
+						</c:if>
+						<c:if test="${not empty circuit.user.url}">
+							<a href="${circuit.user.url}" target="_blank"><c:out value="${circuit.user.nickname}"/></a>
+						</c:if>
+						<br/>
+						<jsp:text>last modified: </jsp:text>
+						<c:out value="${circuit.updateDate}"/>
+					</div>
+	
+					<c:set var="movie">
+						<jsp:text>${contextPath}/simcironline.swf</jsp:text>
+					
+						<jsp:text>?e=false</jsp:text>
+						<jsp:text>&amp;o=openCircuitHandler</jsp:text>
+						<jsp:text>&amp;c=</jsp:text>
+						<s:encodeURL>
+							<jsp:text>${contextPath}/circuit?fmt=xml</jsp:text>
+							<jsp:text>&amp;key=${param.key}</jsp:text>
+						</s:encodeURL>
+					</c:set>
+								
+					<c:set var="noscript">
+						<c:out value="${circuit.title}"/>
+						<br/>
+						<img border="0" src="${contextPath}/circuit?key=${circuit.key}&amp;fmt=tn" />
+					</c:set>
+					
+					<s:swf 
+						id="simcir"
+						movie="${movie}"
+						width="800"
+						height="450"
+						noscript="${noscript}" />
+		
+					<div style="width:800px;">
+
+						<c:if test="${editable}">
+							<s:button click="edit_clickHandler()"
+								 label="Edit" />
+						</c:if>
+						<s:button click="addToLibrary_clickHandler()"
+							 label="Add to Library" />
+
+						<div style="margin:2px;float:right;">
+							<s:socials/>
+						</div>
+
+						<br style="clear: both;"/>
+
+					</div>
+
+					<div style="width:800px; text-align: right;">
+
+						<c:set var="linkURL">
+							<s:baseURL/>
+							<jsp:text>/circuit?key=${circuit.key}</jsp:text>
+						</c:set>
+						<c:set var="imgURL">
+							<s:baseURL/>
+							<jsp:text>/circuit?key=${circuit.key}&amp;fmt=img</jsp:text>
+						</c:set>
+						<c:set var="imgTag">
+							<a href="${linkURL}"><img src="${imgURL}" border="0" /></a>
+						</c:set>
+						<c:set var="imgTag">
+							<c:out value="${imgTag}"/>
+						</c:set>
+
+						<span class="title">Link: </span>
+						<input type="text" value="${imgTag}" size="10" style="width: 220px;" onclick="this.select()" readonly="readonly" />
+
+					</div>
+
+				</div>
+		
+			</s:page>
+		</c:otherwise>
+
+	</c:choose>
+
+</jsp:root>
