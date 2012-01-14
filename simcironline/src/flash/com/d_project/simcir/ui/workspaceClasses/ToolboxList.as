@@ -6,6 +6,8 @@ package com.d_project.simcir.ui.workspaceClasses {
 	import flash.display.Graphics;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import flash.net.URLLoader;
+	import flash.net.URLRequest;
 
 	[Event(name="change", type="flash.events.Event")]
 	[Event(name="complete", type="flash.events.Event")]
@@ -104,6 +106,7 @@ package com.d_project.simcir.ui.workspaceClasses {
 		}
 		
 		public function load(url : String) : void {
+/* deep loading causes fatal error.
 			var loader : DeviceLoader = new DeviceLoader();
 			loader.addEventListener(Event.COMPLETE, function(event : Event) : void {
 				_xml = loader.xml;
@@ -112,6 +115,15 @@ package com.d_project.simcir.ui.workspaceClasses {
 				dispatchEvent(event);
 			} );
 			loader.loadUrl(url);
+*/
+			var loader : URLLoader = new URLLoader();
+			loader.addEventListener(Event.COMPLETE, function(event : Event) : void {
+				_xml = new XML(loader.data);
+				invalidateItems();
+				invalidate();
+				dispatchEvent(event);
+			} );
+			loader.load(new URLRequest(url) );
 		}	
 
 		protected function invalidateItems() : void {
