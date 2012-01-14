@@ -90,10 +90,10 @@ package com.d_project.simcir.core.buildInDevice {
 					var y1 : Number = p1.deviceDef.@y;
 					var x2 : Number = p2.deviceDef.@x;
 					var y2 : Number = p2.deviceDef.@y;
-					if (y1 == y2) {
-						return (x1 < x2)? -1 : 1;
+					if (x1 == x2) {
+						return (y1 < y2)? -1 : 1;
 					}
-					return (y1 < y2)? -1 : 1;
+					return (x1 < x2)? -1 : 1;
 				} );
 			};
 			sortPorts(inputPorts);
