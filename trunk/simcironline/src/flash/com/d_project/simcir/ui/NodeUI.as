@@ -5,14 +5,12 @@ package com.d_project.simcir.ui {
 	import com.d_project.simcir.core.NodeEvent;
 	import com.d_project.simcir.core.simcir_core;
 	import com.d_project.ui.UIBase;
-
+	
 	import flash.display.DisplayObject;
 	import flash.display.Graphics;
-	import flash.display.Sprite;
 	import flash.text.TextField;
 	import flash.text.TextFieldAutoSize;
 	import flash.text.TextFieldType;
-	import flash.text.TextFormat;
 
 	[Event(name="nodeValueChange", type="com.d_project.simcir.NodeEvent")]
 

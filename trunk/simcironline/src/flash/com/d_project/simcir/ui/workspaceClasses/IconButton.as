@@ -2,9 +2,7 @@ package com.d_project.simcir.ui.workspaceClasses {
 	
 	import com.d_project.ui.UIBase;
 	
-	import flash.display.CapsStyle;
 	import flash.display.Graphics;
-	import flash.display.LineScaleMode;
 	import flash.events.MouseEvent;
 	
 	/**

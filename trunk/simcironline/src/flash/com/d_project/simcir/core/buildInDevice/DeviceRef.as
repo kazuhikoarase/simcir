@@ -5,7 +5,6 @@ package com.d_project.simcir.core.buildInDevice {
 	import com.d_project.simcir.core.DeviceLoaderContext;
 	import com.d_project.simcir.core.Node;
 	import com.d_project.simcir.core.NodeEvent;
-	import com.d_project.simcir.ui.UIConstants;
 	
 	import flash.events.Event;
 
