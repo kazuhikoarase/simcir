@@ -51,7 +51,13 @@ if ("POST".equals(request.getMethod() ) ) {
 		<s:script><![CDATA[
 
 var save_clickHandler = function() {
+
 	var data = document.getElementById('simcir').getData();
+
+	if (!data || !data.xml) {
+		return;
+	}
+
 	var form = document.forms[0];
 	form.method = 'POST';
 	form.action = contextPath + '/user/edit'; 
