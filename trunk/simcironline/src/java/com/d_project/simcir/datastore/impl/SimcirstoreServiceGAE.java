@@ -156,12 +156,9 @@ public class SimcirstoreServiceGAE implements SimcirstoreService {
 		
 		entity.setProperty("updateDate", date);
 		entity.setProperty("title", new Text(title) );
-		entity.setProperty("xml",
-				new Blob(Util.compress(xml.getBytes(CHAR_ENCODING) ) ) );
-		entity.setProperty("image", 
-			new Blob(Base64.decode(image.getBytes("ISO-8859-1") ) ) );
-		entity.setProperty("thumbnail", 
-				new Blob(Base64.decode(thumbnail.getBytes("ISO-8859-1") ) ) );
+		entity.setProperty("xml", stringToBlob(xml) );
+		entity.setProperty("image", imgToBlob(image) );
+		entity.setProperty("thumbnail", imgToBlob(thumbnail) );
 		entity.setProperty("private", isPrivate);
 		
 		Key newKey = ds.put(entity);
@@ -280,8 +277,9 @@ public class SimcirstoreServiceGAE implements SimcirstoreService {
 		Entity entity = new Entity(getCurrentUserKey() );
 		entity.setProperty("nickname", user.getNickname() );
 		entity.setProperty("url", user.getUrl() );
-		entity.setProperty("toolboxListXml", user.getToolboxListXml() );
-
+		entity.setProperty("toolboxListXml",
+				stringToBlob(user.getToolboxListXml() ) );
+		
 		Date date = new Date();
 		if (newUser) {
 			entity.setProperty("createDate", date);
@@ -351,13 +349,15 @@ public class SimcirstoreServiceGAE implements SimcirstoreService {
 
 		cir.setTitle( ( (Text)entity.getProperty("title") ).getValue() );
 		cir.setImage( ( (Blob)entity.getProperty("image") ).getBytes() );
+		
+		// TODO
 		try {
-		cir.setThumbnail( ( (Blob)entity.getProperty("thumbnail") ).getBytes() );
-		}catch(Exception e) {}
-		cir.setXml(new String(
-			Util.uncompress( ( (Blob)entity.getProperty("xml") ).getBytes() ),
-			CHAR_ENCODING)
-		);
+			cir.setThumbnail( ( (Blob)entity.getProperty("thumbnail") ).getBytes() );
+		}catch(Exception e) {
+			cir.setThumbnail(new byte[0]);
+		}
+
+		cir.setXml(blobToString( (Blob)entity.getProperty("xml") ) );
 		cir.setPrivate( (Boolean)entity.getProperty("private") );
 
 		User user = getUser(entity.getKey().getParent() );
@@ -367,11 +367,20 @@ public class SimcirstoreServiceGAE implements SimcirstoreService {
 	}
 
 	private User entityToUser(Entity entity) throws Exception {
+
 		User user = new User();
 		user.setUserId(entity.getKey().getName() );
 		user.setNickname( (String)entity.getProperty("nickname") );
 		user.setUrl( (String)entity.getProperty("url") );
-		user.setToolboxListXml( (String)entity.getProperty("toolboxListXml") );
+
+		// TODO
+		try {
+			user.setToolboxListXml(
+				blobToString( (Blob)entity.getProperty("toolboxListXml") ) );
+		} catch(Exception e) {
+			user.setToolboxListXml("");
+		}
+		
 		return user;
 	}
 	
@@ -380,6 +389,18 @@ public class SimcirstoreServiceGAE implements SimcirstoreService {
 		if (!key.getParent().equals(getCurrentUserKey() ) ) {
 			throw new Exception("not owner");
 		}
+	}
+
+	private Blob imgToBlob(String img) throws Exception {
+		return new Blob(Base64.decode(img.getBytes("ISO-8859-1") ) );
+	}
+	
+	private Blob stringToBlob(String s) throws Exception {
+		return new Blob(Util.compress(s.getBytes(CHAR_ENCODING) ) );
+	}
+
+	private String blobToString(Blob b) throws Exception {
+		return new String(Util.uncompress( b.getBytes() ), CHAR_ENCODING);	
 	}
 }
 
