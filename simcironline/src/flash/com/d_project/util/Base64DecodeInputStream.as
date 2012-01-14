@@ -1,5 +1,9 @@
 package com.d_project.util {
 
+	/**
+	 * Base64DecodeInputStream
+	 * @author kazuhiko arase
+	 */
 	public class Base64DecodeInputStream {
 
 		private var _str : String;

@@ -7,6 +7,10 @@ package com.d_project.ui {
 	import flash.text.TextFieldType;
 	import flash.text.TextFormat;
 
+	/**
+	 * Label
+	 * @author kazuhiko arase
+	 */
 	public class Label extends UIBase {
 
 		private var _gutter : Number = 2;
