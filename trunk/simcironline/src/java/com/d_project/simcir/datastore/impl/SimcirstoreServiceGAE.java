@@ -255,7 +255,7 @@ public class SimcirstoreServiceGAE implements SimcirstoreService {
 			user.setToolboxListXml("");
 			
 			// put default.
-			putUser(user);
+			putUser(user, true);
 			
 			return user;
 		}
@@ -270,10 +270,10 @@ public class SimcirstoreServiceGAE implements SimcirstoreService {
 		User user = getUser();
 		user.setNickname(nickname);
 		user.setUrl(url);
-		return putUser(user);
+		return putUser(user, false);
 	}
 	
-	private String putUser(User user) throws Exception {
+	private String putUser(User user, boolean newUser) throws Exception {
 
 		DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
 		
@@ -282,6 +282,12 @@ public class SimcirstoreServiceGAE implements SimcirstoreService {
 		entity.setProperty("url", user.getUrl() );
 		entity.setProperty("toolboxListXml", user.getToolboxListXml() );
 
+		Date date = new Date();
+		if (newUser) {
+			entity.setProperty("createDate", date);
+		}
+		entity.setProperty("updateDate", date);
+		
 		return KeyFactory.keyToString(ds.put(entity) );
 	}
 
@@ -306,7 +312,7 @@ public class SimcirstoreServiceGAE implements SimcirstoreService {
 		
 		User user = getUser();
 		user.setToolboxListXml(toolboxListXml);
-		putUser(user);
+		putUser(user, false);
 	}
 
 	private Key getCurrentUserKey() throws Exception {
