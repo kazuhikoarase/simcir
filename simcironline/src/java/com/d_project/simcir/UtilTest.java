@@ -3,7 +3,6 @@ package com.d_project.simcir;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.io.StringReader;
 
 import org.junit.Test;
 
