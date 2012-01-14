@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns="http://www.w3.org/1999/xhtml"
+>
+
+	<jsp:directive.attribute name="id" required="true" />
+	<jsp:directive.attribute name="movie" required="true" />
+	<jsp:directive.attribute name="width" />
+	<jsp:directive.attribute name="height" />
+	<jsp:directive.attribute name="noscript" />
+
+	<!--  vars -->	
+	<c:set var="placeHolderId" value="fl_${id}" />
+	<c:set var="swfVersion" value="10.0.45" />
+	<c:set var="bgcolor" value="#ffffff" />
+	<c:set var="quality" value="high" />
+	<c:set var="allowScriptAccess" value="sameDomain" />
+	<c:set var="allowFullScreen" value="true" />
+
+	
+	<!-- setup default -->
+	
+	<c:if test="${empty width}">
+		<c:set var="width" value="400" />
+	</c:if>
+	<c:if test="${empty height}">
+		<c:set var="height" value="400" />
+	</c:if>
+	<c:if test="${empty noscript}">
+		<c:set var="noscript">
+			<jsp:scriptlet><![CDATA[out.write("<!--[if gte IE 6]>-->");]]></jsp:scriptlet>
+				<p>
+					Either scripts and active content are not permitted to run or Adobe Flash Player version
+					${swfVersion} or greater is not installed.
+				</p>
+			<jsp:scriptlet><![CDATA[out.write("<!--<![endif]-->");]]></jsp:scriptlet>
+			<a href="http://www.adobe.com/go/getflashplayer">
+				<img
+				 src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif"
+				 alt="Get Adobe Flash Player" />
+			</a>
+		</c:set>
+	</c:if>
+	
+	<jsp:scriptlet><![CDATA[
+                        
+String assetsPath = request.getContextPath() + "/assets";
+jspContext.setAttribute("assetsPath", assetsPath);
+
+String soj = "swfobject.js";
+if (request.getAttribute(soj) == null) {                        
+out.write("<script type=\"text/javascript\" src=\"" + assetsPath + "/swfobject.js\"></script>");
+	request.setAttribute(soj, soj);
+}
+
+	]]></jsp:scriptlet>
+
+<script type="text/javascript">
+(function() {
+	var swfVersionStr = "${swfVersion}";
+	var xiSwfUrlStr = "${assetsPath}/playerProductInstall.swf";
+	var flashvars = {};
+	var params = {};
+	params.quality = "${quality}";
+	params.bgcolor = "${bgcolor}";
+	params.allowscriptaccess = "${allowScriptAccess}";
+	params.allowfullscreen = "${allowFullScreen}";
+	var attributes = {};
+	attributes.id = "${id}";
+	attributes.name = "${id}";
+	attributes.align = "middle";
+	swfobject.embedSWF(
+		"${movie}", "${placeHolderId}", 
+		"${width}", "${height}", 
+		swfVersionStr, xiSwfUrlStr, 
+		flashvars, params, attributes);
+	swfobject.createCSS("#${placeHolderId}", "display:block;text-align:left;");
+}() );
+</script>
+
+	<div id="${placeHolderId}">
+		<p>
+			To view this page ensure that Adobe Flash Player version
+			${swfVersion} or greater is installed.
+		</p>
+<script type="text/javascript"><![CDATA[
+(function() {
+	var pageHost = (document.location.protocol == "https:") ? "https://" : "http://";
+	document.write("<a href='http://www.adobe.com/go/getflashplayer'><img src='" + pageHost +
+		 "www.adobe.com/images/shared/download_buttons/get_flash_player.gif' alt='Get Adobe Flash player' /></a>"); 
+}() );
+]]></script> 
+	</div>
+   	
+   	<noscript>
+		<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+				id="${id}" width="${width}" height="${height}">
+			<param name="movie" value="${movie}" />
+			<param name="quality" value="${quality}" />
+			<param name="bgcolor" value="${bgcolor}" />
+			<param name="allowScriptAccess" value="${allowScriptAccess}" />
+			<param name="allowFullScreen" value="${allowFullScreen}" />
+
+<jsp:scriptlet><![CDATA[out.write("<!--[if !IE]>-->");]]></jsp:scriptlet>
+			<object type="application/x-shockwave-flash" data="${movie}" width="${width}" height="${height}">
+				<param name="quality" value="${quality}" />
+				<param name="bgcolor" value="${bgcolor}" />
+				<param name="allowScriptAccess" value="${allowScriptAccess}" />
+				<param name="allowFullScreen" value="${allowFullScreen}" />
+<jsp:scriptlet><![CDATA[out.write("<!--<![endif]-->");]]></jsp:scriptlet>
+
+				<c:out value="${noscript}" escapeXml="false" />
+
+<jsp:scriptlet><![CDATA[out.write("<!--[if !IE]>-->");]]></jsp:scriptlet>
+			</object>
+<jsp:scriptlet><![CDATA[out.write("<!--<![endif]-->");]]></jsp:scriptlet>
+
+		</object>
+	</noscript>	
+
+</jsp:root>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:s="urn:jsptagdir:/WEB-INF/tags/s"
+	xmlns="http://www.w3.org/1999/xhtml"
+>
+
+	<jsp:directive.attribute name="label" required="true" />
+	<jsp:directive.attribute name="click" required="true" />
+
+	<span class="button" 
+		onclick="XS.className(this,'button-over', true);${click}"
+		onmouseover="XS.className(this,'button-over')"
+		onmouseout="XS.className(this,'button-over', true)">
+		<c:out value="${label}"/>
+	</span>
+
+</jsp:root>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns="http://www.w3.org/1999/xhtml"
+>
+	<jsp:directive.tag import="java.net.URLEncoder"/>
+
+	<jsp:scriptlet><![CDATA[
+
+String scheme = request.getScheme();
+StringBuilder url = new StringBuilder();
+
+url.append(scheme);
+url.append("://");
+url.append(request.getServerName() );
+
+int port = request.getServerPort();
+if (port != -1 &&
+		!("http".equals(scheme) && port == 80) &&
+		!("https".equals(scheme) && port == 443) ) {
+	url.append(":");
+	url.append(port);
+}
+
+url.append(request.getContextPath() );
+
+jspContext.setAttribute("baseUrl", url);
+
+	]]></jsp:scriptlet>
+
+	<c:out value="${baseUrl}" escapeXml="false" />
+
+</jsp:root>

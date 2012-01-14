@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<schema targetNamespace="http://www.d-project.com/simcir/2012"
+		elementFormDefault="qualified" 
+		attributeFormDefault="unqualified"
+		xmlns="http://www.w3.org/2001/XMLSchema"
+		xmlns:simcir="http://www.d-project.com/simcir/2012">
+
+	<element name="simcir" type="simcir:SimcirType" />
+
+	<complexType name="DeviceType">
+		<sequence>
+			<element name="param" type="simcir:ParamType" minOccurs="0" maxOccurs="unbounded" />
+		</sequence>
+		<attribute name="id" type="ID" />
+		<attribute name="x" type="int" />
+		<attribute name="y" type="int" />
+		<attribute name="factory" type="string" />
+		<attribute name="type" type="string" />
+		<attribute name="label" type="string" />
+	</complexType>
+
+	<complexType name="SimcirType">
+		<sequence>
+			<element name="device" type="simcir:DeviceType" minOccurs="0" maxOccurs="unbounded" />
+			<element name="connector" type="simcir:ConnectorType" minOccurs="0" maxOccurs="unbounded" />
+		</sequence>
+		<attribute name="title" type="string" />
+	</complexType>
+
+	<complexType name="ConnectorType">
+		<attribute name="in" type="string" use="required" />
+		<attribute name="out" type="string" use="required" />
+	</complexType>
+
+	<complexType name="ParamType">
+        <attribute name="name" type="string" />
+        <attribute name="value" type="string" />	</complexType>
+
+</schema>
