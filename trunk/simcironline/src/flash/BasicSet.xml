@@ -8,7 +8,9 @@
 	<device label="Out" type="Out" />
 
 	<device label="DC" factory="BasicSet.swf" type="DC" />
+<!-- 
 	<device label="OSC" factory="BasicSet.swf" type="OSC" />
+ -->
 
 	<device label="PushOn" factory="BasicSet.swf" type="PushOn" />
 	<device label="PushOff" factory="BasicSet.swf" type="PushOff" />
