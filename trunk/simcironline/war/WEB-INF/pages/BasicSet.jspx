@@ -31,6 +31,11 @@
 		<device label="EOR" factory="${basicSet}" type="EOR" />
 		<device label="ENOR" factory="${basicSet}" type="ENOR" />
 
+		<device label="OSC" factory="${basicSet}" type="OSC" />
+		<device label="7seg" factory="${basicSet}" type="7seg" />
+		<device label="4bit 7seg" factory="${basicSet}" type="4bit7seg" />
+		<device label="4bit Volume" factory="${basicSet}" type="4bitVol" />
+
 	</simcir>
 
 </jsp:root>
