@@ -72,8 +72,10 @@ class Control extends UIBase {
 			}
 		}
 
+		var g7s : Graphics = _7seg.graphics;
+		g7s.clear();
 		var size : Object = GraphicsUtil.drawSegment(
-			_7seg.graphics, pattern,
+			g7s, pattern,
 			0xff0000, 0x660000, 0x000000);
 
 		var scale : Number = UIConstants.UNIT * 5 / size.height;
