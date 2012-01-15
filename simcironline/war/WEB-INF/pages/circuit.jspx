@@ -146,19 +146,13 @@ var openCircuitHandler = function(url) {
 							<jsp:text>&amp;key=${param.key}</jsp:text>
 						</s:encodeURL>
 					</c:set>
-								
-					<c:set var="noscript">
-						<c:out value="${circuit.title}"/>
-						<br/>
-						<img border="0" src="${contextPath}/circuit?key=${circuit.key}&amp;fmt=tn" />
-					</c:set>
-					
+
 					<s:swf 
 						id="simcir"
 						movie="${movie}"
 						width="800"
 						height="450"
-						noscript="${noscript}" />
+					/>
 		
 					<div style="width:800px;">
 
