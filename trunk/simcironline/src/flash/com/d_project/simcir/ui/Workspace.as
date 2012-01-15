@@ -78,15 +78,15 @@ package com.d_project.simcir.ui {
 			addChild(_popupPane);
 			
 			_lockPane = new UIBase();
+			_lockPane.visible = false;
 			addChild(_lockPane);
 
 			_toolboxList = new ToolboxList();
 			_toolboxList.addEventListener(Event.CHANGE, toolboxList_changeHandler);
 			_toolboxList.addEventListener(Event.COMPLETE, toolboxList_completeHandler);
 			
-			LockManager.getInstance().addEventListener(Event.CHANGE, lockManager_changeHandler);
 		}
-
+		
 		public function set editable(value : Boolean) : void {
 			devicePane.editable = value;
 			toolboxesPane.visible = value;
@@ -126,6 +126,16 @@ package com.d_project.simcir.ui {
 		override protected function enterFrameHandler(event : Event) : void {
 			super.enterFrameHandler(event);
 			drawConnectors();
+		}
+		
+		override protected function addedToStageHandler(event : Event) : void {
+			super.addedToStageHandler(event);	
+			LockManager.getInstance().addEventListener(Event.CHANGE, lockManager_changeHandler);
+		}
+		
+		override protected function removedFromStageHandler(event : Event) : void {
+			super.removedFromStageHandler(event);
+			LockManager.getInstance().removeEventListener(Event.CHANGE, lockManager_changeHandler);
 		}
 		
 		override protected function mouseDownHandler(event : MouseEvent) : void {
