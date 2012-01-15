@@ -12,7 +12,6 @@
 		<device label="Out" type="Out" />
 	
 		<device label="DC" factory="${basicSet}" type="DC" />
-		<device label="OSC" factory="${basicSet}" type="OSC" />
 	
 		<device label="PushOn" factory="${basicSet}" type="PushOn" />
 		<device label="PushOff" factory="${basicSet}" type="PushOff" />
