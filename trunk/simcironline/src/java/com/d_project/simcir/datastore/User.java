@@ -1,10 +1,13 @@
 package com.d_project.simcir.datastore;
 
+import java.io.Serializable;
+
 /**
  * User
  * @author kazuhiko arase
  */
-public class User {
+@SuppressWarnings("serial")
+public class User implements Serializable {
 
 	private String userId;
 	private String nickname;

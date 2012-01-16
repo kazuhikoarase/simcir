@@ -20,6 +20,8 @@ package com.d_project.simcir.ui.workspaceClasses {
 
 		private var _xml : XML = null;
 
+		private var _ready : Boolean = false;
+
 		private var _selectedIndex : int = -1;
 		
 		private var _itemsValid : Boolean = false;
@@ -32,6 +34,10 @@ package com.d_project.simcir.ui.workspaceClasses {
 		public function get xml() : XML {
 			return _xml;
 		}
+
+		public function get ready() : Boolean {
+			return _ready;
+		}
 		
 		public function set selectedIndex(value : int) : void {
 			if (_selectedIndex == value) return;
@@ -41,6 +47,32 @@ package com.d_project.simcir.ui.workspaceClasses {
 		
 		public function get selectedIndex() : int {
 			return _selectedIndex;
+		}
+		
+		public function load(url : String) : void {
+			_ready = false;
+			/* deep loading causes fatal error.
+			var loader : DeviceLoader = new DeviceLoader();
+			loader.addEventListener(Event.COMPLETE, function(event : Event) : void {
+			_xml = loader.xml;
+			invalidateItems();
+			invalidate();
+			dispatchEvent(event);
+			} );
+			loader.loadUrl(url);
+			*/
+			var loader : URLLoader = new URLLoader();
+			loader.addEventListener(Event.COMPLETE, loader_completeHandler);
+			loader.load(new URLRequest(url) );
+		}
+		
+		private function loader_completeHandler(event : Event) : void {
+			var loader : URLLoader = event.target as URLLoader;
+			_xml = new XML(loader.data);
+			_ready = true;
+			invalidateItems();
+			invalidate();
+			dispatchEvent(event);
 		}
 		
 		public function getToolboxUrlAt(index : int) : String {
@@ -104,27 +136,6 @@ package com.d_project.simcir.ui.workspaceClasses {
 			invalidateItems();
 			invalidate();
 		}
-		
-		public function load(url : String) : void {
-/* deep loading causes fatal error.
-			var loader : DeviceLoader = new DeviceLoader();
-			loader.addEventListener(Event.COMPLETE, function(event : Event) : void {
-				_xml = loader.xml;
-				invalidateItems();
-				invalidate();
-				dispatchEvent(event);
-			} );
-			loader.loadUrl(url);
-*/
-			var loader : URLLoader = new URLLoader();
-			loader.addEventListener(Event.COMPLETE, function(event : Event) : void {
-				_xml = new XML(loader.data);
-				invalidateItems();
-				invalidate();
-				dispatchEvent(event);
-			} );
-			loader.load(new URLRequest(url) );
-		}	
 
 		protected function invalidateItems() : void {
 			_itemsValid = false;	

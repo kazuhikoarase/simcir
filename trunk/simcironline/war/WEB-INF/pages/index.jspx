@@ -47,23 +47,26 @@ pageContext.setAttribute("circuitList", ss.getRecentCircuitList(currentPage) );
 		</c:if>
 
 		<c:forEach var="item" items="${circuitList.list}">
-			<div class="list-item">
-				<div>
-					<span class="title"><c:out value="${item.title}"/></span>
-					<br/>
-					<span><c:out value="${item.user.nickname}"/></span>
-					<br/>
-					<jsp:text>last modified: </jsp:text>
-					<c:out value="${item.updateDate}"/>
+			<c:if test="${not item.private}">
+				<div class="list-item">
+					<div>
+						<span class="title"><c:out value="${item.title}"/></span>
+						<br/>
+						<span><c:out value="${item.user.nickname}"/></span>
+						<br/>
+						<jsp:text>last modified: </jsp:text>
+						<c:out value="${item.updateDate}"/>
+					</div>
+					<div>
+						<span style="display: inline-block;vertical-align: middle;">
+							<c:set var="title"><c:out value="${item.title}"/></c:set>
+							<a href="${contextPath}/circuit?key=${item.key}">
+								<img border="0" alt="${title}" src="${contextPath}/circuit?fmt=tn&amp;key=${item.key}" />
+							</a>
+						</span>
+					</div>
 				</div>
-				<div>
-					<span style="display: inline-block;vertical-align: middle;">
-						<a href="${contextPath}/circuit?key=${item.key}">
-							<img border="0" src="${contextPath}/circuit?fmt=tn&amp;key=${item.key}" />
-						</a>
-					</span>
-				</div>
-			</div>
+			</c:if>
 		</c:forEach>	
 	</s:page>
 

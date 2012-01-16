@@ -45,7 +45,7 @@ if ("POST".equals(request.getMethod() ) ) {
 } else if ("GET".equals(request.getMethod() ) ) {
 
 	SimcirstoreService ss = SimcirstoreServiceFactory.getSimcirstoreService();
-	pageContext.setAttribute("user", ss.getUser() );
+	pageContext.setAttribute("user", ss.getUser(false) );
 }
 
 	]]></jsp:scriptlet>

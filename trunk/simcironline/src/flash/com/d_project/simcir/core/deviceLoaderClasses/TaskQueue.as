@@ -41,7 +41,7 @@ package com.d_project.simcir.core.deviceLoaderClasses {
 		}
 
 		public function get available() : Boolean {
-			// not busy and has some tasks
+			// no current task and has some tasks
 			return _currTask == null && _tasks.length > 0;
 		}
 

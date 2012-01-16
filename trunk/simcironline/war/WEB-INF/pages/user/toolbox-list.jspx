@@ -11,7 +11,7 @@
 	<jsp:scriptlet><![CDATA[
 
 	SimcirstoreService ss = SimcirstoreServiceFactory.getSimcirstoreService();
-	pageContext.setAttribute("user", ss.getUser() );
+	pageContext.setAttribute("user", ss.getUser(false) );
 
 	]]></jsp:scriptlet>
 	

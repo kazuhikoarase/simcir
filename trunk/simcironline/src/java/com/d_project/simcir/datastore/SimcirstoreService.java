@@ -16,7 +16,7 @@ public interface SimcirstoreService {
 	
 	String putCircuit(String key, String title, String xml, String image, String thumbnail, boolean isPrivate) throws Exception;
 	
-	Circuit getCircuit(String key) throws Exception;
+	Circuit getCircuit(String key, boolean useCache) throws Exception;
 
 	void deleteLibrary(String key) throws Exception;
 	
@@ -24,7 +24,7 @@ public interface SimcirstoreService {
 
 	String putLibrary(String key) throws Exception;
 
-	User getUser() throws Exception;
+	User getUser(boolean useCache) throws Exception;
 
 	String putUser(String nickname, String url) throws Exception;
 	

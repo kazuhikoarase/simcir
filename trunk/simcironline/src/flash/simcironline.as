@@ -8,16 +8,13 @@ package {
 	import com.d_project.simcir.ui.Workspace;
 	import com.d_project.util.Base64;
 	
+	import flash.display.BitmapData;
 	import flash.display.Sprite;
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.external.ExternalInterface;
-	import flash.text.TextField;
-	import flash.text.TextFieldAutoSize;
-	import flash.text.TextFieldType;
-	import flash.text.TextFormat;
 	import flash.ui.ContextMenu;
 
 	/**
@@ -27,40 +24,34 @@ package {
 	[SWF(backgroundColor="0xffffff", frameRate="24")]
 	public class simcironline extends Sprite {
 
-		private var _tf : TextField;
-
 		private var _ws : Workspace;
 
 		public function simcironline() {
-
-			_tf = new TextField();
-			_tf.type = TextFieldType.DYNAMIC;
-			_tf.autoSize = TextFieldAutoSize.LEFT;
-			_tf.textColor = 0x00ff00;
-			_tf.defaultTextFormat = new TextFormat("_typewriter", 14);
-//			_tf.mouseEnabled = false;
-			addChild(_tf);
-
-			addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
 			ExternalInterface.addCallback("getData", getData);
+			addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
 		}
-
-		private function log(msg : String) : void {
-			_tf.appendText(msg + "\n");
-		}
-
-		private function getData() : Object {
-			return {
-				xml : _ws.xml.toXMLString(),
-				img : Base64.encode(
-					PNGEncoder.encode(_ws.capture(1.0) ) ),
-				tn : Base64.encode(
-					PNGEncoder.encode(_ws.capture(0.2) ) ),
-				tlxml : _ws.toolboxListXml.toXMLString()
-			}
-		}
-
+		
 		private function addedToStageHandler(event : Event) : void {
+
+			// setup stage
+			stage.scaleMode = StageScaleMode.NO_SCALE;
+			stage.align = StageAlign.TOP_LEFT;
+
+			// setup context menu
+			var cm : ContextMenu = new ContextMenu();
+			cm.hideBuiltInItems();
+			contextMenu = cm;
+			
+			createWorkspace();
+		} 
+
+		private function createWorkspace() : void {
+			
+			_ws = new Workspace();
+			_ws.addEventListener(Event.ENTER_FRAME,
+				ws_enterFrameHandler);
+			_ws.addEventListener(MouseEvent.DOUBLE_CLICK,
+				ws_doubleClickHandler);
 
 			// toolbox
 			var t : String = stage.loaderInfo.parameters.t;
@@ -72,17 +63,6 @@ package {
 			var c : String = stage.loaderInfo.parameters.c;
 			// editable
 			var e : String = stage.loaderInfo.parameters.e;
-
-			// setup stage
-			stage.scaleMode = StageScaleMode.NO_SCALE;
-			stage.align = StageAlign.TOP_LEFT;
-
-			var cm : ContextMenu = new ContextMenu();
-			cm.hideBuiltInItems();
-			contextMenu = cm;
-
-			_ws = new Workspace();
-			_ws.addEventListener(MouseEvent.DOUBLE_CLICK, ws_doubleClickHandler);
 
 			if (t) {
 				_ws.loadToolbox(t);
@@ -108,18 +88,12 @@ package {
 				_ws.editable = (e == "true");
 			}
 
-			addChildAt(_ws, 0);
+			addChild(_ws);
+		}
 
-			var layout : Function = function() : void {
-				_ws.width = stage.stageWidth;
-				_ws.height = stage.stageHeight;
-			};
-
-			layout();
-
-			addEventListener(Event.ENTER_FRAME, function(event : Event) : void {
-				layout();
-			} );
+		private function ws_enterFrameHandler(event : Event) : void {
+			_ws.width = stage.stageWidth;
+			_ws.height = stage.stageHeight;
 		}
 		
 		private function ws_doubleClickHandler(event : MouseEvent) : void {
@@ -130,18 +104,41 @@ package {
 				return;
 			}
 
-			if (event.target is DeviceBody) {
-				
-				var deviceUI : DeviceUI =
-					event.target.parent as DeviceUI;
-
-				if (!deviceUI.editable && deviceUI.device is DeviceRef) {
-					var ns : Namespace = DeviceLoader.NS;
-					var deviceDef : XML = deviceUI.device.deviceDef;
-					var url : String = deviceDef.ns::param.(@name == "url").@value;
-					ExternalInterface.call(o, url);
-				}
+			if (!(event.target is DeviceBody) ) {
+				return;
 			}
+			
+			var deviceUI : DeviceUI =
+				event.target.parent as DeviceUI;
+			if (!(deviceUI.device is DeviceRef) ) {
+				return;
+			}
+			
+			if (!deviceUI.editable || !deviceUI.active) {
+				// call openCircuitHandler with url.
+				var ns : Namespace = DeviceLoader.NS;
+				var deviceDef : XML = deviceUI.device.deviceDef;
+				var url : String = deviceDef.ns::param.(@name == "url").@value;
+				ExternalInterface.call(o, url);
+			}
+		}
+		
+		private function getData() : Object {
+			return {
+				xml : toXMLString(_ws.xml),
+				img : toImgString(_ws.capture(1.0) ),
+				tn : toImgString(_ws.capture(0.2) ),
+				tlxml : toXMLString(_ws.toolboxListXml),
+				ready : _ws.ready
+			}
+		}
+		
+		private function toXMLString(xml : XML) : String {
+			return xml.toXMLString();
+		}
+		
+		private function toImgString(bmp : BitmapData) : String {
+			return Base64.encode(PNGEncoder.encode(bmp) )
 		}
 	}
 }

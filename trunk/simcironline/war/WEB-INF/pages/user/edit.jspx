@@ -39,7 +39,7 @@ if ("POST".equals(request.getMethod() ) ) {
 } else if ("GET".equals(request.getMethod() ) ) {
 
 	SimcirstoreService ss = SimcirstoreServiceFactory.getSimcirstoreService();
-	pageContext.setAttribute("circuit", ss.getCircuit(request.getParameter("key") ) );
+	pageContext.setAttribute("circuit", ss.getCircuit(request.getParameter("key"), false) );
 }
 
 	]]></jsp:scriptlet>
@@ -51,7 +51,14 @@ if ("POST".equals(request.getMethod() ) ) {
 		<s:script><![CDATA[
 
 var save_clickHandler = function() {
+	
 	var data = document.getElementById('simcir').getData();
+
+	if (!data.ready) {
+		// not ready
+		return;
+	}
+	
 	var form = document.forms[0];
 	form.method = 'POST';
 	form.action = contextPath + '/user/edit'; 
@@ -60,6 +67,16 @@ var save_clickHandler = function() {
 	form.elements['tn'].value = data.tn;
 	form.elements['tlxml'].value = data.tlxml;
 	form.submit();
+};
+
+var openCircuitHandler = function(url) {
+	// TODO
+	var prefix = contextPath + '/circuit?fmt=xml&';
+	if (url.indexOf(prefix) != 0) {
+		return;
+	}
+	var newUrl = contextPath + '/circuit?' + url.substring(prefix.length);
+	window.open(newUrl, '_blank');
 };
 
 		]]></s:script>
@@ -105,6 +122,8 @@ var save_clickHandler = function() {
 				
 				<jsp:text>&amp;l=</jsp:text>
 				<s:encodeURL>${contextPath}/user/library?fmt=xml</s:encodeURL>
+
+				<jsp:text>&amp;o=openCircuitHandler</jsp:text>
 						
 				<c:if test="${not empty param.key}">
 					<jsp:text>&amp;c=</jsp:text>
