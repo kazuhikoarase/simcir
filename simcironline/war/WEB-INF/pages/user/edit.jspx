@@ -27,7 +27,7 @@ if ("POST".equals(request.getMethod() ) ) {
 		request.getParameter("img"),
 		request.getParameter("tn"),
 		"1".equals(request.getParameter("private") )
-	);
+	).getKey();
 
 	ss.putToolboxList(request.getParameter("tlxml") );
 
