@@ -290,7 +290,7 @@ public class SimcirstoreServiceGAE implements SimcirstoreService {
 		return list;
 	}
 
-	public String putLibrary(String keyString) throws Exception {
+	public void putLibrary(String keyString) throws Exception {
 
 		DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
 
@@ -300,28 +300,17 @@ public class SimcirstoreServiceGAE implements SimcirstoreService {
 		entity.setProperty("addedDate", date);
 		entity.setProperty("key", KeyFactory.stringToKey(keyString) );
 
-		return KeyFactory.keyToString(ds.put(entity) );
+		ds.put(entity);
 	}
 	
 	public User getUser(boolean useCache) throws Exception {
-
 		try {
 			return getUser(KeyFactory.keyToString(getCurrentUserKey() ), useCache);
 		} catch(EntityNotFoundException e) {
-
+			// put default.
 			UserService us = UserServiceFactory.getUserService();
 			com.google.appengine.api.users.User cu = us.getCurrentUser();
-
-			User user = new User();
-			user.setUserId(cu.getUserId() );
-			user.setNickname(cu.getEmail() );
-			user.setUrl("");
-			user.setToolboxListXml("");
-			
-			// put default.
-			putUser(user, true);
-			
-			return user;
+			return putUser(cu.getEmail(), "", "", true);
 		}
 	}
 	
@@ -331,20 +320,42 @@ public class SimcirstoreServiceGAE implements SimcirstoreService {
 	
 	public User putUser(String nickname, String url) throws Exception {
 		User user = getUser(false);
-		user.setNickname(nickname);
-		user.setUrl(url);
-		return putUser(user, false);
+		return putUser(
+			nickname,
+			url,
+			user.getToolboxListXml(), false);
+	}
+
+	public void putToolboxList(String toolboxListXml) throws Exception {
+
+		Document doc = Util.parseDocument(toolboxListXml);
+		if (doc.getDocumentElement().hasChildNodes() ) {
+			toolboxListXml = Util.toXMLString(doc);
+		} else {
+			toolboxListXml = "";
+		}
+		
+		User user = getUser(false);
+		putUser(
+			user.getNickname(),
+			user.getUrl(),
+			toolboxListXml, false);
 	}
 	
-	private User putUser(User user, boolean newUser) throws Exception {
+	public User putUser(
+		String nickname,
+		String url, 
+		String toolboxListXml,
+		boolean newUser
+	) throws Exception {
 
 		DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
 		
 		Entity entity = new Entity(getCurrentUserKey() );
-		entity.setProperty("nickname", user.getNickname() );
-		entity.setProperty("url", user.getUrl() );
+		entity.setProperty("nickname", nickname);
+		entity.setProperty("url", url);
 		entity.setProperty("toolboxListXml",
-				stringToBlob(user.getToolboxListXml() ) );
+				stringToBlob(toolboxListXml) );
 		
 		Date date = new Date();
 		if (newUser) {
@@ -353,8 +364,10 @@ public class SimcirstoreServiceGAE implements SimcirstoreService {
 		entity.setProperty("updateDate", date);
 
 		Key key = ds.put(entity);
-		user = entityToUser(entity);
 		
+		User user = entityToUser(entity);
+		user.setUserId(key.getName() );
+
 		userCache.put(KeyFactory.keyToString(key), user);
 		
 		return user;
@@ -368,20 +381,6 @@ public class SimcirstoreServiceGAE implements SimcirstoreService {
 	public String createLogoutURL(String url) throws Exception {
 		UserService us = UserServiceFactory.getUserService();
 		return us.createLogoutURL(url);
-	}
-
-	public void putToolboxList(String toolboxListXml) throws Exception {
-
-		Document doc = Util.parseDocument(toolboxListXml);
-		if (doc.getDocumentElement().hasChildNodes() ) {
-			toolboxListXml = Util.toXMLString(doc);
-		} else {
-			toolboxListXml = "";
-		}
-		
-		User user = getUser(false);
-		user.setToolboxListXml(toolboxListXml);
-		putUser(user, false);
 	}
 
 	private Key getCurrentUserKey() throws Exception {
