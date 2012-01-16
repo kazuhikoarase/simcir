@@ -27,6 +27,10 @@ abstract class MemcacheHelper<K,V> {
 
 	public V get(K key, boolean useCache) throws Exception {
 		
+		if (key == null) {
+			throw new NullPointerException();
+		}
+		
 		MemcacheService ms = MemcacheServiceFactory.getMemcacheService();
 
 		V value = null;
@@ -58,6 +62,11 @@ abstract class MemcacheHelper<K,V> {
 	}
 
 	public K put(K key, V value) throws Exception {
+
+		if (key == null) {
+			throw new NullPointerException();
+		}
+
 		MemcacheService ms = MemcacheServiceFactory.getMemcacheService();
 		ms.put(createCacheKey(key), value, Expiration.byDeltaSeconds(60) );
 		return key;

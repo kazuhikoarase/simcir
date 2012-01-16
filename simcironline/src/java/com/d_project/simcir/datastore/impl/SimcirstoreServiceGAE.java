@@ -52,56 +52,11 @@ public class SimcirstoreServiceGAE implements SimcirstoreService {
 	
 //	private int numPerPage = 3;
 	private int numPerPage = 10;
-	
-	private MemcacheHelper<Integer,CircuitList> circuitListCache = new MemcacheHelper<Integer,CircuitList>("circuitList") {
-		
-		protected CircuitList get(Integer currentPage) throws Exception {
-			return getRecentCircuitListImpl(currentPage);
-		}
 
-		protected void updateCache(CircuitList circuitList) throws Exception {
-			for (int i = 0; i < circuitList.getList().size(); i += 1) {
-				Circuit circuit = circuitList.getList().get(i);
-				Circuit cache = circuitCache.get(circuit.getKey(), true);
-				if (cache != null) {
-					circuitList.getList().set(i, cache);
-				}
-			}
-		}
-	};
-	
-	private MemcacheHelper<String,Circuit> circuitCache = new MemcacheHelper<String,Circuit>("circuit") {
-		
-		protected Circuit get(String keyString) throws Exception {
-			DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
-			return entityToCircuit(ds, ds.get(KeyFactory.stringToKey(keyString) ) );
-		}
-		
-		protected void updateCache(Circuit circuit) throws Exception {
-			Key key = KeyFactory.stringToKey(circuit.getKey() );
-			User cache = userCache.get(KeyFactory.keyToString(key.getParent() ), true);
-			if (cache != null) {
-				circuit.setUser(cache);
-			}
-		}
-	};
-
-	private MemcacheHelper<String,User> userCache = new MemcacheHelper<String,User>("user") {
-		
-		protected User get(String key) throws Exception {
-			DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
-			return entityToUser(ds.get(KeyFactory.stringToKey(key) ) );
-		}
-	};
-	
 	public SimcirstoreServiceGAE() {
 	}
 	
 	public CircuitList getRecentCircuitList(int currentPage) throws Exception {
-		return circuitListCache.get(currentPage, true);
-	}
-	
-	public CircuitList getRecentCircuitListImpl(int currentPage) throws Exception {
 
 		Date date = new Date(System.currentTimeMillis() - DAY_IN_MILLIS * 7);
 		
@@ -119,9 +74,7 @@ public class SimcirstoreServiceGAE implements SimcirstoreService {
 		
 		List<Circuit> list = new ArrayList<Circuit>();
 		for (Entity entity : pq.asList(FetchOptions.Builder.withOffset(offset).limit(limit) ) ) {
-			Circuit circuit = entityToCircuit(ds, entity);
-			circuitCache.put(circuit.getKey(), circuit);
-			list.add(circuit);
+			list.add(entityToCircuit(ds, entity) );
 		}
 
 		int numCircuits = pq.countEntities(FetchOptions.Builder.withDefaults() );
@@ -163,9 +116,7 @@ public class SimcirstoreServiceGAE implements SimcirstoreService {
 		
 		List<Circuit> list = new ArrayList<Circuit>();
 		for (Entity entity : pq.asList(FetchOptions.Builder.withOffset(offset).limit(limit) ) ) {
-			Circuit circuit = entityToCircuit(ds, entity);
-			circuitCache.put(circuit.getKey(), circuit);
-			list.add(circuit);
+			list.add(entityToCircuit(ds, entity) );
 		}
 
 		int numCircuits = pq.countEntities(FetchOptions.Builder.withDefaults() );
@@ -219,9 +170,6 @@ public class SimcirstoreServiceGAE implements SimcirstoreService {
 		
 		Circuit circuit = entityToCircuit(ds, entity);
 		circuit.setKey(KeyFactory.keyToString(key) );
-
-		circuitCache.put(circuit.getKey(), circuit);
-		
 		return circuit;
 	}
 
@@ -240,7 +188,8 @@ public class SimcirstoreServiceGAE implements SimcirstoreService {
 			}
 		}
 
-		Circuit circuit = circuitCache.get(keyString, useCache);
+		DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
+		Circuit circuit = entityToCircuit(ds, ds.get(KeyFactory.stringToKey(keyString) ) );
 
 		if (circuit.isPrivate() ) {
 			checkOwner(keyString);
@@ -302,10 +251,10 @@ public class SimcirstoreServiceGAE implements SimcirstoreService {
 
 		ds.put(entity);
 	}
-	
+
 	public User getUser(boolean useCache) throws Exception {
 		try {
-			return getUser(KeyFactory.keyToString(getCurrentUserKey() ), useCache);
+			return getUser(getCurrentUserKey().getName(), useCache);
 		} catch(EntityNotFoundException e) {
 			// put default.
 			UserService us = UserServiceFactory.getUserService();
@@ -315,7 +264,8 @@ public class SimcirstoreServiceGAE implements SimcirstoreService {
 	}
 	
 	public User getUser(String key, boolean useCache) throws Exception {
-		return userCache.get(key, useCache);
+		DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
+		return entityToUser(ds.get(KeyFactory.createKey(KIND_USER, key) ) );
 	}
 	
 	public User putUser(String nickname, String url) throws Exception {
@@ -364,12 +314,8 @@ public class SimcirstoreServiceGAE implements SimcirstoreService {
 		entity.setProperty("updateDate", date);
 
 		Key key = ds.put(entity);
-		
 		User user = entityToUser(entity);
 		user.setUserId(key.getName() );
-
-		userCache.put(KeyFactory.keyToString(key), user);
-		
 		return user;
 	}
 
@@ -432,8 +378,7 @@ public class SimcirstoreServiceGAE implements SimcirstoreService {
 		cir.setXml(blobToString( (Blob)entity.getProperty("xml") ) );
 		cir.setPrivate( (Boolean)entity.getProperty("private") );
 
-		User user = userCache.get(KeyFactory.
-				keyToString(entity.getKey().getParent() ), true);
+		User user = getUser(entity.getKey().getParent().getName(), true);
 		cir.setUser(user);
 
 		return cir;
@@ -457,7 +402,7 @@ public class SimcirstoreServiceGAE implements SimcirstoreService {
 		return user;
 	}
 	
-	private void checkOwner(String keyString) throws Exception {
+	public void checkOwner(String keyString) throws Exception {
 		Key key = KeyFactory.stringToKey(keyString);
 		if (!key.getParent().equals(getCurrentUserKey() ) ) {
 			throw new EntityNotFoundException(key);
