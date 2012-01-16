@@ -13,6 +13,8 @@ public interface SimcirstoreService {
 	void deleteCircuit(String key) throws Exception;
 	
 	CircuitList getCircuitList(int currentPage) throws Exception;
+
+	void checkOwner(String key) throws Exception;
 	
 	Circuit putCircuit(String key, String title, String xml, String image, String thumbnail, boolean isPrivate) throws Exception;
 	
@@ -23,17 +25,20 @@ public interface SimcirstoreService {
 	List<Library> getLibraryList() throws Exception;
 
 	void putLibrary(String key) throws Exception;
-
+	
+	//Template
 	User getUser(boolean useCache) throws Exception;
 
 	User getUser(String key, boolean useCache) throws Exception;
 
+	User putUser(String nickname, String url, String toolboxListXml, boolean newUser) throws Exception;
+
+	//Template
 	User putUser(String nickname, String url) throws Exception;
 
+	//Template
 	void putToolboxList(String toolboxListXml) throws Exception;
-	
-	User putUser(String nickname, String url, String toolboxListXml, boolean newUser) throws Exception;
-	
+
 	boolean isUserLoggedIn() throws Exception;
 
 	String createLogoutURL(String url) throws Exception;
