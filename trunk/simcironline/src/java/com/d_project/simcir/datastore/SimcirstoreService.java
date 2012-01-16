@@ -26,6 +26,8 @@ public interface SimcirstoreService {
 
 	User getUser(boolean useCache) throws Exception;
 
+	User getUser(String key, boolean useCache) throws Exception;
+
 	User putUser(String nickname, String url) throws Exception;
 	
 	boolean isUserLoggedIn() throws Exception;

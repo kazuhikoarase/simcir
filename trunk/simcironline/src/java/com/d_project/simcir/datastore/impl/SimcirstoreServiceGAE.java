@@ -306,7 +306,7 @@ public class SimcirstoreServiceGAE implements SimcirstoreService {
 	public User getUser(boolean useCache) throws Exception {
 
 		try {
-			return userCache.get(KeyFactory.keyToString(getCurrentUserKey() ), useCache);
+			return getUser(KeyFactory.keyToString(getCurrentUserKey() ), useCache);
 		} catch(EntityNotFoundException e) {
 
 			UserService us = UserServiceFactory.getUserService();
@@ -323,6 +323,10 @@ public class SimcirstoreServiceGAE implements SimcirstoreService {
 			
 			return user;
 		}
+	}
+	
+	public User getUser(String key, boolean useCache) throws Exception {
+		return userCache.get(key, useCache);
 	}
 	
 	public User putUser(String nickname, String url) throws Exception {
