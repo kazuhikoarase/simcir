@@ -22,17 +22,19 @@ public interface SimcirstoreService {
 	
 	List<Library> getLibraryList() throws Exception;
 
-	String putLibrary(String key) throws Exception;
+	void putLibrary(String key) throws Exception;
 
 	User getUser(boolean useCache) throws Exception;
 
 	User getUser(String key, boolean useCache) throws Exception;
 
 	User putUser(String nickname, String url) throws Exception;
+
+	void putToolboxList(String toolboxListXml) throws Exception;
+	
+	User putUser(String nickname, String url, String toolboxListXml, boolean newUser) throws Exception;
 	
 	boolean isUserLoggedIn() throws Exception;
 
 	String createLogoutURL(String url) throws Exception;
-
-	void putToolboxList(String toolboxListXml) throws Exception;
 }
