@@ -1,12 +1,14 @@
 package com.d_project.simcir.datastore;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Circuit
  * @author kazuhiko arase
  */
-public class Circuit {
+@SuppressWarnings("serial")
+public class Circuit implements Serializable {
 	
 	private String key;
 	private Date createDate;

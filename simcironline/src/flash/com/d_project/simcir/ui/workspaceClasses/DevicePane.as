@@ -21,6 +21,8 @@ package com.d_project.simcir.ui.workspaceClasses {
 	public class DevicePane extends UIBase {
 		
 		private var _title : String = "";
+		
+		private var _ready : Boolean = true;
 
 		private var _editable : Boolean = true;
 		
@@ -31,6 +33,10 @@ package com.d_project.simcir.ui.workspaceClasses {
 		
 		public function get title() : String {
 			return _title;
+		}
+
+		public function get ready() : Boolean {
+			return _ready;
 		}
 		
 		public function set editable(value : Boolean) : void {
@@ -43,23 +49,32 @@ package com.d_project.simcir.ui.workspaceClasses {
 		}
 		
 		public function load(url : String) : void {
+			
+			_ready = false;
+			
 			_start = getTimer();
 			trace("load start");
+			
 			var loader : DeviceLoader = new DeviceLoader();
 			loader.addEventListener(Event.COMPLETE, loader_completeHandler);
 			loader.loadUrl(url);
 		}
 
 		private function loader_completeHandler(event : Event) : void {
+			
 			var loader : DeviceLoader = event.target as DeviceLoader;
+
 			removeAllChildren();
 			for (var i : int = 0; i < loader.devices.length; i += 1) {
 				addChild(new DeviceUI(loader.devices[i]) );
 			}
 			adjust(true);
+			
 			trace("load complete in " + (getTimer() - _start) + "ms");
 
 			_title = loader.xml.@title;
+			_ready = true;
+
 			dispatchEvent(event);
 		}
 

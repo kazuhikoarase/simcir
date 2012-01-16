@@ -1,12 +1,14 @@
 package com.d_project.simcir.datastore;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Library
  * @author kazuhiko arase
  */
-public class Library {
+@SuppressWarnings("serial")
+public class Library implements Serializable {
 
 	private String key;
 	private Date addedDate;

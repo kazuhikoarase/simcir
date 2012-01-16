@@ -1,12 +1,14 @@
 package com.d_project.simcir.datastore;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * CircuitList
  * @author kazuhiko arase
  */
-public class CircuitList {
+@SuppressWarnings("serial")
+public class CircuitList implements Serializable {
 
 	private int currentPage;
 	private int numPages;

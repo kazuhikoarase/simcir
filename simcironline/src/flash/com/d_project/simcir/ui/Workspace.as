@@ -78,13 +78,12 @@ package com.d_project.simcir.ui {
 			addChild(_popupPane);
 			
 			_lockPane = new UIBase();
-			_lockPane.visible = false;
 			addChild(_lockPane);
 
 			_toolboxList = new ToolboxList();
 			_toolboxList.addEventListener(Event.CHANGE, toolboxList_changeHandler);
 			_toolboxList.addEventListener(Event.COMPLETE, toolboxList_completeHandler);
-			
+
 		}
 		
 		public function set editable(value : Boolean) : void {
@@ -108,6 +107,10 @@ package com.d_project.simcir.ui {
 			_toolboxList.load(url);
 		}
 		
+		public function get xml() : XML {
+			return devicePane.xml;
+		}
+		
 		public function capture(scale : Number = 1.0) : BitmapData {
 			var bmp : BitmapData = new BitmapData(
 				devicePane.width * scale,
@@ -118,16 +121,11 @@ package com.d_project.simcir.ui {
 			bmp.draw(stage, mat);
 			return bmp;
 		}
-		
-		public function get xml() : XML {
-			return devicePane.xml;
+
+		public function get ready() : Boolean {
+			return devicePane.ready && _toolboxList.ready;
 		}
 
-		override protected function enterFrameHandler(event : Event) : void {
-			super.enterFrameHandler(event);
-			drawConnectors();
-		}
-		
 		override protected function addedToStageHandler(event : Event) : void {
 			super.addedToStageHandler(event);	
 			LockManager.getInstance().addEventListener(Event.CHANGE, lockManager_changeHandler);
@@ -136,6 +134,11 @@ package com.d_project.simcir.ui {
 		override protected function removedFromStageHandler(event : Event) : void {
 			super.removedFromStageHandler(event);
 			LockManager.getInstance().removeEventListener(Event.CHANGE, lockManager_changeHandler);
+		}
+		
+		override protected function enterFrameHandler(event : Event) : void {
+			super.enterFrameHandler(event);
+			drawConnectors();
 		}
 		
 		override protected function mouseDownHandler(event : MouseEvent) : void {
@@ -192,34 +195,13 @@ package com.d_project.simcir.ui {
 
 		override protected function update(g : Graphics) : void {
 
-			visible = width > 0 && height > 0;
-			
 			var toolboxWidth : Number = UIConstants.UNIT * 8;
-/*			var toolboxIndex : int = 0;
-			toolboxesPane.forEachChild(function(toolboxPane : ToolboxPane) : void {
-				var h : Number = height / toolboxesPane.numChildren;;
-				toolboxPane.x = 0;
-				toolboxPane.y = toolboxIndex * h;
-				toolboxPane.width = toolboxWidth;
-				toolboxPane.height = h;
-				toolboxIndex += 1;
-			} );
-			*/
+
 			toolboxesPane.x = 0;
 			toolboxesPane.y = 0;
 			toolboxesPane.width = toolboxWidth;
 			toolboxesPane.height = height;
-/*
-			toolboxPane.x = 0;
-			toolboxPane.y = 0;
-			toolboxPane.width = UIConstants.UNIT * 8;
-			toolboxPane.height = height / 2;
 
-			libraryPane.x = 0;
-			libraryPane.y = height / 2;
-			libraryPane.width = UIConstants.UNIT * 8;
-			libraryPane.height = height / 2;
-*/
 			devicePane.x = toolboxesPane.visible? toolboxWidth : 0;
 			devicePane.y = 0;
 			devicePane.width = width - devicePane.x;
@@ -241,20 +223,26 @@ package com.d_project.simcir.ui {
 			g.lineStyle(1, UIConstants.CONNECTOR_COLOR);
 
 			devicePane.forEachChild(function(deviceUI : DeviceUI) : void {
+
 				var inputs : Array = deviceUI.device.inputs;
+				
 				for (var n : int = 0; n < inputs.length; n += 1) {
+					
 					var inNode : InputNode = inputs[n];
 					var outNode : OutputNode = inNode.getOutputNode();
-					if (outNode != null) {
-						var inUI : NodeUI = inNode.holder as NodeUI;
-						var outUI : NodeUI = outNode.holder as NodeUI;
-						g.moveTo(
-							inUI.x + inUI.deviceUI.x,
-							inUI.y + inUI.deviceUI.y);
-						g.lineTo(
-							outUI.x + outUI.deviceUI.x,
-							outUI.y + outUI.deviceUI.y);
+					
+					if (outNode == null) {
+						continue;
 					}
+
+					var inUI : NodeUI = inNode.holder as NodeUI;
+					var outUI : NodeUI = outNode.holder as NodeUI;
+					g.moveTo(
+						inUI.x + inUI.deviceUI.x,
+						inUI.y + inUI.deviceUI.y);
+					g.lineTo(
+						outUI.x + outUI.deviceUI.x,
+						outUI.y + outUI.deviceUI.y);
 				}
 			} );
 		}

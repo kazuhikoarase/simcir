@@ -13,12 +13,17 @@
 	<jsp:scriptlet><![CDATA[
 
 try {
+	
+	// use cache if format is image or thumnail.
+	String fmt = request.getParameter("fmt");
+	boolean useCache = "img".equals(fmt) || "tn".equals(fmt);
+	
 	SimcirstoreService ss = SimcirstoreServiceFactory.getSimcirstoreService();
-	Circuit circuit = ss.getCircuit(request.getParameter("key") );
+	Circuit circuit = ss.getCircuit(request.getParameter("key"), useCache);
 	pageContext.setAttribute("circuit", circuit);
 	pageContext.setAttribute("editable",
 		ss.isUserLoggedIn() && 
-		ss.getUser().getUserId().equals(circuit.getUser().getUserId() ) );
+		ss.getUser(true).getUserId().equals(circuit.getUser().getUserId() ) );
 
 } catch(Exception e) {
 	e.printStackTrace();
