@@ -14,7 +14,7 @@ public interface SimcirstoreService {
 	
 	CircuitList getCircuitList(int currentPage) throws Exception;
 	
-	String putCircuit(String key, String title, String xml, String image, String thumbnail, boolean isPrivate) throws Exception;
+	Circuit putCircuit(String key, String title, String xml, String image, String thumbnail, boolean isPrivate) throws Exception;
 	
 	Circuit getCircuit(String key, boolean useCache) throws Exception;
 
@@ -26,7 +26,7 @@ public interface SimcirstoreService {
 
 	User getUser(boolean useCache) throws Exception;
 
-	String putUser(String nickname, String url) throws Exception;
+	User putUser(String nickname, String url) throws Exception;
 	
 	boolean isUserLoggedIn() throws Exception;
 
