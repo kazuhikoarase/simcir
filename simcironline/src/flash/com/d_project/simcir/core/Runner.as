@@ -7,6 +7,7 @@ package com.d_project.simcir.core {
 	/**
 	 * Runner
 	 * @author kazuhiko arase
+	 * @private
 	 */
 	public class Runner {
 

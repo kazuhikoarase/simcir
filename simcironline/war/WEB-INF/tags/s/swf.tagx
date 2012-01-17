@@ -8,6 +8,7 @@
 	<jsp:directive.attribute name="movie" required="true" />
 	<jsp:directive.attribute name="width" />
 	<jsp:directive.attribute name="height" />
+	<jsp:directive.attribute name="alt" />
 
 	<!--  vars -->	
 	<c:set var="placeHolderId" value="fl_${id}" />
@@ -105,6 +106,8 @@ out.write("<script type=\"text/javascript\" src=\"" + assetsPath + "/swfobject.j
 					 src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif"
 					 alt="Get Adobe Flash Player" />
 				</a>
+
+				<c:out value="${alt}" escapeXml="false" />
 
 <jsp:scriptlet><![CDATA[out.write("<!--[if !IE]>-->");]]></jsp:scriptlet>
 			</object>

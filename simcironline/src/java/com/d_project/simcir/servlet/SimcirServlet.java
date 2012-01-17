@@ -11,6 +11,10 @@ import javax.servlet.http.*;
  */
 @SuppressWarnings("serial")
 public class SimcirServlet extends HttpServlet {
+
+	public SimcirServlet() {
+	}
+	
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 	throws ServletException, IOException {

@@ -1,6 +1,7 @@
 package com.d_project.simcir.ui {
 
 	import com.d_project.simcir.core.Device;
+	import com.d_project.simcir.core.NodeEvent;
 	import com.d_project.simcir.core.simcir_core;
 	import com.d_project.ui.UIBase;
 	
@@ -10,14 +11,14 @@ package com.d_project.simcir.ui {
 	import flash.text.TextField;
 	import flash.text.TextFieldAutoSize;
 	import flash.text.TextFieldType;
+	
+	use namespace simcir_core;
 
 	/**
 	 * DeviceUI
 	 * @author kazuhiko arase
 	 */
 	public class DeviceUI extends UIBase {
-
-		use namespace simcir_core;
 
 		private var _device : Device;
 		private var _inputs : Array;
@@ -37,7 +38,8 @@ package com.d_project.simcir.ui {
 
 			_device = device;
 			_device.holder = this;
-			_device.addEventListener(Event.CHANGE, device_changeHandler);
+			_device.addEventListener(NodeEvent.NODE_VALUE_CHANGE,
+				device_nodeValueChangeHandler);
 
 			x = device.deviceDef.@x;
 			y = device.deviceDef.@y;
@@ -138,7 +140,7 @@ package com.d_project.simcir.ui {
 			_invalidate();
 		}
 
-		private function device_changeHandler(event : Event) : void {
+		private function device_nodeValueChangeHandler(event : Event) : void {
 			_invalidate();
 		}
 

@@ -2,6 +2,11 @@ package com.d_project.simcir.ui {
 
 	import flash.text.TextFormat;
 
+	/**
+	 * UIConstants
+	 * @author kazuhiko arase
+	 * @private
+	 */
 	public class UIConstants {
 
 		public function UIConstants() {

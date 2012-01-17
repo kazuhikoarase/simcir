@@ -9,7 +9,7 @@ import com.google.appengine.api.memcache.MemcacheServiceFactory;
  * @author kazuhiko arase
  */
 @SuppressWarnings("unchecked")
-abstract class MemcacheHelper<K,V> {
+abstract class MemcacheHelper<K,V> implements CacheHelper<K,V> {
 	
 	private static int getCount = 0;
 	private static int hitCount = 0;
@@ -40,20 +40,25 @@ abstract class MemcacheHelper<K,V> {
 			value = (V)ms.get(createCacheKey(key) );
 		}
 
+/*		
 		getCount += 1;
 		if (value != null) {
 			hitCount += 1;
 		}
 		System.out.println(getCount + "/" + hitCount);
-		
+*/
+
 		if (value == null) {
+
 			// no data in cache. get from source
 			value = get(key);
 			if (value == null) {
 				throw new NullPointerException();
 			}
+			
 			// put into cache
 			put(key, value);
+
 		} else {
 			updateCache(value);
 		}

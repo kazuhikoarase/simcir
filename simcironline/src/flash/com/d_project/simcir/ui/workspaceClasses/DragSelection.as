@@ -8,14 +8,14 @@ package com.d_project.simcir.ui.workspaceClasses {
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.geom.Rectangle;
+	
+	use namespace simcir_core;
 
 	/**
 	 * DragSelection
 	 * @author kazuhiko arase
 	 */
 	public class DragSelection extends DragOperation {
-
-		use namespace simcir_core;
 
 		public function DragSelection(workspace : Workspace) {
 			super(workspace);

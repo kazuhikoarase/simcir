@@ -6,6 +6,7 @@ package com.d_project.simcir.core {
 	/**
 	 * EventQueue
 	 * @author kazuhiko arase
+	 * @private
 	 */
 	public class EventQueue implements Runnable {
 

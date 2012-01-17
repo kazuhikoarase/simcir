@@ -2,6 +2,8 @@ package com.d_project.simcir.core {
 
 	import flash.events.EventDispatcher;
 
+	use namespace simcir_core;
+
 	[Event(name="nodeValueChange", type="com.d_project.simcir.NodeEvent")]
 
 	/**
@@ -9,8 +11,6 @@ package com.d_project.simcir.core {
 	 * @author kazuhiko arase
 	 */
 	public class Node extends EventDispatcher {
-
-		use namespace simcir_core;
 
 		private var _id : String;
 
@@ -22,6 +22,9 @@ package com.d_project.simcir.core {
 
 		simcir_core var holder : Object = null;
 
+		/**
+		 * @private
+		 */
 		public function Node(device : Device, id : String) {
 			_device = device;
 			_id = id;
@@ -29,10 +32,16 @@ package com.d_project.simcir.core {
 				nodeValueChangeHandler);
 		}
 
+		/**
+		 * @private
+		 */
 		public function get id() : String {
 			return _id;
 		}
 
+		/**
+		 * @private
+		 */
 		public function get device() : Device {
 			return _device;
 		}
@@ -63,11 +72,17 @@ package com.d_project.simcir.core {
 			return _value;
 		}
 
-		public function disconnect() : void {
-			throw new Error("not implemented");
-		}
-
+		/**
+		 * @private
+		 */
 		protected function nodeValueChangeHandler(event : NodeEvent) : void {
+		}
+		
+		/**
+		 * @private
+		 */
+		simcir_core function disconnect() : void {
+			throw new Error("not implemented");
 		}
 	}
 }

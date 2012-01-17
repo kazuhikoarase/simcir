@@ -1,9 +1,8 @@
 package com.d_project.simcir.core.deviceLoaderClasses {
 
-	import com.d_project.simcir.core.DeviceLoaderContext;
-	
 	import flash.display.DisplayObject;
 	import flash.events.Event;
+	import flash.system.LoaderContext;
 
 	/**
 	 * CachedLoaderTask
@@ -13,7 +12,7 @@ package com.d_project.simcir.core.deviceLoaderClasses {
 
 		private static var _cache : Object = new Object();
 
-		public function CachedLoaderTask(url : String, loaderContext : DeviceLoaderContext) {
+		public function CachedLoaderTask(url : String, loaderContext : LoaderContext) {
 			super(url, loaderContext);
 		}
 

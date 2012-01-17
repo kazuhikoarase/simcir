@@ -13,6 +13,8 @@ H6 { font-size: 9pt; margin: 0px; padding: 8px 0px 8px 0px; }
 
 BODY {
 	margin: 0px;
+	color: #000000;
+	background-color: #ffffff;
 }
 
 FORM {
@@ -103,4 +105,9 @@ FORM {
 	background-color: #f0f0f0;
 	padding: 4px;
 	margin: 4px 0px 4px 0px;
+}
+
+.img-link {
+	background-color: #ffffdd;
+	border: #cccccc 1px solid;	
 }

@@ -39,7 +39,10 @@ if ("POST".equals(request.getMethod() ) ) {
 } else if ("GET".equals(request.getMethod() ) ) {
 
 	SimcirstoreService ss = SimcirstoreServiceFactory.getSimcirstoreService();
-	pageContext.setAttribute("circuit", ss.getCircuit(request.getParameter("key"), false) );
+	String key = request.getParameter("key");
+	if (!Util.isEmpty(key) ) {
+		pageContext.setAttribute("circuit", ss.getCircuit(key, false) );
+	}
 }
 
 	]]></jsp:scriptlet>

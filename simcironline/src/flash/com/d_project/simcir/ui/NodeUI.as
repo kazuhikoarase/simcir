@@ -12,6 +12,8 @@ package com.d_project.simcir.ui {
 	import flash.text.TextFieldAutoSize;
 	import flash.text.TextFieldType;
 
+	use namespace simcir_core;
+
 	[Event(name="nodeValueChange", type="com.d_project.simcir.NodeEvent")]
 
 	/**
@@ -19,8 +21,6 @@ package com.d_project.simcir.ui {
 	 * @author kazuhiko arase
 	 */
 	public class NodeUI extends UIBase {
-
-		use namespace simcir_core;
 
 		private var _node : Node;
 

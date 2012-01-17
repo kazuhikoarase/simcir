@@ -7,14 +7,14 @@ package com.d_project.simcir.ui.workspaceClasses {
 	
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	
+	use namespace simcir_core;
 
 	/**
 	 * DragToolboxDevice
 	 * @author kazuhiko arase
 	 */
 	public class DragToolboxDevice extends DragOperation {
-
-		use namespace simcir_core;
 
 		private var _toolboxPane : ToolboxPane;
 		private var _dragEnd : Boolean = false;
