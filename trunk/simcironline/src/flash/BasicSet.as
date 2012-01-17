@@ -1,6 +1,5 @@
 package {
 
-	import com.adobe.air.filesystem.VolumeMonitor;
 	import com.d_project.simcir.core.Device;
 	import com.d_project.simcir.core.DeviceFactory;
 	import com.d_project.simcir.device.DirectCurrent;

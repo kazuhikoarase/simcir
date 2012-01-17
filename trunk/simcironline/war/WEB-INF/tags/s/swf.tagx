@@ -12,7 +12,7 @@
 
 	<!--  vars -->	
 	<c:set var="placeHolderId" value="fl_${id}" />
-	<c:set var="swfVersion" value="10.0.45" />
+	<c:set var="swfVersion" value="10.3.0" />
 	<c:set var="bgcolor" value="#ffffff" />
 	<c:set var="quality" value="high" />
 	<c:set var="allowScriptAccess" value="sameDomain" />
