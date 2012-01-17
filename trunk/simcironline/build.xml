@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project default="all" basedir=".">
+
+	<property name="src" location="src"/>
+	<property name="build" location="build"/>
+	<property name="war" location="war"/>
+
+	<target name="all" depends="copy-to-war"/>
+
+	<target name="copy-to-war">
+		<copy toDir="${war}">
+			<fileset dir="${build}/flash">
+				<include name="simcironline.swf" />
+				<include name="simcir.xsd" />
+				<include name="BasicSet.swf" />
+			</fileset>
+		</copy>
+	</target>
+	
+</project>

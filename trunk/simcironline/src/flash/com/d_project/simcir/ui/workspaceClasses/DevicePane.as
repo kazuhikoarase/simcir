@@ -3,6 +3,7 @@ package com.d_project.simcir.ui.workspaceClasses {
 	import com.d_project.simcir.core.DeviceLoader;
 	import com.d_project.simcir.core.InputNode;
 	import com.d_project.simcir.core.OutputNode;
+	import com.d_project.simcir.core.simcir_core;
 	import com.d_project.simcir.ui.DeviceUI;
 	import com.d_project.simcir.ui.UIConstants;
 	import com.d_project.ui.UIBase;
@@ -11,6 +12,8 @@ package com.d_project.simcir.ui.workspaceClasses {
 	import flash.display.Graphics;
 	import flash.events.Event;
 	import flash.utils.getTimer;
+
+	use namespace simcir_core;
 
 	[Event(name="complete", type="flash.events.Event")]
 

@@ -1,9 +1,9 @@
 package com.d_project.simcir.device {
 
 	import com.d_project.simcir.core.Device;
-	import com.d_project.simcir.core.DeviceLoaderContext;
 	
 	import flash.events.TimerEvent;
+	import flash.system.LoaderContext;
 	import flash.utils.Timer;
 
 	/**
@@ -17,7 +17,7 @@ package com.d_project.simcir.device {
 		public function Oscillator() {
 		}
 
-		override public function init(loaderContext : DeviceLoaderContext, deviceDef : XML) : void {
+		override public function init(loaderContext : LoaderContext, deviceDef : XML) : void {
 			super.init(loaderContext, deviceDef);
 			addOutput();
 			outputs[0].value = 1;

@@ -10,8 +10,11 @@ package com.d_project.simcir.core {
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.system.ApplicationDomain;
+	import flash.system.LoaderContext;
 	import flash.system.SecurityDomain;
 
+	use namespace simcir_core;
+	
 	[Event(name="complete", type="flash.events.Event")]
 
 	/**
@@ -23,7 +26,7 @@ package com.d_project.simcir.core {
 		public static const NS : Namespace =
 			new Namespace("", "http://www.d-project.com/simcir/2012");
 
-		private var _loaderContext : DeviceLoaderContext;
+		private var _loaderContext : LoaderContext;
 
 		private var _xml : XML = null;
 
@@ -33,7 +36,7 @@ package com.d_project.simcir.core {
 		
 		private var _asyncLoadedDevices : Array = null;
 
-		public function DeviceLoader(loaderContext : DeviceLoaderContext = null) {
+		public function DeviceLoader(loaderContext : LoaderContext = null) {
 			if (loaderContext == null) {
 				loaderContext = createDefaultContext();
 			}
@@ -175,8 +178,8 @@ package com.d_project.simcir.core {
 			return map;
 		}
 		
-		private function createDefaultContext() : DeviceLoaderContext {
-			return new DeviceLoaderContext(
+		private function createDefaultContext() : LoaderContext {
+			return new LoaderContext(
 				true,
 				ApplicationDomain.currentDomain,
 				SecurityDomain.currentDomain);

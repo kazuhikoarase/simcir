@@ -47,7 +47,7 @@ package com.d_project.ui {
 				addChild(_button);
 			}
 		}
-		
+
 		public function set text(value : String) : void {
 			_labelField.text = value;	
 		}
@@ -66,6 +66,10 @@ package com.d_project.ui {
 			return _selected;
 		}
 		
+		public function get editable() : Boolean {
+			return _labelField.type == TextFieldType.INPUT;
+		}	
+
 		public function getPreferredSize() : Object {
 			
 			var width : Number = _labelField.textWidth + _gutter * 2;
@@ -100,7 +104,7 @@ package com.d_project.ui {
 				_button.y = (height - _button.height) / 2;
 			}
 			
-			if (_labelField.type == TextFieldType.INPUT) {
+			if (editable) {
 				g.lineStyle(1, 0x666666);
 				g.beginFill(0xffffff);
 				g.drawRect(

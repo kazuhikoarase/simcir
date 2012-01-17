@@ -7,13 +7,13 @@ package com.d_project.simcir.ui.workspaceClasses {
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 
+	use namespace simcir_core;
+
 	/**
 	 * DragDevice
 	 * @author kazuhiko arase
 	 */
 	public class DragDevice extends DragOperation {
-
-		use namespace simcir_core;
 
 		private var _dragCanceled : Boolean = false;
 

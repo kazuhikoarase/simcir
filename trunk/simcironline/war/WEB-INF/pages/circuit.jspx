@@ -13,6 +13,8 @@
 	<jsp:scriptlet><![CDATA[
 
 try {
+
+	pageContext.setAttribute("http", "http".equals(request.getScheme() ) );
 	
 	// use cache if format is image or thumnail.
 	String fmt = request.getParameter("fmt");
@@ -84,7 +86,7 @@ try {
 			response.setContentType("text/html;charset=UTF-8");
 			]]></jsp:scriptlet>
 	
-			<s:page title=" - ${circuit.title}">
+			<s:page title=" - ${circuit.title}" description="${circuit.title}" >
 		
 				<s:script><![CDATA[
 
@@ -152,11 +154,19 @@ var openCircuitHandler = function(url) {
 						</s:encodeURL>
 					</c:set>
 
+					<c:set var="alt">
+						<c:set var="altTitle">
+							<c:out value="${circuit.title}" />
+						</c:set>
+						<img border="0" src="${contextPath}/circuit?fmt=tn&amp;key=${circuit.key}" alt="${altTitle}" />
+					</c:set>
+					
 					<s:swf 
 						id="simcir"
 						movie="${movie}"
 						width="800"
 						height="450"
+						alt="${alt}"
 					/>
 		
 					<div style="width:800px;">
@@ -168,35 +178,39 @@ var openCircuitHandler = function(url) {
 						<s:button click="addToLibrary_clickHandler()"
 							 label="Add to Library" />
 
-						<div style="margin:2px;float:right;">
-							<s:socials/>
-						</div>
+						<c:if test="${http}">
+							<div style="margin:2px;float:right;">
+								<s:socials/>
+							</div>
+						</c:if>
 
 						<br style="clear: both;"/>
 
 					</div>
 
-					<div style="width:800px; text-align: right;">
+					<c:if test="${http}">
+						<div style="width:800px; text-align: right;">
+	
+							<c:set var="linkURL">
+								<s:baseURL/>
+								<jsp:text>/circuit?key=${circuit.key}</jsp:text>
+							</c:set>
+							<c:set var="imgURL">
+								<s:baseURL/>
+								<jsp:text>/circuit?fmt=img&amp;key=${circuit.key}</jsp:text>
+							</c:set>
+							<c:set var="imgTag">
+								<a href="${linkURL}"><img src="${imgURL}" border="0" /></a>
+							</c:set>
+							<c:set var="imgTag">
+								<c:out value="${imgTag}"/>
+							</c:set>
+	
+							<span class="title">Link: </span>
+							<input class="img-link" type="text" value="${imgTag}" size="10" style="width: 220px;" onclick="this.select()" readonly="readonly" />
 
-						<c:set var="linkURL">
-							<s:baseURL/>
-							<jsp:text>/circuit?key=${circuit.key}</jsp:text>
-						</c:set>
-						<c:set var="imgURL">
-							<s:baseURL/>
-							<jsp:text>/circuit?key=${circuit.key}&amp;fmt=img</jsp:text>
-						</c:set>
-						<c:set var="imgTag">
-							<a href="${linkURL}"><img src="${imgURL}" border="0" /></a>
-						</c:set>
-						<c:set var="imgTag">
-							<c:out value="${imgTag}"/>
-						</c:set>
-
-						<span class="title">Link: </span>
-						<input type="text" value="${imgTag}" size="10" style="width: 220px;" onclick="this.select()" readonly="readonly" />
-
-					</div>
+						</div>
+					</c:if>
 
 				</div>
 		

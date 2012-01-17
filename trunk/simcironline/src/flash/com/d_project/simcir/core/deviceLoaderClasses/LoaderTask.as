@@ -1,7 +1,5 @@
 package com.d_project.simcir.core.deviceLoaderClasses {
 
-	import com.d_project.simcir.core.DeviceLoaderContext;
-	
 	import flash.display.DisplayObject;
 	import flash.display.Loader;
 	import flash.display.LoaderInfo;
@@ -19,12 +17,12 @@ package com.d_project.simcir.core.deviceLoaderClasses {
 	public class LoaderTask extends Task {
 
 		private var _url : String;
-		private var _loaderContext : DeviceLoaderContext;
+		private var _loaderContext : LoaderContext;
 
 		private var _loader : Loader = null;
 		private var _content : DisplayObject = null;
 
-		public function LoaderTask(url : String, loaderContext : DeviceLoaderContext) {
+		public function LoaderTask(url : String, loaderContext : LoaderContext) {
 			_url = url;
 			_loaderContext = loaderContext;
 		}

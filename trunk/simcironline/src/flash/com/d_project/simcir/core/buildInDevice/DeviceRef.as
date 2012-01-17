@@ -2,11 +2,11 @@ package com.d_project.simcir.core.buildInDevice {
 
 	import com.d_project.simcir.core.Device;
 	import com.d_project.simcir.core.DeviceLoader;
-	import com.d_project.simcir.core.DeviceLoaderContext;
 	import com.d_project.simcir.core.Node;
 	import com.d_project.simcir.core.NodeEvent;
 	
 	import flash.events.Event;
+	import flash.system.LoaderContext;
 
 	/**
 	 * DeviceRef
@@ -24,7 +24,7 @@ package com.d_project.simcir.core.buildInDevice {
 			return _devices;
 		}
 
-		override public function init(loaderContext : DeviceLoaderContext, deviceDef : XML) : void {
+		override public function init(loaderContext : LoaderContext, deviceDef : XML) : void {
 			super.init(loaderContext, deviceDef);
 
 			var ns : Namespace = DeviceLoader.NS;

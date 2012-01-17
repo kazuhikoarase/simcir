@@ -1,11 +1,11 @@
 package com.d_project.simcir.device {
 	
 	import com.d_project.simcir.core.Device;
-	import com.d_project.simcir.core.DeviceLoaderContext;
 	import com.d_project.simcir.ui.UIConstants;
 	
 	import flash.display.DisplayObject;
 	import flash.display.Graphics;
+	import flash.system.LoaderContext;
 	
 	/**
 	 * LED4bit
@@ -16,7 +16,7 @@ package com.d_project.simcir.device {
 		public function LED4bit() {
 		}
 		
-		override public function init(loaderContext : DeviceLoaderContext, deviceDef : XML) : void {
+		override public function init(loaderContext : LoaderContext, deviceDef : XML) : void {
 			super.init(loaderContext, deviceDef);
 			for (var i : int = 0; i < 4; i += 1) {
 				addInput();

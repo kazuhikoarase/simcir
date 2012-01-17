@@ -12,13 +12,13 @@ package com.d_project.simcir.ui.workspaceClasses {
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 
+	use namespace simcir_core;
+
 	/**
 	 * DragConnect
 	 * @author kazuhiko arase
 	 */
 	public class DragConnect extends DragOperation {
-
-		use namespace simcir_core;
 
 		public function DragConnect(workspace : Workspace) {
 			super(workspace);

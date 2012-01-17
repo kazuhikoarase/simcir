@@ -1,18 +1,50 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <project default="all" basedir="../">
 
+	<property environment="env"/>
+	<property name="FLEX_HOME" location="${env.FLEX_HOME}"/>
+
 	<property name="src" location="src"/>
 	<property name="build" location="build"/>
-	<property name="war" location="war"/>
+	<property name="dist" location="dist"/>
+
+	<property name="src.flash" location="${src}/flash"/>
+	<property name="target.simcircorelib" location="${build}/flash/simcircorelib.swc"/>
+	<property name="build.flash.asdoc" location="${build}/flash/asdoc"/>
 
 	<target name="all" depends="deploy"/>
+
 	<target name="deploy">
-		<copy toDir="${war}">
-			<fileset dir="${build}/flash">
-				<include name="simcironline.swf" />
-				<include name="simcir.xsd" />
-				<include name="BasicSet.swf" />
-			</fileset>
-		</copy>
+		
+		<fail unless="FLEX_HOME" message="Environment variable FLEX_HOME is required."/>
+
+		<mkdir dir="${build}"/>
+		<mkdir dir="${build.flash.asdoc}"/>
+		<mkdir dir="${dist}"/>
+
+		<taskdef resource="flexTasks.tasks">
+			<classpath>
+				<pathelement location="${FLEX_HOME}/ant/lib/flexTasks.jar"/>
+			</classpath>
+		</taskdef>
+		
+		
+		<compc output="${target.simcircorelib}"
+				include-classes="com.d_project.simcir.core.Device com.d_project.simcir.core.DeviceFactory">
+		    <compiler.source-path path-element="${src.flash}" /> 
+			<compiler.external-library-path dir="${FLEX_HOME}/frameworks/libs/player/9">
+				<include name="*"/>
+			</compiler.external-library-path>
+			<target-player>9.0.0</target-player>
+				
+		</compc>
+
+		<asdoc output="${build.flash.asdoc}" lenient="true" failonerror="true">
+		    <compiler.source-path path-element="${src.flash}" /> 
+            <doc-classes class="com.d_project.simcir.core.Device"/> 
+            <doc-classes class="com.d_project.simcir.core.DeviceFactory"/> 
+		</asdoc>
+
 	</target>
+
 </project>

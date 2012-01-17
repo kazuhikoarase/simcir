@@ -22,14 +22,14 @@ package com.d_project.simcir.ui {
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.geom.Matrix;
+	
+	use namespace simcir_core;
 
 	/**
 	 * Workspace
 	 * @author kazuhiko arase
 	 */
 	public class Workspace extends UIBase {
-
-		use namespace simcir_core;
 
 		simcir_core var toolboxesPane : Accordion;
 		simcir_core var devicePane : DevicePane;

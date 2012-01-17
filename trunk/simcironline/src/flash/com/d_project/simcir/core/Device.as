@@ -5,10 +5,13 @@ package com.d_project.simcir.core {
 	
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
-	import flash.events.Event;
 	import flash.events.EventDispatcher;
+	import flash.system.LoaderContext;
 
-	[Event(name="change", type="flash.events.Event")]
+	use namespace simcir_core;
+
+	[Event(name="nodeValueChange", type="com.d_project.simcir.NodeEvent")]
+
 	[Event(name="complete", type="flash.events.Event")]
 
 	/**
@@ -16,8 +19,6 @@ package com.d_project.simcir.core {
 	 * @author kazuhiko arase
 	 */
 	public class Device extends EventDispatcher implements UISupport {
-
-		use namespace simcir_core;
 
 		private var _deviceDef : XML = null;
 
@@ -38,7 +39,7 @@ package com.d_project.simcir.core {
 		public function Device() {
 		}
 
-		public function init(loaderContext : DeviceLoaderContext, deviceDef : XML) : void {
+		public function init(loaderContext : LoaderContext, deviceDef : XML) : void {
 			_deviceDef = deviceDef;
 			id = _deviceDef.@id;
 			label = _deviceDef.@label;
@@ -91,7 +92,7 @@ package com.d_project.simcir.core {
 
 			inputValueChangeHandler(event);
 
-			dispatchEvent(new Event(Event.CHANGE) );
+			dispatchEvent(event);
 		}
 
 		protected function inputValueChangeHandler(event : NodeEvent) : void {

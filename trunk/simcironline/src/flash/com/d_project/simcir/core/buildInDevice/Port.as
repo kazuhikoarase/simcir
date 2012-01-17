@@ -1,10 +1,10 @@
 package com.d_project.simcir.core.buildInDevice {
 
 	import com.d_project.simcir.core.Device;
-	import com.d_project.simcir.core.DeviceLoaderContext;
 	import com.d_project.simcir.core.NodeEvent;
 	
 	import flash.display.DisplayObject;
+	import flash.system.LoaderContext;
 
 	/**
 	 * Port
@@ -25,7 +25,7 @@ package com.d_project.simcir.core.buildInDevice {
 			return _type;
 		}
 
-		override public function init(loaderContext : DeviceLoaderContext, deviceDef : XML) : void {
+		override public function init(loaderContext : LoaderContext, deviceDef : XML) : void {
 			super.init(loaderContext, deviceDef);
 			addInput();
 			addOutput();

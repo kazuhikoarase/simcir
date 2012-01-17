@@ -8,6 +8,7 @@
 	<jsp:directive.tag import="com.d_project.simcir.datastore.SimcirstoreService"/>
 
 	<jsp:directive.attribute name="title" required="false" />
+	<jsp:directive.attribute name="description" required="false" />
 
 	<jsp:scriptlet><![CDATA[
 
@@ -30,7 +31,14 @@ if (ss.isUserLoggedIn() ) {
 	<html>
 	<head>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-		<meta name="description" content="simcir is online circuit simulator" />
+
+		<c:set var="description">
+			<c:out value="${description}"/>
+		</c:set>
+		<c:if test="${not empty description}">
+			<meta name="description" content="${description}" />
+		</c:if>
+
 		<title>simcir<c:out value="${title}"/></title>
 		<s:style src="/assets/style.css" />
 		<s:style src="/WEB-INF/js/core/ui.css" />
@@ -43,6 +51,7 @@ if (ss.isUserLoggedIn() ) {
 	<body>
 
 		<div id="hd">
+			<a href="/"><h1>simcir</h1></a>
 		</div>
 
 		<s:script>

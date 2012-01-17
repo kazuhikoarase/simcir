@@ -1,12 +1,13 @@
 package com.d_project.simcir.core {
 
+	use namespace simcir_core;
+
 	/**
 	 * InputNode
 	 * @author kazuhiko arase
+	 * @private
 	 */
 	public class InputNode extends Node {
-
-		use namespace simcir_core;
 
 		simcir_core var outputNode : OutputNode = null
 
@@ -14,11 +15,11 @@ package com.d_project.simcir.core {
 			super(device, id);
 		}
 
-		public function getOutputNode() : OutputNode {
+		simcir_core function getOutputNode() : OutputNode {
 			return outputNode;
 		}
 
-		override public function disconnect() : void {
+		override simcir_core function disconnect() : void {
 			if (outputNode == null) {
 				return;
 			}

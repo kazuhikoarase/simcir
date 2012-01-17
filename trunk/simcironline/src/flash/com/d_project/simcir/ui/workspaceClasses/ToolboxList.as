@@ -180,10 +180,13 @@ package com.d_project.simcir.ui.workspaceClasses {
 				addChild(item);
 			}
 			
+			// add url
+			
 			var addBtn : UIBase = new IconButton(IconButton.ADD);
 			addBtn.addEventListener(MouseEvent.CLICK, addBtn_clickHandler);
 			
 			item = new ToolboxListItem(_defaultURL, addBtn, true);
+			item.mouseEnabled = false;
 			addChild(item);
 		}
 
@@ -227,12 +230,18 @@ class ToolboxListItem extends Label {
 	
 	override protected function drawBody(g : Graphics) : void {
 
-//		g.lineStyle(1, 0x666666);
-		g.lineStyle();
-		g.beginFill(mouseDown?
-			0x999999 : mouseOver?
-			0xf0f0f0 : 0xdddddd);
-		g.drawRect(0, 0, width, height);
-		g.endFill();
+		if (!editable) {
+			g.lineStyle();
+			g.beginFill(mouseDown?
+				0x999999 : mouseOver?
+				0xf0f0f0 : 0xdddddd);
+			g.drawRect(0, 0, width, height);
+			g.endFill();
+		} else {
+			g.lineStyle();
+			g.beginFill(0xdddddd);
+			g.drawRect(0, 0, width, height);
+			g.endFill();
+		}
 	}
 }

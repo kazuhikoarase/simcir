@@ -1,20 +1,28 @@
 package com.d_project.simcir.core {
 
+	use namespace simcir_core;
+
 	/**
 	 * OutputNode
 	 * @author kazuhiko arase
+	 * @private
 	 */
 	public class OutputNode extends Node {
-
-		use namespace simcir_core;
 
 		simcir_core var inputNodes : Array = new Array();
 
 		public function OutputNode(device : Device, id : String) {
 			super(device, id);
 		}
+		
+		override public function set value(value : Object) : void {
+			super.value = value;
+			for (var i : int = 0; i < inputNodes.length; i += 1) {
+				inputNodes[i].value = value;
+			}
+		}
 
-		public function connectTo(inputNode : InputNode) : void {
+		simcir_core function connectTo(inputNode : InputNode) : void {
 			if (inputNode.outputNode != null) {
 				inputNode.disconnect();
 			}
@@ -23,16 +31,9 @@ package com.d_project.simcir.core {
 			inputNode.value = value;
 		}
 
-		override public function disconnect() : void {
+		override simcir_core function disconnect() : void {
 			while (inputNodes.length > 0) {
 				inputNodes[inputNodes.length - 1].disconnect();
-			}
-		}
-
-		override public function set value(value : Object) : void {
-			super.value = value;
-			for (var i : int = 0; i < inputNodes.length; i += 1) {
-				inputNodes[i].value = value;
 			}
 		}
 	}
