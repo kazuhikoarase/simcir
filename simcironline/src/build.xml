@@ -5,12 +5,16 @@
 	<property name="FLEX_HOME" location="${env.FLEX_HOME}"/>
 
 	<property name="src" location="src"/>
+	<property name="lib" location="lib"/>
 	<property name="build" location="build"/>
 	<property name="dist" location="dist"/>
 
 	<property name="src.flash" location="${src}/flash"/>
+	<property name="target.simcironline" location="${build}/flash/simcironline.swf"/>
+	<property name="target.basicset" location="${build}/flash/BasicSet.swf"/>
 	<property name="target.simcircorelib" location="${build}/flash/simcircorelib.swc"/>
 	<property name="build.flash.asdoc" location="${build}/flash/asdoc"/>
+	<property name="target.player" value="10.3.0"/>
 
 	<target name="all" depends="deploy"/>
 
@@ -27,24 +31,55 @@
 				<pathelement location="${FLEX_HOME}/ant/lib/flexTasks.jar"/>
 			</classpath>
 		</taskdef>
-		
-		
-		<compc output="${target.simcircorelib}"
-				include-classes="com.d_project.simcir.core.Device com.d_project.simcir.core.DeviceFactory">
-		    <compiler.source-path path-element="${src.flash}" /> 
-			<compiler.external-library-path dir="${FLEX_HOME}/frameworks/libs/player/9">
+
+		<mxmlc output="${target.simcironline}" locale="en_US"
+				file="${src}/flash/simcironline.as">
+			
+			<dump-config>flex-config.xml</dump-config>
+			<target-player>${target.player}</target-player>
+			<compiler.actionscript-file-encoding>UTF-8</compiler.actionscript-file-encoding>
+			<compiler.debug>false</compiler.debug>
+			<compiler.source-path path-element="${src.flash}" /> 
+			<static-link-runtime-shared-libraries>true</static-link-runtime-shared-libraries>
+
+			<compiler.external-library-path dir="${lib}" append="true">
 				<include name="*"/>
 			</compiler.external-library-path>
-			<target-player>9.0.0</target-player>
-				
+		</mxmlc>
+
+		<mxmlc output="${target.basicset}" locale="en_US"
+				file="${src}/flash/BasicSet.as">
+
+			<dump-config>flex-config.xml</dump-config>
+			<target-player>${target.player}</target-player>
+			<compiler.actionscript-file-encoding>UTF-8</compiler.actionscript-file-encoding>
+			<compiler.debug>false</compiler.debug>
+			<compiler.source-path path-element="${src.flash}" /> 
+			<static-link-runtime-shared-libraries>true</static-link-runtime-shared-libraries>
+
+		</mxmlc>
+
+		<compc output="${target.simcircorelib}" locale="en_US"
+				include-classes="com.d_project.simcir.core.Device com.d_project.simcir.core.DeviceFactory">
+		
+			<dump-config>flex-config.xml</dump-config>
+			<target-player>${target.player}</target-player>
+			<compiler.actionscript-file-encoding>UTF-8</compiler.actionscript-file-encoding>
+			<compiler.debug>false</compiler.debug>
+			<compiler.source-path path-element="${src.flash}" /> 
+			<static-link-runtime-shared-libraries>true</static-link-runtime-shared-libraries>
+		
 		</compc>
 
-		<asdoc output="${build.flash.asdoc}" lenient="true" failonerror="true">
+		<asdoc output="${build.flash.asdoc}"  locale="en_US" 
+				lenient="true" failonerror="true">
 		    <compiler.source-path path-element="${src.flash}" /> 
             <doc-classes class="com.d_project.simcir.core.Device"/> 
             <doc-classes class="com.d_project.simcir.core.DeviceFactory"/> 
 		</asdoc>
 
+		<ant antfile="build.xml" inheritall="false" />
+		
 	</target>
 
 </project>
