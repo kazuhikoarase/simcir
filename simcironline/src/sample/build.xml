@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project default="all" >
+
+	<property environment="env" />
+	<property name="FLEX_HOME" location="${env.FLEX_HOME}" />
+
+	<target name="all" depends="sample" />
+	
+	<target name="clean">
+	</target>
+
+	<target name="init">
+		
+		<fail unless="FLEX_HOME" message="Environment variable FLEX_HOME is required."/>
+
+		<taskdef resource="flexTasks.tasks">
+			<classpath>
+				<pathelement location="${FLEX_HOME}/ant/lib/flexTasks.jar"/>
+			</classpath>
+		</taskdef>
+
+	</target>
+
+	<target name="sample" depends="init">
+
+		<mxmlc file="MyToolbox.as" output="MyToolbox.swf" locale="en_US">
+			<compiler.actionscript-file-encoding>UTF-8</compiler.actionscript-file-encoding>
+			<static-link-runtime-shared-libraries>true</static-link-runtime-shared-libraries>
+			<compiler.library-path dir="../lib" append="true">
+				<include name="*"/>
+			</compiler.library-path>
+		</mxmlc>
+
+	</target>
+
+</project>

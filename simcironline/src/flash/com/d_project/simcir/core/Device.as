@@ -10,12 +10,22 @@ package com.d_project.simcir.core {
 
 	use namespace simcir_core;
 
+	/**
+	 * Dispatched when value of some input node is changed.
+	 */
 	[Event(name="nodeValueChange", type="com.d_project.simcir.NodeEvent")]
 
+	/**
+	 * @private
+	 */
 	[Event(name="complete", type="flash.events.Event")]
 
 	/**
-	 * Device
+	 * The Device is the base class of all devices.
+	 * @includeExample ../../../../SimpleSwitch.as -noswf
+	 * @includeExample ../../../../MyToolbox.as -noswf
+	 * @includeExample ../../../../MyToolbox.xml -noswf
+	 * @see DeviceFactory
 	 * @author kazuhiko arase
 	 */
 	public class Device extends EventDispatcher implements UISupport {
@@ -27,51 +37,95 @@ package com.d_project.simcir.core {
 		private var _outputs : Array = new Array();
 
 		private var _label : String = "";
-
-		public var id : String = "";
-
-		public var active : Boolean = true;
 		
-		public var async : Boolean = false;
+		private var _active : Boolean = true;
+		
+		/**
+		 * @private
+		 */
+		simcir_core var id : String = "";
 
+		/**
+		 * @private
+		 */
+		simcir_core var async : Boolean = false;
+
+		/**
+		 * @private
+		 */
 		simcir_core var holder : Object = null;
-
+		
+		/**
+		 * Constructor
+		 */
 		public function Device() {
 		}
 
+		/**
+		 * Initialize a device.
+		 * @param loaderContext LoaderContent
+		 * @param deviceDef device definition
+		 */
 		public function init(loaderContext : LoaderContext, deviceDef : XML) : void {
 			_deviceDef = deviceDef;
 			id = _deviceDef.@id;
 			label = _deviceDef.@label;
 		}
 
+		/**
+		 * Destroy a device. 
+		 */
 		public function destroy() : void {
 		}
 
 		public function get deviceDef() : XML {
 			return _deviceDef;
 		}
-
-		public function set label(value : String) : void {
-			_label = value;
-		}
-
-		public function get label() : String {
-			return _label;
-		}
-
+		
+		/**
+		 * Input nodes
+		 */
 		public function get inputs() : Array {
 			return _inputs;
 		}
 
+		/**
+		 * Output nodes
+		 */
 		public function get outputs() : Array {
 			return _outputs;
 		}
 
+		public function set label(value : String) : void {
+			_label = value;
+		}
+		
+		public function get label() : String {
+			return _label;
+		}
+		
+		public function set active(value : Boolean) : void {
+			_active = value;
+		}
+		
+		public function get active() : Boolean {
+			return _active;
+		}
+
+		/**
+		 * Check if a value of node is hot or not.
+		 * @param value value of node
+		 * @return true if a value means hot; false otherwise.
+		 */
 		public function isHot(value : Object) : Boolean {
 			return value != null;
 		}
 
+		/**
+		 * Add an input node.
+		 * @param label label of node
+		 * @return node that added
+		 */
 		public function addInput(label : String = "") : InputNode {
 			var node : InputNode = new InputNode(this, "" + _inputs.length);
 			node.label = label;
@@ -81,6 +135,11 @@ package com.d_project.simcir.core {
 			return node;
 		}
 
+		/**
+		 * Add an output node.
+		 * @param label label of node
+		 * @return node that added
+		 */
 		public function addOutput(label : String = "") : OutputNode {
 			var node : OutputNode = new OutputNode(this, "" + _outputs.length);
 			node.label = label;
@@ -88,30 +147,46 @@ package com.d_project.simcir.core {
 			return node;
 		}
 
-		private function node_nodeValueChangeHandler(event : NodeEvent) : void {
-
-			inputValueChangeHandler(event);
-
-			dispatchEvent(event);
-		}
-
+		/**
+		 * Called when value of some input node is changed.
+		 * @param event Event
+		 */
 		protected function inputValueChangeHandler(event : NodeEvent) : void {
 		}
 
-		public function get color() : uint {
-			return UIConstants.DEVICE_COLOR;
-		}
-
+		/**
+		 *  @inheritDoc
+		 */
 		public function get widthInUnit() : Number {
 			return 2;
 		}
 
+		/**
+		 *  @inheritDoc
+		 */
 		public function get heightInUnit() : Number {
 			return Math.max(2, inputs.length, outputs.length);
 		}
+		
+		/**
+		 *  @inheritDoc
+		 */
+		public function get color() : uint {
+			return UIConstants.DEVICE_COLOR;
+		}
 
+		/**
+		 *  @inheritDoc
+		 */
 		public function createControl() : DisplayObject {
 			return new Sprite();
+		}
+		
+		private function node_nodeValueChangeHandler(event : NodeEvent) : void {
+			
+			inputValueChangeHandler(event);
+			
+			dispatchEvent(event);
 		}
 	}
 }

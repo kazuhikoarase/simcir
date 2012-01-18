@@ -4,10 +4,13 @@ package com.d_project.simcir.core.buildInDevice {
 	import com.d_project.simcir.core.DeviceLoader;
 	import com.d_project.simcir.core.Node;
 	import com.d_project.simcir.core.NodeEvent;
+	import com.d_project.simcir.core.simcir_core;
 	
 	import flash.events.Event;
 	import flash.system.LoaderContext;
 
+	use namespace simcir_core;
+	
 	/**
 	 * DeviceRef
 	 * @author kazuhiko arase

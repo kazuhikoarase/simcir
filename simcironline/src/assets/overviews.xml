@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<overviews>
+	<packages>
+		<package name="com.d_project.simcir.core">
+			<description>The com.d_project.simcir.core package contains classes for simcir core library.</description>
+			<shortDescription>The com.d_project.simcir.core package contains classes for simcir core library.</shortDescription>
+		</package>
+		<package name="com.d_project.simcir.ui">
+			<description>The com.d_project.simcir.ui package contains classes for simcir user interface.</description>
+			<shortDescription>The com.d_project.simcir.ui package contains classes for simcir user interface.</shortDescription>
+		</package>
+	</packages>
+</overviews>

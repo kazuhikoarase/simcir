@@ -55,8 +55,8 @@ package com.d_project.simcir.ui {
 			
 			_toolboxPane = new ToolboxPane();
 			_toolboxPane.addEventListener(Event.COMPLETE, toolboxPane_completeHandler);
-//			toolboxesPane.addContent(_toolboxPane, "Toolbox", btn);
-			toolboxesPane.addContent(_toolboxPane, "Toolbox");
+			toolboxesPane.addContent(_toolboxPane, "Toolbox", btn);
+//			toolboxesPane.addContent(_toolboxPane, "Toolbox");
 
 			_libraryPane = new ToolboxPane();
 			toolboxesPane.addContent(_libraryPane, "Library");

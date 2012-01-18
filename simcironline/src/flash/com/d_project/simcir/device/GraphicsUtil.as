@@ -141,7 +141,7 @@ package com.d_project.simcir.device {
 			var div : int = Math.max(1, Math.floor(Math.abs(t2 - t1) / 0.4) );
 			var lastT : Number;
 
-			for (var i : int = 0; i <= div; i++) {
+			for (var i : int = 0; i <= div; i += 1) {
 
 				var t : Number = t1 + (t2 - t1) * i / div;
 				var rx : Number = r * Math.cos(t) + x;
@@ -262,7 +262,7 @@ package com.d_project.simcir.device {
 
 			var on : Boolean;
 			
-			for (var i : int = 0; i < _7seg.ALL_SEGMENT.length; i++) {
+			for (var i : int = 0; i < _7seg.ALL_SEGMENT.length; i += 1) {
 				var c : String = _7seg.ALL_SEGMENT.charAt(i);
 				on = (pattern != null && pattern.indexOf(c) != -1);
 				_7seg.drawSegment(g, c, on? hiColor : loColor);
@@ -298,7 +298,7 @@ class _7seg {
 		
 		g.beginFill(color);
 		
-		for (var i : int = 0; i < numPoints; i++) {
+		for (var i : int = 0; i < numPoints; i += 1) {
 			
 			var x : Number = data[i * 2];
 			var y : Number = data[i * 2 + 1];

@@ -10,20 +10,38 @@
 	<property name="dist" location="dist"/>
 
 	<property name="src.flash" location="${src}/flash"/>
-	<property name="target.simcironline" location="${build}/flash/simcironline.swf"/>
-	<property name="target.basicset" location="${build}/flash/BasicSet.swf"/>
-	<property name="target.simcircorelib" location="${build}/flash/simcircorelib.swc"/>
-	<property name="build.flash.asdoc" location="${build}/flash/asdoc"/>
+	<property name="src.assets" location="${src}/assets"/>
+	<property name="src.sample" location="${src}/sample"/>
+	
+	<property name="build.flash" location="${build}/flash"/>
+	<property name="build.docs.flash" location="${build}/flash/docs"/>
+	
+	<property name="simcircorelib" value="simcircorelib.swc" />
+	<property name="simcirsdk" value="simcir-sdk" />
+
+	<property name="target.simcironline" location="${build.flash}/simcironline.swf"/>
+	<property name="target.basicset" location="${build.flash}/BasicSet.swf"/>
+	<property name="target.simcircorelib" location="${build.flash}/${simcircorelib}"/>
+
 	<property name="target.player" value="10.3.0"/>
 
-	<target name="all" depends="deploy"/>
+	<target name="all" depends="deploy,dist" />
+	
+	<target name="clean">
+		<delete dir="${build}" />
+		<delete dir="${dist}" />
+	</target>
 
-	<target name="deploy">
+	<target name="init">
+
+		<tstamp >
+			<format property="timestamp" pattern="yyyyMMddHHmm"/>
+		</tstamp>
 		
 		<fail unless="FLEX_HOME" message="Environment variable FLEX_HOME is required."/>
 
 		<mkdir dir="${build}"/>
-		<mkdir dir="${build.flash.asdoc}"/>
+		<mkdir dir="${build.docs.flash}"/>
 		<mkdir dir="${dist}"/>
 
 		<taskdef resource="flexTasks.tasks">
@@ -32,10 +50,13 @@
 			</classpath>
 		</taskdef>
 
+	</target>
+
+	<target name="apps" depends="init">
+
 		<mxmlc output="${target.simcironline}" locale="en_US"
-				file="${src}/flash/simcironline.as">
+				file="${src.flash}/simcironline.as">
 			
-			<dump-config>flex-config.xml</dump-config>
 			<target-player>${target.player}</target-player>
 			<compiler.actionscript-file-encoding>UTF-8</compiler.actionscript-file-encoding>
 			<compiler.debug>false</compiler.debug>
@@ -49,9 +70,8 @@
 		</mxmlc>
 
 		<mxmlc output="${target.basicset}" locale="en_US"
-				file="${src}/flash/BasicSet.as">
+				file="${src.flash}/BasicSet.as">
 
-			<dump-config>flex-config.xml</dump-config>
 			<target-player>${target.player}</target-player>
 			<compiler.actionscript-file-encoding>UTF-8</compiler.actionscript-file-encoding>
 			<compiler.debug>false</compiler.debug>
@@ -59,11 +79,14 @@
 			<static-link-runtime-shared-libraries>true</static-link-runtime-shared-libraries>
 
 		</mxmlc>
+		
+	</target>
+
+	<target name="lib" depends="init">
 
 		<compc output="${target.simcircorelib}" locale="en_US"
 				include-classes="com.d_project.simcir.core.Device com.d_project.simcir.core.DeviceFactory">
 		
-			<dump-config>flex-config.xml</dump-config>
 			<target-player>${target.player}</target-player>
 			<compiler.actionscript-file-encoding>UTF-8</compiler.actionscript-file-encoding>
 			<compiler.debug>false</compiler.debug>
@@ -72,15 +95,58 @@
 		
 		</compc>
 
-		<asdoc output="${build.flash.asdoc}"  locale="en_US" 
+	</target>
+
+	<target name="doc" depends="init">
+
+		<asdoc output="${build.docs.flash}" locale="en_US" 
+				main-title="simcircorelib"
+				window-title="simcircorelib"
+				package-description-file="${src.assets}/overviews.xml"
+				examples-path="${src.sample}"
 				lenient="true" failonerror="true">
 		    <compiler.source-path path-element="${src.flash}" /> 
             <doc-classes class="com.d_project.simcir.core.Device"/> 
             <doc-classes class="com.d_project.simcir.core.DeviceFactory"/> 
 		</asdoc>
 
-		<ant antfile="build.xml" inheritall="false" />
+	</target>
+
+	<target name="dist" depends="lib,doc">
+
+		<mkdir dir="${dist}/${simcirsdk}"/>
 		
+		<copy todir="${dist}/${simcirsdk}">
+			<fileset dir="${src.assets}">
+				<include name="README.txt" />
+			</fileset>
+		</copy>
+		<copy todir="${dist}/${simcirsdk}/apidocs">
+			<fileset dir="${build.docs.flash}">
+				<include name="**/*" />
+			</fileset>
+		</copy>
+		<copy todir="${dist}/${simcirsdk}/lib">
+			<fileset dir="${build.flash}">
+				<include name="${simcircorelib}" />
+			</fileset>
+		</copy>
+		<copy todir="${dist}/${simcirsdk}/sample">
+			<fileset dir="${src.sample}">
+				<include name="*" />
+			</fileset>
+		</copy>
+
+		<zip zipfile="${dist}/${simcirsdk}.v${timestamp}.zip">
+			<zipfileset dir="${dist}/${simcirsdk}" prefix="${simcirsdk}">
+				<include name="**/*" />
+			</zipfileset>
+		</zip>
+
+	</target>
+
+	<target name="deploy" depends="apps">
+		<ant antfile="build.xml" inheritall="false" />
 	</target>
 
 </project>

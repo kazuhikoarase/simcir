@@ -177,17 +177,41 @@ var openCircuitHandler = function(url) {
 						</c:if>
 						<s:button click="addToLibrary_clickHandler()"
 							 label="Add to Library" />
-
+<!-- 
 						<c:if test="${http}">
-							<div style="margin:2px;float:right;">
+							<div style="margin: 2px; float: right;">
 								<s:socials/>
 							</div>
 						</c:if>
+ -->
+					<c:if test="${http}">
+						<div style="margin: 0px 2px 0px 2px; float: right;">
+	
+							<c:set var="linkURL">
+								<s:baseURL/>
+								<jsp:text>/circuit?key=${circuit.key}</jsp:text>
+							</c:set>
+							<c:set var="imgURL">
+								<s:baseURL/>
+								<jsp:text>/circuit?fmt=img&amp;key=${circuit.key}</jsp:text>
+							</c:set>
+							<c:set var="imgTag">
+								<a href="${linkURL}"><img src="${imgURL}" border="0" /></a>
+							</c:set>
+							<c:set var="imgTag">
+								<c:out value="${imgTag}"/>
+							</c:set>
+	
+							<span class="title">Link: </span>
+							<input class="img-link" type="text" value="${imgTag}" size="10" style="width: 220px;" onclick="this.select()" readonly="readonly" />
+
+						</div>
+					</c:if>
 
 						<br style="clear: both;"/>
 
 					</div>
-
+<!-- 
 					<c:if test="${http}">
 						<div style="width:800px; text-align: right;">
 	
@@ -211,6 +235,7 @@ var openCircuitHandler = function(url) {
 
 						</div>
 					</c:if>
+ -->
 
 				</div>
 		
