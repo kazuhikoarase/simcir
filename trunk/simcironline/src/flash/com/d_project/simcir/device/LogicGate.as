@@ -21,6 +21,7 @@ package com.d_project.simcir.device {
 		}
 
 		override public function init(loaderContext : LoaderContext, deviceDef : XML):void {
+
 			super.init(loaderContext, deviceDef);
 
 			var type : String = deviceDef.@type;
@@ -61,7 +62,9 @@ package com.d_project.simcir.device {
 			default :
 				throw new Error(type);
 			}
+
 			var ns : Namespace = DeviceLoader.NS;
+			
 			// input (variable);
 			var numInputs : int = deviceDef.ns::param.(@name == "numInputs").@value;
 			numInputs = Math.max(numInputs, (_opFunc != null)? 2 : 1);

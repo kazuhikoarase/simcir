@@ -27,6 +27,7 @@ package com.d_project.simcir.device {
 }
 
 import com.d_project.simcir.core.Device;
+import com.d_project.simcir.core.DeviceLoader;
 import com.d_project.simcir.device.GraphicsUtil;
 import com.d_project.simcir.ui.UIConstants;
 import com.d_project.ui.UIBase;
@@ -36,16 +37,23 @@ import flash.display.Graphics;
 class Control extends UIBase {
 
 	private var _device : Device;
+	private var _hiColor : uint;
+	private var _loColor : uint;
 
 	public function Control(device : Device) : void {
 		_device = device;
 		mouseEnabled = false;
+
+		var ns : Namespace = DeviceLoader.NS;
+		_hiColor = GraphicsUtil.parseColor(
+			device.deviceDef.ns::param.(@name == "color").@value) || 0xff0000;
+		_loColor = GraphicsUtil.multiplyColor(_hiColor, 0.25);
 	}
 
 	override protected function update(g : Graphics) : void {
 		super.update(g);
 		var hot : Boolean = _device.isHot(_device.inputs[0].value);
-		var color : int = hot? 0xff0000 : 0x000000;
+		var color : int = hot? _hiColor : _loColor;
 		GraphicsUtil.drawGlass(g,
 			parent.width / 2,
 			parent.height / 2,
