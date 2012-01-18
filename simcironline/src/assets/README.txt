@@ -21,5 +21,3 @@ deploy SWF file built and other files to your site.
 http://www.example.com/crossdomain.xml
                       /MyToolbox.xml
                       /MyToolbox.swf
-
-enjoy!
