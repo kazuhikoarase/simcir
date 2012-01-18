@@ -18,7 +18,15 @@
 		<device label="Toggle" factory="${basicSet}" type="Toggle" />
 	
 		<device label="LED" factory="${basicSet}" type="LED" />
-	
+<!--
+		<device label="LED(Y)" factory="${basicSet}" type="LED">
+			<param name="color" value="#ffff00" />
+		</device>
+		<device label="LED(G)" factory="${basicSet}" type="LED">
+			<param name="color" value="#00ff00" />
+		</device>
+-->
+
 		<device label="BUF" factory="${basicSet}" type="BUF" />
 		<device label="NOT" factory="${basicSet}" type="NOT" />
 	
@@ -34,7 +42,25 @@
 		<device label="OSC" factory="${basicSet}" type="OSC" />
 
 		<device label="7seg" factory="${basicSet}" type="7seg" />
+<!--
+		<device label="7seg(Y)" factory="${basicSet}" type="7seg">
+			<param name="color" value="#ffff00" />
+		</device>
+		<device label="7seg(G)" factory="${basicSet}" type="7seg">
+			<param name="color" value="#00ff00" />
+		</device>
+-->
+
 		<device label="4bit 7seg" factory="${basicSet}" type="4bit7seg" />
+<!--
+		<device label="4bit 7seg(Y)" factory="${basicSet}" type="4bit7seg">
+			<param name="color" value="#ffff00" />
+		</device> 
+		<device label="4bit 7seg(G)" factory="${basicSet}" type="4bit7seg">
+			<param name="color" value="#00ff00" />
+		</device>
+-->
+
 		<device label="4bit Volume" factory="${basicSet}" type="4bitVol" />
 
 	</simcir>

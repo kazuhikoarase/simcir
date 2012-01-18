@@ -38,6 +38,7 @@ package com.d_project.simcir.device {
 }
 
 import com.d_project.simcir.core.Device;
+import com.d_project.simcir.core.DeviceLoader;
 import com.d_project.simcir.device.GraphicsUtil;
 import com.d_project.simcir.ui.UIConstants;
 import com.d_project.ui.UIBase;
@@ -73,7 +74,9 @@ class Control extends UIBase {
 	
 	private var _device : Device;
 	private var _7seg : Sprite;
-
+	private var _hiColor : uint;
+	private var _loColor : uint;
+	
 	public function Control(device : Device) : void {
 		
 		_device = device;
@@ -82,6 +85,11 @@ class Control extends UIBase {
 		
 		_7seg = new Sprite();
 		addChild(_7seg);
+		
+		var ns : Namespace = DeviceLoader.NS;
+		_hiColor = GraphicsUtil.parseColor(
+			device.deviceDef.ns::param.(@name == "color").@value) || 0xff0000;
+		_loColor = GraphicsUtil.multiplyColor(_hiColor, 0.25);
 	}
 	
 	override protected function update(g : Graphics) : void {
@@ -98,7 +106,7 @@ class Control extends UIBase {
 		g7s.clear();
 		var size : Object = GraphicsUtil.drawSegment(
 			g7s, getPattern(value),
-			0xff0000, 0x660000, 0x000000);
+			_hiColor, _loColor, 0x000000);
 		
 		var scale : Number = UIConstants.UNIT * 3.5 / size.height;
 		_7seg.scaleX = scale;

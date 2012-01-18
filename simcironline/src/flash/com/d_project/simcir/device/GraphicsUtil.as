@@ -245,7 +245,31 @@ package com.d_project.simcir.device {
 			drawEOR(g, x, y, width - 4, height);
 			g.drawCircle(x + width - 2, y + height / 2, 2);
 		}
+		
+		public static function multiplyColor(color : uint, ratio : Number) : uint {
+			var r : int = (color >>> 16) & 0xff;
+			var g : int = (color >>> 8) & 0xff;
+			var b : int = color & 0xff;
+			var mc : Function = function(v : int, ratio : Number) : int {
+				return Math.max(0, Math.min(v * ratio, 255) );
+			}
+			return (mc(r, ratio) << 16) | (mc(g, ratio) << 8) | mc(b, ratio);
+		}
 
+		public static function parseColor(sColor : String) : uint {
+			if (!sColor || !sColor.match(/^#[0-9a-f]{6}$/i) ) {
+				return 0x000000;
+			}
+			sColor = sColor.toLowerCase();
+			var color : uint = 0;
+			for (var i : int = 0; i < 6; i += 1) {
+				color = (color << 4) | HEX.indexOf(sColor.charAt(i + 1) );
+			}
+			return color;
+		}
+		
+		private static const HEX : String = "0123456789abcdef";
+		
 		public static function drawSegment(
 			g : Graphics,
 			pattern : String,
