@@ -90,7 +90,8 @@ package com.d_project.simcir.ui.workspaceClasses {
 			// renumber device-id
 			var idCount : int = 0;
 			forEachChild(function(deviceUI : DeviceUI) : void {
-				deviceUI.device.id = "d" + idCount++;
+				deviceUI.device.id = "d" + idCount;
+				idCount += 1;
 			} );
 
 			forEachChild(function(deviceUI : DeviceUI) : void {

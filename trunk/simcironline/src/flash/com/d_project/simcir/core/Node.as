@@ -4,22 +4,29 @@ package com.d_project.simcir.core {
 
 	use namespace simcir_core;
 
+	/**
+	 * Dispatched when a value is changed.
+	 * @see Device
+	 */
 	[Event(name="nodeValueChange", type="com.d_project.simcir.NodeEvent")]
 
 	/**
-	 * Node
+	 * The Node is a connectable node of a device.
 	 * @author kazuhiko arase
 	 */
 	public class Node extends EventDispatcher {
+		
+		private var _device : Device;
 
 		private var _id : String;
 
-		private var _device : Device;
-
+		private var _value : Object = null;
+		
 		private var _label : String = "";
 
-		private var _value : Object = null;
-
+		/**
+		 * @private
+		 */
 		simcir_core var holder : Object = null;
 
 		/**
@@ -44,14 +51,6 @@ package com.d_project.simcir.core {
 		 */
 		public function get device() : Device {
 			return _device;
-		}
-
-		public function set label(value : String) : void {
-			_label = value;
-		}
-
-		public function get label() : String {
-			return _label;
 		}
 
 		public function set value(value : Object) : void {
@@ -83,6 +82,20 @@ package com.d_project.simcir.core {
 		 */
 		simcir_core function disconnect() : void {
 			throw new Error("not implemented");
+		}
+		
+		/**
+		 * @private
+		 */
+		public function set label(value : String) : void {
+			_label = value;
+		}
+		
+		/**
+		 * @private
+		 */
+		public function get label() : String {
+			return _label;
 		}
 	}
 }

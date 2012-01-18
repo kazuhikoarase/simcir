@@ -25,7 +25,7 @@ public class Base64EncodeOutputStream extends FilterOutputStream {
 
         buffer = (buffer << 8) | (n & 0xff);
         buflen += 8;
-        length++;
+        length += 1;
 
         while (buflen >= 6) {
             writeEncoded(buffer >>> (buflen - 6) );
@@ -44,7 +44,7 @@ public class Base64EncodeOutputStream extends FilterOutputStream {
         if (length % 3 != 0) {
             // padding
             int padlen = 3 - length % 3;
-            for (int i = 0; i < padlen; i++) {
+            for (int i = 0; i < padlen; i += 1) {
                 super.write('=');
             }
         }

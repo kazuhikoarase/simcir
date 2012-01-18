@@ -3,7 +3,9 @@ package com.d_project.simcir.core {
 	import flash.events.Event;
 
 	/**
-	 * NodeEvent
+	 * A node object dispatches a NodeEvent when it's value is changed. 
+	 * @see Node
+	 * @see Device
 	 * @author kazuhiko arase
 	 */
 	public class NodeEvent extends Event {
