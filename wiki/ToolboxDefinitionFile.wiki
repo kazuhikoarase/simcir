@@ -1,3 +1,11 @@
+The Toolbox Definition File defines a list of devices.
+
+|| *Attribute* || *Required* || *Description* ||
+|| factory || Yes || URL of a factory that provides a device. If absence, it treated as a built in device. ||
+|| type || Yes || Type name of a device. ||
+|| label || No || Label of a device. If absence, type attribute is applied. ||
+
+
 {{{
 <?xml version="1.0" encoding="UTF-8" ?>
 <simcir xmlns="http://www.d-project.com/simcir/2012" title="BasicSet">
