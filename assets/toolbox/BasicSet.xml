@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <simcir xmlns="http://www.d-project.com/simcir/2012" title="BasicSet">
-	<device label="In" type="In" />
-	<device label="Out" type="Out" />
-	<device label="DC" factory="/BasicSet.swf" type="DC" />
-	<device label="PushOn" factory="/BasicSet.swf" type="PushOn" />
-	<device label="PushOff" factory="/BasicSet.swf" type="PushOff" />
-	<device label="Toggle" factory="/BasicSet.swf" type="Toggle" />
-	<device label="LED" factory="/BasicSet.swf" type="LED" />
-	<device label="BUF" factory="/BasicSet.swf" type="BUF" />
-	<device label="NOT" factory="/BasicSet.swf" type="NOT" />
-	<device label="AND" factory="/BasicSet.swf" type="AND" />
-	<device label="NAND" factory="/BasicSet.swf" type="NAND" />
-	<device label="OR" factory="/BasicSet.swf" type="OR" />
-	<device label="NOR" factory="/BasicSet.swf" type="NOR" />
-	<device label="EOR" factory="/BasicSet.swf" type="EOR" />
-	<device label="ENOR" factory="/BasicSet.swf" type="ENOR" />
-	<device label="OSC" factory="/BasicSet.swf" type="OSC" />
-	<device label="7seg" factory="/BasicSet.swf" type="7seg" />
-	<device label="4bit 7seg" factory="/BasicSet.swf" type="4bit7seg" />
-	<device label="4bit Volume" factory="/BasicSet.swf" type="4bitVol" />
+	<device type="In" />
+	<device type="Out" />
+	<device factory="/BasicSet.swf" type="DC" />
+	<device factory="/BasicSet.swf" type="PushOn" />
+	<device factory="/BasicSet.swf" type="PushOff" />
+	<device factory="/BasicSet.swf" type="Toggle" />
+	<device factory="/BasicSet.swf" type="LED" />
+	<device factory="/BasicSet.swf" type="BUF" />
+	<device factory="/BasicSet.swf" type="NOT" />
+	<device factory="/BasicSet.swf" type="AND" />
+	<device factory="/BasicSet.swf" type="NAND" />
+	<device factory="/BasicSet.swf" type="OR" />
+	<device factory="/BasicSet.swf" type="NOR" />
+	<device factory="/BasicSet.swf" type="EOR" />
+	<device factory="/BasicSet.swf" type="ENOR" />
+	<device factory="/BasicSet.swf" type="OSC" />
+	<device factory="/BasicSet.swf" type="7seg" />
+	<device factory="/BasicSet.swf" type="4bit7seg" label="4bit 7seg" />
+	<device factory="/BasicSet.swf" type="4bitVol" label="4bit Volume" />
 </simcir>
