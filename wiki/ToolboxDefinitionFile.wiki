@@ -1,10 +1,11 @@
 The Toolbox Definition File defines a list of devices.
 
+The device element defines a device in a toolbox.
+
 || *Attribute* || *Required* || *Description* ||
 || factory || Yes || URL of a factory that provides a device. If absence, it treated as a built in device. ||
 || type || Yes || Type name of a device. ||
 || label || No || Label of a device. If absence, type attribute is applied. ||
-
 
 {{{
 <?xml version="1.0" encoding="UTF-8" ?>
@@ -28,5 +29,20 @@ The Toolbox Definition File defines a list of devices.
 	<device factory="/BasicSet.swf" type="7seg" />
 	<device factory="/BasicSet.swf" type="4bit7seg" label="4bit 7seg" />
 	<device factory="/BasicSet.swf" type="4bitVol" label="4bit Volume" />
+</simcir>
+}}}
+
+Optionally, the device element could have the param elements.
+
+|| *Attribute* || *Required* || *Description* ||
+|| name || Yes || Name of parameter ||
+|| value || Yes || Value of parameter ||
+
+{{{
+<?xml version="1.0" encoding="UTF-8" ?>
+<simcir xmlns="http://www.d-project.com/simcir/2012" title="MoreSet">
+	<device factory="/BasicSet.swf" type="NAND" label="NAND(3in)">
+		<param name="numInputs" value="3"/>
+	</device>
 </simcir>
 }}}
