@@ -28,9 +28,9 @@ Here is a [ToolboxDefinitionFile Toolbox Definition File] of the BasicSet you se
 
 Some device in the BasicSet could have additional parameters.
 
-The gate (except BUF ant NOT) could change a number of inputs by the parameter 'numInputs'.
+The gate (except BUF and NOT) could change a number of inputs by the parameter 'numInputs'.
 
-LED related device could change a color by the parameter 'color'.
+LED related devices could change a color by the parameter 'color'.
 
 {{{
 <?xml version="1.0" encoding="UTF-8" ?>
@@ -49,3 +49,7 @@ LED related device could change a color by the parameter 'color'.
 	</device>
 </simcir>
 }}}
+
+Deploy a file to your site and add it to toolbox.
+
+http://simcir.googlecode.com/svn/assets/toolbox/addToolbox.png
