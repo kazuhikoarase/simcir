@@ -69,7 +69,7 @@ package com.d_project.simcir.core {
 		public function init(loaderContext : LoaderContext, deviceDef : XML) : void {
 			_deviceDef = deviceDef;
 			id = _deviceDef.@id;
-			label = _deviceDef.@label;
+			label = ("" + _deviceDef.@label) || _deviceDef.@type;
 		}
 
 		/**

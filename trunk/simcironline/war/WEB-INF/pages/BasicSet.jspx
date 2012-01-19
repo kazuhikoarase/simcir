@@ -8,34 +8,34 @@
 
 	<simcir xmlns="http://www.d-project.com/simcir/2012" title="BasicSet">
 
-		<device label="In" type="In" />
-		<device label="Out" type="Out" />
+		<device type="In" />
+		<device type="Out" />
 	
-		<device label="DC" factory="${basicSet}" type="DC" />
+		<device factory="${basicSet}" type="DC" />
 	
-		<device label="PushOn" factory="${basicSet}" type="PushOn" />
-		<device label="PushOff" factory="${basicSet}" type="PushOff" />
-		<device label="Toggle" factory="${basicSet}" type="Toggle" />
+		<device factory="${basicSet}" type="PushOn" />
+		<device factory="${basicSet}" type="PushOff" />
+		<device factory="${basicSet}" type="Toggle" />
 	
-		<device label="LED" factory="${basicSet}" type="LED" />
+		<device factory="${basicSet}" type="LED" />
 
-		<device label="BUF" factory="${basicSet}" type="BUF" />
-		<device label="NOT" factory="${basicSet}" type="NOT" />
+		<device factory="${basicSet}" type="BUF" />
+		<device factory="${basicSet}" type="NOT" />
 	
-		<device label="AND" factory="${basicSet}" type="AND" />
-		<device label="NAND" factory="${basicSet}" type="NAND" />
+		<device factory="${basicSet}" type="AND" />
+		<device factory="${basicSet}" type="NAND" />
 	
-		<device label="OR" factory="${basicSet}" type="OR" />
-		<device label="NOR" factory="${basicSet}" type="NOR" />
+		<device factory="${basicSet}" type="OR" />
+		<device factory="${basicSet}" type="NOR" />
 	
-		<device label="EOR" factory="${basicSet}" type="EOR" />
-		<device label="ENOR" factory="${basicSet}" type="ENOR" />
+		<device factory="${basicSet}" type="EOR" />
+		<device factory="${basicSet}" type="ENOR" />
 
-		<device label="OSC" factory="${basicSet}" type="OSC" />
+		<device factory="${basicSet}" type="OSC" />
 
-		<device label="7seg" factory="${basicSet}" type="7seg" />
-		<device label="4bit 7seg" factory="${basicSet}" type="4bit7seg" />
-		<device label="4bit Volume" factory="${basicSet}" type="4bitVol" />
+		<device factory="${basicSet}" type="7seg" />
+		<device factory="${basicSet}" type="4bit7seg" label="4bit 7seg" />
+		<device factory="${basicSet}" type="4bitVol" label="4bit Volume" />
 
 	</simcir>
 

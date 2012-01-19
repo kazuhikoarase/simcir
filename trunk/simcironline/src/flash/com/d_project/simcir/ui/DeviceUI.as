@@ -50,7 +50,7 @@ package com.d_project.simcir.ui {
 			_labelField.type = TextFieldType.INPUT;
 			_labelField.autoSize = TextFieldAutoSize.LEFT;
 			_labelField.defaultTextFormat = UIConstants.DEFAULT_TEXT_FORMAT;
-			_labelField.text = device.deviceDef.@label;
+			_labelField.text = device.label;
 			_labelField.maxChars = 30;
 			_labelField.addEventListener(Event.CHANGE, label_changeHandler);
 			addChild(_labelField);
