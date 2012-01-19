@@ -49,7 +49,9 @@ LED related devices could change a color by the parameter 'color'.
 	</device>
 </simcir>
 }}}
-
+<wiki:comment>
 Deploy a file to your site and add it to toolbox.
 
 http://simcir.googlecode.com/svn/assets/toolbox/addToolbox.png
+
+</wiki:comment>
