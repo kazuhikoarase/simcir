@@ -199,7 +199,7 @@ package com.d_project.simcir.ui.workspaceClasses {
 			_addToolboxListItem = new ToolboxListItem(_defaultURL, addBtn, true);
 			_addToolboxListItem.mouseEnabled = false;
 			_addToolboxListItem.addEventListener(KeyboardEvent.KEY_DOWN, item_keyDownHandler);
-			addChild(item);
+			addChild(_addToolboxListItem);
 		}
 
 		override protected function update(g : Graphics) : void {
