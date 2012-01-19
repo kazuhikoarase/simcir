@@ -5,9 +5,11 @@ package com.d_project.simcir.ui.workspaceClasses {
 	
 	import flash.display.Graphics;
 	import flash.events.Event;
+	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
+	import flash.ui.Keyboard;
 
 	[Event(name="change", type="flash.events.Event")]
 	[Event(name="complete", type="flash.events.Event")]
@@ -18,7 +20,7 @@ package com.d_project.simcir.ui.workspaceClasses {
 	 */
 	public class ToolboxList extends UIBase {
 
-		private var _xml : XML = null;
+		private var _xml : XML = <simcir xmlns={DeviceLoader.NS}/>;
 
 		private var _ready : Boolean = false;
 
@@ -27,6 +29,8 @@ package com.d_project.simcir.ui.workspaceClasses {
 		private var _itemsValid : Boolean = false;
 		
 		private var _defaultURL : String = "http://";
+		
+		private var _addToolboxListItem : ToolboxListItem = null;
 		
 		public function ToolboxList() {
 		}
@@ -97,12 +101,19 @@ package com.d_project.simcir.ui.workspaceClasses {
 		}
 		
 		private function addBtn_clickHandler(event : Event) : void {
+			addNewItem();
+		}
+		
+		private function item_keyDownHandler(event : KeyboardEvent) : void {
+			if (event.keyCode == Keyboard.ENTER) {
+				addNewItem();
+			}			
+		}
 
-			// add new item
-			
-			var item : ToolboxListItem = event.target.parent as ToolboxListItem;
-			var index : int = getChildIndex(item);
-			
+		private function addNewItem() : void {
+
+			var item : ToolboxListItem = _addToolboxListItem;
+
 			var url : String = item.text;
 
 			if (!url || url == _defaultURL) {
@@ -185,8 +196,9 @@ package com.d_project.simcir.ui.workspaceClasses {
 			var addBtn : UIBase = new IconButton(IconButton.ADD);
 			addBtn.addEventListener(MouseEvent.CLICK, addBtn_clickHandler);
 			
-			item = new ToolboxListItem(_defaultURL, addBtn, true);
-			item.mouseEnabled = false;
+			_addToolboxListItem = new ToolboxListItem(_defaultURL, addBtn, true);
+			_addToolboxListItem.mouseEnabled = false;
+			_addToolboxListItem.addEventListener(KeyboardEvent.KEY_DOWN, item_keyDownHandler);
 			addChild(item);
 		}
 

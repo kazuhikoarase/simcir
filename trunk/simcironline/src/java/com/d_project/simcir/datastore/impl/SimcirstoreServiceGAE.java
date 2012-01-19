@@ -4,9 +4,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
 
 import com.d_project.simcir.Util;
 import com.d_project.simcir.datastore.AbstractSimcirstoreService;
@@ -43,6 +48,8 @@ public class SimcirstoreServiceGAE extends AbstractSimcirstoreService {
 	private static final String KIND_USER = "User";
 	
 	private static final String KIND_CIRCUIT = "Circuit";
+
+	private static final String KIND_CIRCUIT_REF = "CircuitRef";
 	
 	private static final String KIND_LIBRARY = "Library";
 
@@ -131,6 +138,30 @@ public class SimcirstoreServiceGAE extends AbstractSimcirstoreService {
 		return circuitList;
 	}
 
+	private Set<Key> getReferrenceKeys(Document doc) throws Exception {
+		NodeList urls = Util.getDeviceRefUrls(doc);
+		Set<Key> keys = new HashSet<Key>();
+		for (int i = 0; i < urls.getLength(); i += 1) {
+			Key key = extractKey(urls.item(i).getNodeValue() );
+			if (key != null) {
+				keys.add(key);
+			}
+		}
+		return keys;
+	}
+
+	private Key extractKey(String url) {
+		try {
+			Matcher mat = Pattern.compile("^.*key=(\\w+).*$").matcher(url);
+			if (mat.find() ) {
+				return KeyFactory.stringToKey(mat.group(1) );
+			}
+		} catch(Exception e) {
+			// ignore
+		}
+		return null;
+	}
+	
 	public Circuit putCircuit(
 		String circuitKey,
 		String title,
@@ -168,9 +199,30 @@ public class SimcirstoreServiceGAE extends AbstractSimcirstoreService {
 
 		Key key = ds.put(entity);
 		
+		putRefs(ds, key, doc);
+		
 		Circuit circuit = entityToCircuit(ds, entity);
 		circuit.setKey(KeyFactory.keyToString(key) );
 		return circuit;
+	}
+	
+	private void putRefs(DatastoreService ds, Key parent, Document doc) throws Exception {
+
+		// delete all
+		List<Key> keys = new ArrayList<Key>();
+		for (Entity e : ds.prepare(new Query(KIND_CIRCUIT_REF, parent).setKeysOnly() ).asIterable() ) {
+			keys.add(e.getKey() );
+		}
+		ds.delete(keys);
+
+		// put all
+		List<Entity> refs = new ArrayList<Entity>();
+		for (Key refKey : getReferrenceKeys(doc) ) {
+			Entity e = new Entity(KIND_CIRCUIT_REF, parent);
+			e.setProperty("key", refKey);
+			refs.add(e);
+		}
+		ds.put(refs);
 	}
 
 	public Circuit getCircuit(String circuitKey, boolean useCache) throws Exception {
@@ -356,6 +408,14 @@ public class SimcirstoreServiceGAE extends AbstractSimcirstoreService {
 
 		User user = getUser(entity.getKey().getParent().getName(), true);
 		cir.setUser(user);
+
+		List<String> refKeys = new ArrayList<String>();
+		for (Entity ref : ds.prepare(new Query(KIND_CIRCUIT_REF).
+				addFilter("key", FilterOperator.EQUAL, entity.getKey() ) ).asIterable() ) {
+			refKeys.add(KeyFactory.keyToString(
+				(Key)ref.getProperty("key") ) );
+		}
+		cir.setRefKeys(refKeys);
 
 		return cir;
 	}

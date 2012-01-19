@@ -12,6 +12,11 @@
 
 	<jsp:scriptlet><![CDATA[
 
+if (request.getParameter("try") != null) {
+	application.getRequestDispatcher("/WEB-INF/pages/try.jspx").forward(request, response);
+	return;
+}
+
 try {
 
 	pageContext.setAttribute("http", "http".equals(request.getScheme() ) );
@@ -83,7 +88,12 @@ try {
 
 		<c:otherwise>
 			<jsp:scriptlet><![CDATA[
-			response.setContentType("text/html;charset=UTF-8");
+{
+	Circuit circuit = (Circuit)pageContext.getAttribute("circuit");
+	pageContext.setAttribute("numReferred", circuit.getRefKeys().size() );
+
+	response.setContentType("text/html;charset=UTF-8");
+}
 			]]></jsp:scriptlet>
 	
 			<s:page title=" - ${circuit.title}" description="${circuit.title}" >
@@ -125,6 +135,13 @@ var openCircuitHandler = function(url) {
 					<div style="margin: 0px 0px 2px 0px;">
 						<span class="title">
 							<c:out value="${circuit.title}"/>
+<!-- 
+							<c:if test="${numReferred gt 0}">
+								<jsp:text> (</jsp:text>
+								<c:out value="${numReferred}"/>
+								<jsp:text>)</jsp:text>
+							</c:if>
+ -->
 						</span>
 						<c:if test="${circuit.private}">
 							<jsp:text>&#xa0;</jsp:text>
@@ -175,67 +192,43 @@ var openCircuitHandler = function(url) {
 							<s:button click="edit_clickHandler()"
 								 label="Edit" />
 						</c:if>
+
 						<s:button click="addToLibrary_clickHandler()"
 							 label="Add to Library" />
-<!-- 
+
 						<c:if test="${http}">
-							<div style="margin: 2px; float: right;">
-								<s:socials/>
+							<div style="float: right;">
+		
+								<c:set var="linkURL">
+									<s:baseURL/>
+									<jsp:text>/circuit?key=${circuit.key}</jsp:text>
+								</c:set>
+								<c:set var="imgURL">
+									<s:baseURL/>
+									<jsp:text>/circuit?fmt=img&amp;key=${circuit.key}</jsp:text>
+								</c:set>
+								<c:set var="imgTag">
+									<a href="${linkURL}"><img src="${imgURL}" border="0" /></a>
+								</c:set>
+								<c:set var="imgTag">
+									<c:out value="${imgTag}"/>
+								</c:set>
+								
+								<span class="title">Link: </span>
+								<input class="img-link" type="text" value="${imgTag}" size="10" onclick="this.select()" readonly="readonly" />
+	
 							</div>
 						</c:if>
- -->
-					<c:if test="${http}">
-						<div style="margin: 0px 2px 0px 2px; float: right;">
-	
-							<c:set var="linkURL">
-								<s:baseURL/>
-								<jsp:text>/circuit?key=${circuit.key}</jsp:text>
-							</c:set>
-							<c:set var="imgURL">
-								<s:baseURL/>
-								<jsp:text>/circuit?fmt=img&amp;key=${circuit.key}</jsp:text>
-							</c:set>
-							<c:set var="imgTag">
-								<a href="${linkURL}"><img src="${imgURL}" border="0" /></a>
-							</c:set>
-							<c:set var="imgTag">
-								<c:out value="${imgTag}"/>
-							</c:set>
-	
-							<span class="title">Link: </span>
-							<input class="img-link" type="text" value="${imgTag}" size="10" style="width: 220px;" onclick="this.select()" readonly="readonly" />
-
-						</div>
-					</c:if>
 
 						<br style="clear: both;"/>
 
 					</div>
-<!-- 
-					<c:if test="${http}">
-						<div style="width:800px; text-align: right;">
-	
-							<c:set var="linkURL">
-								<s:baseURL/>
-								<jsp:text>/circuit?key=${circuit.key}</jsp:text>
-							</c:set>
-							<c:set var="imgURL">
-								<s:baseURL/>
-								<jsp:text>/circuit?fmt=img&amp;key=${circuit.key}</jsp:text>
-							</c:set>
-							<c:set var="imgTag">
-								<a href="${linkURL}"><img src="${imgURL}" border="0" /></a>
-							</c:set>
-							<c:set var="imgTag">
-								<c:out value="${imgTag}"/>
-							</c:set>
-	
-							<span class="title">Link: </span>
-							<input class="img-link" type="text" value="${imgTag}" size="10" style="width: 220px;" onclick="this.select()" readonly="readonly" />
 
+					<c:if test="${http}">
+						<div style="margin:32px 0px 8px 0px;">
+							<s:socials/>
 						</div>
 					</c:if>
- -->
 
 				</div>
 		

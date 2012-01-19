@@ -2,6 +2,7 @@ package com.d_project.simcir.datastore;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Circuit
@@ -19,7 +20,8 @@ public class Circuit implements Serializable {
 	private byte[] thumbnail;
 	private User user;
 	private boolean _private;
-
+	private List<String> refKeys;
+	
 	public Circuit() {
 	}
 	
@@ -71,10 +73,16 @@ public class Circuit implements Serializable {
 	public void setUser(User user) {
 		this.user = user;
 	}
+	public boolean isPrivate() {
+		return _private;
+	}
 	public void setPrivate(boolean value) {
 		this._private = value;
 	}
-	public boolean isPrivate() {
-		return _private;
+	public List<String> getRefKeys() {
+		return refKeys;
+	}
+	public void setRefKeys(List<String> refKeys) {
+		this.refKeys = refKeys;
 	}
 }

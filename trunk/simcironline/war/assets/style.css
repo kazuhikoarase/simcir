@@ -30,6 +30,7 @@ FORM {
 	color: #ffffff;
 	background-color: #000000;
 }
+
 .logo {
 	font-weight: bold;
 }
@@ -101,6 +102,10 @@ FORM {
 .circuit {
 }
 
+.pages {
+	margin: 2px;
+}
+
 .list-item {
 	background-color: #f0f0f0;
 	padding: 4px;
@@ -109,5 +114,7 @@ FORM {
 
 .img-link {
 	background-color: #ffffdd;
-	border: #cccccc 1px solid;	
+	border: #cccccc 1px solid;
+	width: 220px;
+	margin: 2px;
 }
