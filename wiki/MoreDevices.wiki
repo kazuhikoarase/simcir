@@ -25,3 +25,27 @@ Here is a [ToolboxDefinitionFile Toolbox Definition File] of BasicSet you see at
 	<device factory="/BasicSet.swf" type="4bitVol" label="4bit Volume" />
 </simcir>
 }}}
+
+Some device in BasicSet could have additional parameters.
+
+The gate (except BUF ant NOT) could change a number of inputs by the parameter 'numInputs'.
+
+LED related device could change a color by the parameter 'color'.
+
+{{{
+<?xml version="1.0" encoding="UTF-8" ?>
+<simcir xmlns="http://www.d-project.com/simcir/2012" title="MoreSet">
+	<device factory="/BasicSet.swf" type="NAND" label="NAND(3in)">
+		<param name="numInputs" value="3"/>
+	</device>
+	<device factory="/BasicSet.swf" type="LED" label="LED(Y)">
+		<param name="color" value="#ffff00" />
+	</device>
+	<device factory="/BasicSet.swf" type="7seg" label="7seg(Y)">
+		<param name="color" value="#ffff00" />
+	</device>
+	<device factory="/BasicSet.swf" type="4bit7seg" label="4bit 7seg(Y)">
+		<param name="color" value="#ffff00" />
+	</device>
+</simcir>
+}}}
