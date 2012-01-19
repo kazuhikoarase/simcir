@@ -1,6 +1,6 @@
 =More Devices=
 
-Here is a [ToolboxDefinitionFile Toolbox Definition File] of BasicSet you see at first.
+Here is a [ToolboxDefinitionFile Toolbox Definition File] of the BasicSet you see at first.
 {{{
 <?xml version="1.0" encoding="UTF-8" ?>
 <simcir xmlns="http://www.d-project.com/simcir/2012" title="BasicSet">
@@ -26,7 +26,7 @@ Here is a [ToolboxDefinitionFile Toolbox Definition File] of BasicSet you see at
 </simcir>
 }}}
 
-Some device in BasicSet could have additional parameters.
+Some device in the BasicSet could have additional parameters.
 
 The gate (except BUF ant NOT) could change a number of inputs by the parameter 'numInputs'.
 
