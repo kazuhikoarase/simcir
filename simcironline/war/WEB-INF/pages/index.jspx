@@ -12,6 +12,7 @@
 
 int currentPage = Util.parseInt(request.getParameter("p") );
 SimcirstoreService ss = SimcirstoreServiceFactory.getSimcirstoreService();
+pageContext.setAttribute("isUserLoggedIn", ss.isUserLoggedIn() );
 pageContext.setAttribute("circuitList", ss.getRecentCircuitList(currentPage) );
 
 	]]></jsp:scriptlet>
@@ -23,6 +24,9 @@ pageContext.setAttribute("circuitList", ss.getRecentCircuitList(currentPage) );
 		<h3>Recent Circuits</h3>
 
 		<s:button label="Create" click="location.href= contextPath + '/user/edit';"/>
+		<c:if test="${not isUserLoggedIn}">
+			<s:button label="Try it Now!" click="location.href= contextPath + '/circuit?try';"/>
+		</c:if>
 		<br/>
 
 		<jsp:text>Total: </jsp:text>
@@ -31,7 +35,7 @@ pageContext.setAttribute("circuitList", ss.getRecentCircuitList(currentPage) );
 
 		<c:set var="pages">
 			<c:if test="${circuitList.numPages gt 1}">
-				<div>
+				<div class="pages">
 					<c:forEach var="page" begin="0" end="${circuitList.numPages - 1}">
 						<c:if test="${page gt 0}">&#xa0;</c:if>
 						<c:choose>
@@ -75,6 +79,12 @@ pageContext.setAttribute("circuitList", ss.getRecentCircuitList(currentPage) );
 		</c:forEach>	
 
 		<c:out value="${pages}" escapeXml="false"/>
+
+		<c:if test="${empty pageContext.request.queryString}">
+			<div style="margin: 32px 0px 8px 0px;">
+				<s:socials/>
+			</div>
+		</c:if>
 
 	</s:page>
 

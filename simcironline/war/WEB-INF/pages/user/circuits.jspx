@@ -69,23 +69,28 @@ var delete_clickHandler = function(key) {
 		<c:out value="${circuitList.numCircuits}"/>
 		<jsp:text> circuits</jsp:text>
 
-		<c:if test="${circuitList.numPages gt 1}">
-			<br/>
-			<c:forEach var="page" begin="0" end="${circuitList.numPages - 1}">
-				<c:if test="${page gt 0}">&#xa0;</c:if>
-				<c:choose>
-					<c:when test="${page == circuitList.currentPage}">
-						<c:out value="${page + 1}"/>
-					</c:when>
-					<c:otherwise>
-						<a href="${contextPath}/user/circuits?p=${page}">
-							<c:out value="${page + 1}"/>
-						</a>
-					</c:otherwise>
-				</c:choose>
-			</c:forEach>
-		</c:if>
+		<c:set var="pages">
+			<c:if test="${circuitList.numPages gt 1}">
+				<div class="pages">
+					<c:forEach var="page" begin="0" end="${circuitList.numPages - 1}">
+						<c:if test="${page gt 0}">&#xa0;</c:if>
+						<c:choose>
+							<c:when test="${page == circuitList.currentPage}">
+								<c:out value="${page + 1}"/>
+							</c:when>
+							<c:otherwise>
+								<a href="${contextPath}/user/circuits?p=${page}">
+									<c:out value="${page + 1}"/>
+								</a>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+				</div>
+			</c:if>
+		</c:set>
 
+		<c:out value="${pages}" escapeXml="false"/>
+		
 		<c:forEach var="item" items="${circuitList.list}">
 			<div class="list-item">
 				<div>
@@ -108,6 +113,8 @@ var delete_clickHandler = function(key) {
 				</div>
 			</div>
 		</c:forEach>	
+
+		<c:out value="${pages}" escapeXml="false"/>
 
 	</s:page>
 

@@ -10,9 +10,12 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathFactory;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
 /**
@@ -23,6 +26,8 @@ public class Util {
 
 	private Util() {
 	}
+
+	private static final String REF_EXPR = "simcir/device[string-length(@factory)=0 and @type='Ref']/param[@name='url']/@value";
 	
 	public static boolean isEmpty(String s) {
 		return s == null || s.length() == 0;
@@ -115,5 +120,13 @@ public class Util {
 			out.close();
 		}
 		return out.toString();
+	}
+
+	public static NodeList getDeviceRefUrls(Document doc) 
+	throws Exception {
+		return (NodeList)XPathFactory.
+			newInstance().newXPath().
+			compile(REF_EXPR).
+			evaluate(doc, XPathConstants.NODESET);
 	}
 }
