@@ -160,7 +160,7 @@ if (ss.isUserLoggedIn() ) {
 
 		<div style="padding: 4px;">
 			<hr/>
-			<span><a href="http://code.google.com/p/simcir/">simcir</a> &#xA9; 1998, 2012 <a target="_blank" href="http://www.d-project.com/">kazuhiko arase</a></span>
+			<span><a href="http://code.google.com/p/simcir/">simcir</a> &#xA9; 1998, 2012 kazuhiko arase</span>
 		</div>
 
 	</body>
