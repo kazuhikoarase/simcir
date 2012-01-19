@@ -9,7 +9,7 @@ The simcir element is a root element of a file.
 
 === Device Element ===
 
-The device element defines a device in a toolbox.
+The device element defines a device.
 
 || *Attribute* || *Required* || *Description* ||
 || factory || Yes || URL of a factory that provides a device. If absence, it treated as a built in device. ||
