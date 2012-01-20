@@ -24,6 +24,11 @@ package com.d_project.simcir.ui {
 		 * Body color of a device
 		 */
 		function get color() : uint;
+		
+		/**
+		 * Visible device (show always)
+		 */
+		function get visualDevice() : Boolean;
 
 		/**
 		 * Create a control for a device.

@@ -34,6 +34,10 @@ package com.d_project.simcir.core.buildInDevice {
 		override protected function inputValueChangeHandler(event : NodeEvent) : void {
 			outputs[0].value = inputs[0].value;
 		}
+		
+		override public function get visualDevice() : Boolean {
+			return false;
+		}
 
 		override public function createControl() : DisplayObject {
 			return new Control(this);

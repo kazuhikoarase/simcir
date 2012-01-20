@@ -4,27 +4,40 @@
     xmlns:s="urn:jsptagdir:/WEB-INF/tags/s"
 	xmlns="http://www.w3.org/1999/xhtml"
 >
-
 	<jsp:directive.page import="com.d_project.simcir.datastore.SimcirstoreServiceFactory"/>
 	<jsp:directive.page import="com.d_project.simcir.datastore.SimcirstoreService"/>
 
+	<jsp:directive.page import="com.d_project.simcir.Util"/>
+	<jsp:directive.page import="com.d_project.simcir.datastore.User"/>
+
 	<jsp:scriptlet><![CDATA[
 
+boolean hasDevices;
+
+try {
 	SimcirstoreService ss = SimcirstoreServiceFactory.getSimcirstoreService();
-	pageContext.setAttribute("user", ss.getUser(false) );
+	User user = ss.getUser(false);
+	pageContext.setAttribute("user", user);
+	hasDevices = Util.getDevices(Util.parseDocument(
+		user.getToolboxListXml() ) ).getLength() > 0;
+} catch(Exception e) {	
+	hasDevices = false;
+}
+
+pageContext.setAttribute("hasDevices", hasDevices);
 
 	]]></jsp:scriptlet>
 	
 	<jsp:directive.page contentType="application/xml;charset=UTF-8" />
 
 	<c:choose>
-		<c:when test="${not empty user.toolboxListXml}">
+		<c:when test="${hasDevices}">
 			<c:out value="${user.toolboxListXml}" escapeXml="false" />
 		</c:when>
 		<c:otherwise>
 			<simcir xmlns="http://www.d-project.com/simcir/2012">
 				<device label="BasicSet" type="Ref">
-					<param name="url" value="/BasicSet"/> 
+					<param name="url" value="${pageContext.request.contextPath}/BasicSet"/> 
 				</device>
 			</simcir>
 		</c:otherwise>

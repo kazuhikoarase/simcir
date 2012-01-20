@@ -16,7 +16,12 @@ public interface SimcirstoreService {
 
 	void checkOwner(String circuitKey) throws Exception;
 	
-	Circuit putCircuit(String circuitKey, String title, String xml, String image, String thumbnail, boolean isPrivate) throws Exception;
+	Circuit putCircuit(String circuitKey, 
+		String title, String xml,
+		String image, String thumbnail,
+		boolean _private,
+		boolean showNonVisuals
+	) throws Exception;
 	
 	Circuit getCircuit(String circuitKey, boolean useCache) throws Exception;
 

@@ -168,7 +168,8 @@ public class SimcirstoreServiceGAE extends AbstractSimcirstoreService {
 		String xml,
 		String image,
 		String thumbnail,
-		boolean isPrivate
+		boolean _private,
+		boolean showNonVisuals
 	) throws Exception {
 
 		DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
@@ -195,7 +196,8 @@ public class SimcirstoreServiceGAE extends AbstractSimcirstoreService {
 		entity.setProperty("xml", stringToBlob(xml) );
 		entity.setProperty("image", verifyImage(imgToBlob(image), 800, 450) );
 		entity.setProperty("thumbnail", verifyImage(imgToBlob(thumbnail), 160, 90) );
-		entity.setProperty("private", isPrivate);
+		entity.setProperty("private", _private);
+		entity.setProperty("showNonVisuals", showNonVisuals);
 
 		Key key = ds.put(entity);
 		
@@ -404,7 +406,8 @@ public class SimcirstoreServiceGAE extends AbstractSimcirstoreService {
 		}
 
 		cir.setXml(blobToString( (Blob)entity.getProperty("xml") ) );
-		cir.setPrivate( (Boolean)entity.getProperty("private") );
+		cir.setPrivate(toBoolean(entity.getProperty("private") ) );
+		cir.setShowNonVisuals(toBoolean(entity.getProperty("showNonVisuals") ) );
 
 		User user = getUser(entity.getKey().getParent().getName(), true);
 		cir.setUser(user);
@@ -419,7 +422,11 @@ public class SimcirstoreServiceGAE extends AbstractSimcirstoreService {
 
 		return cir;
 	}
-
+	
+	private static boolean toBoolean(Object o) {
+		return (o == null)? true : ( (Boolean)o).booleanValue();
+	}
+	
 	private User entityToUser(Entity entity) throws Exception {
 
 		User user = new User();

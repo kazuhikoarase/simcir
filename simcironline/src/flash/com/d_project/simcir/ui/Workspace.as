@@ -91,6 +91,11 @@ package com.d_project.simcir.ui {
 			toolboxesPane.visible = value;
 		}
 
+		public function set showNonVisuals(value : Boolean) : void {
+			connectorPane.visible = value;
+			devicePane.showNonVisuals = value;
+		}
+
 		public function loadCircuit(url : String) : void {
 			devicePane.load(url);
 		}

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:s="urn:jsptagdir:/WEB-INF/tags/s"
+	xmlns="http://www.w3.org/1999/xhtml"
+>
+
+	<jsp:directive.attribute name="name" required="true" />
+	<jsp:directive.attribute name="value" required="true" />
+	<jsp:directive.attribute name="onclick" />
+
+	<c:choose>
+		<c:when test="${value}">
+			<input type="checkbox" name="${name}" onclick="${onclick}" value="1" checked="checked" />
+		</c:when>
+		<c:otherwise>
+			<input type="checkbox" name="${name}" onclick="${onclick}" value="1" />
+		</c:otherwise>
+	</c:choose>
+
+</jsp:root>

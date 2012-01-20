@@ -174,6 +174,13 @@ package com.d_project.simcir.core {
 		public function get color() : uint {
 			return UIConstants.DEVICE_COLOR;
 		}
+		
+		/**
+		 *  @inheritDoc
+		 */
+		public function get visualDevice() : Boolean {
+			return true;
+		}
 
 		/**
 		 *  @inheritDoc
