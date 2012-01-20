@@ -117,11 +117,7 @@ package com.d_project.simcir.ui.workspaceClasses {
 				deviceDef.@id = deviceUI.device.id;
 				deviceDef.@x = Math.floor(deviceUI.x);
 				deviceDef.@y = Math.floor(deviceUI.y);
-				if (deviceUI.label) {
-					deviceDef.@label = deviceUI.label;
-				} else {
-					delete deviceDef.@label;
-				}
+				deviceDef.@label = deviceUI.label;
 				xml.appendChild(deviceDef.copy() );
 			} );
 
