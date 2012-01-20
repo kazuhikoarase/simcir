@@ -18,6 +18,7 @@
 	
 	<property name="simcircorelib" value="simcircorelib.swc" />
 	<property name="simcirsdk" value="simcir-sdk" />
+	<property name="version" value="1.0" />
 
 	<property name="target.simcironline" location="${build.flash}/simcironline.swf"/>
 	<property name="target.basicset" location="${build.flash}/BasicSet.swf"/>
@@ -137,7 +138,7 @@
 			</fileset>
 		</copy>
 
-		<zip zipfile="${dist}/${simcirsdk}.v${timestamp}.zip">
+		<zip zipfile="${dist}/${simcirsdk}-${version}.zip">
 			<zipfileset dir="${dist}/${simcirsdk}" prefix="${simcirsdk}">
 				<include name="**/*" />
 			</zipfileset>
