@@ -113,7 +113,7 @@ var openCircuitHandler = function(url) {
 
 					<jsp:text>&#xa0;</jsp:text>
 					<s:checkbox name="showNonVisuals" value="${circuit.showNonVisuals}" />
-					<span>Show Non Visials</span>
+					<span>Show Non Visuals</span>
 				</div>
 			</form>
 
