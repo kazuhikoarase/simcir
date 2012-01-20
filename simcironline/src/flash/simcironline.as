@@ -143,6 +143,7 @@ package {
 		private function getData() : Object {
 			
 			// validate now for capture.
+			_ws.deselectAll();
 			_ws.validate();
 
 			return {
