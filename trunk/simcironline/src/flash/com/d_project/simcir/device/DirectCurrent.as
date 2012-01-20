@@ -22,5 +22,9 @@ package com.d_project.simcir.device {
 		override public function get color() : uint {
 			return 0xffcccc;
 		}
+		
+		override public function get visualDevice() : Boolean {
+			return false;
+		}
 	}
 }

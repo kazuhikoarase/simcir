@@ -95,6 +95,10 @@ package com.d_project.simcir.device {
 		protected function intValue(value : Object) : int {
 			return (value != null)? 1 : 0;
 		}
+		
+		override public function get visualDevice() : Boolean {
+			return false;
+		}
 
 		override public function createControl() : DisplayObject {
 			return new Control(this);

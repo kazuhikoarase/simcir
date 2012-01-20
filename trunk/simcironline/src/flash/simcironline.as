@@ -27,7 +27,6 @@ package {
 		private var _ws : Workspace;
 
 		public function simcironline() {
-			ExternalInterface.addCallback("getData", getData);
 			addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
 		}
 		
@@ -43,6 +42,10 @@ package {
 			contextMenu = cm;
 			
 			createWorkspace();
+
+			// externals
+			ExternalInterface.addCallback("getData", getData);
+			ExternalInterface.addCallback("setShowNonVisuals", setShowNonVisuals);
 		} 
 
 		private function createWorkspace() : void {
@@ -63,6 +66,8 @@ package {
 			var c : String = stage.loaderInfo.parameters.c;
 			// editable
 			var e : String = stage.loaderInfo.parameters.e;
+			// showNonVisuals
+			var s : String = stage.loaderInfo.parameters.s;
 
 			if (t) {
 				_ws.loadToolbox(t);
@@ -87,7 +92,11 @@ package {
 			if (e) {
 				_ws.editable = (e == "true");
 			}
-
+			
+			if (s) {
+				_ws.showNonVisuals = (s == "true");
+			}
+			
 			addChild(_ws);
 		}
 
@@ -123,7 +132,19 @@ package {
 			}
 		}
 		
+		private function toXMLString(xml : XML) : String {
+			return xml.toXMLString();
+		}
+		
+		private function toImgString(bmp : BitmapData) : String {
+			return Base64.encode(PNGEncoder.encode(bmp) )
+		}
+		
 		private function getData() : Object {
+			
+			// validate now for capture.
+			_ws.validate();
+
 			return {
 				xml : toXMLString(_ws.xml),
 				img : toImgString(_ws.capture(1.0) ),
@@ -133,12 +154,8 @@ package {
 			}
 		}
 		
-		private function toXMLString(xml : XML) : String {
-			return xml.toXMLString();
-		}
-		
-		private function toImgString(bmp : BitmapData) : String {
-			return Base64.encode(PNGEncoder.encode(bmp) )
+		private function setShowNonVisuals(value : Boolean) : void {		
+			_ws.showNonVisuals = value;
 		}
 	}
 }

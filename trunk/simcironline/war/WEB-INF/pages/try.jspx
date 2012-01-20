@@ -35,8 +35,8 @@ var openCircuitHandler = function(url) {
 			<c:set var="movie">
 				<jsp:text>${contextPath}/simcironline.swf</jsp:text>
 				<jsp:text>?o=openCircuitHandler</jsp:text>
-				<jsp:text>&amp;t=</jsp:text>
-				<s:encodeURL>${contextPath}/BasicSet</s:encodeURL>
+				<jsp:text>&amp;tl=</jsp:text>
+				<s:encodeURL>${contextPath}/toolbox-list</s:encodeURL>
 			</c:set>
 
 			<s:swf 

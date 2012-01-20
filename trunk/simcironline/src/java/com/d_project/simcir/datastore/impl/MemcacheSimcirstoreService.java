@@ -88,10 +88,16 @@ public class MemcacheSimcirstoreService extends AbstractSimcirstoreService {
 		String xml,
 		String image,
 		String thumbnail,
-		boolean isPrivate
+		boolean _private,
+		boolean showNonVisuals
 	) throws Exception {
 		Circuit circuit = service.putCircuit(
-			circuitKey, title, xml, image, thumbnail, isPrivate);
+			circuitKey,
+			title, xml,
+			image, thumbnail,
+			_private,
+			showNonVisuals
+		);
 		circuitCache.put(circuit.getKey(), circuit);
 		return circuit;
 	}

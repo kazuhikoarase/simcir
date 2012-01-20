@@ -102,7 +102,9 @@ try {
 
 var edit_clickHandler = function() {
 	var form = document.forms[0];
-	location.href = contextPath + '/user/edit?key=' + form.elements['key'].value;
+	location.href = contextPath +
+		'/user/edit?key=' +
+		form.elements['key'].value;
 };
 
 var addToLibrary_clickHandler = function() {
@@ -111,6 +113,13 @@ var addToLibrary_clickHandler = function() {
 	form.action = contextPath + '/user/library';
 	form.elements['op'].value = 'put';
 	form.submit();
+};
+
+var showNonVisuals_clickHandler = function() {
+	var simcir = document.getElementById('simcir');
+	var form = document.forms[0];
+	simcir.setShowNonVisuals(
+		form.elements['showNonVisuals'].checked);
 };
 
 var openCircuitHandler = function(url) {
@@ -125,112 +134,121 @@ var openCircuitHandler = function(url) {
 
 				]]></s:script>
 	
-				<div class="circuit">
-		
-					<form onsubmit="return false;">
+				<form onsubmit="return false;">
+					<div class="circuit">
+			
 						<input type="hidden" name="key" value="${param.key}"/>
 						<input type="hidden" name="op" value=""/>
-					</form>
-	
-					<div style="margin: 0px 0px 2px 0px;">
-						<span class="title">
-							<c:out value="${circuit.title}"/>
+		
+						<div style="margin: 0px 0px 2px 0px;">
+							<span class="title">
+								<c:out value="${circuit.title}"/>
 <!-- 
-							<c:if test="${numReferred gt 0}">
-								<jsp:text> (</jsp:text>
-								<c:out value="${numReferred}"/>
-								<jsp:text>)</jsp:text>
+								<c:if test="${numReferred gt 0}">
+									<jsp:text> (</jsp:text>
+									<c:out value="${numReferred}"/>
+									<jsp:text>)</jsp:text>
+								</c:if>
+-->
+							</span>
+							<c:if test="${circuit.private}">
+								<jsp:text>&#xa0;</jsp:text>
+								<span>(Private)</span>
 							</c:if>
- -->
-						</span>
-						<c:if test="${circuit.private}">
 							<jsp:text>&#xa0;</jsp:text>
-							<span>(Private)</span>
-						</c:if>
-						<br/>
-						<c:if test="${empty circuit.user.url}">
-							<span><c:out value="${circuit.user.nickname}"/></span>
-						</c:if>
-						<c:if test="${not empty circuit.user.url}">
-							<a href="${circuit.user.url}" target="_blank"><c:out value="${circuit.user.nickname}"/></a>
-						</c:if>
-						<br/>
-						<jsp:text>last modified: </jsp:text>
-						<c:out value="${circuit.updateDate}"/>
-					</div>
-	
-					<c:set var="movie">
-						<jsp:text>${contextPath}/simcironline.swf</jsp:text>
-					
-						<jsp:text>?e=false</jsp:text>
-						<jsp:text>&amp;o=openCircuitHandler</jsp:text>
-						<jsp:text>&amp;c=</jsp:text>
-						<s:encodeURL>
-							<jsp:text>${contextPath}/circuit?fmt=xml</jsp:text>
-							<jsp:text>&amp;key=${param.key}</jsp:text>
-						</s:encodeURL>
-					</c:set>
-
-					<c:set var="alt">
-						<c:set var="altTitle">
-							<c:out value="${circuit.title}" />
+							<s:checkbox name="showNonVisuals"
+								value="${circuit.showNonVisuals}"
+								onclick="showNonVisuals_clickHandler()" />
+							<jsp:text>Show Non Visuals</jsp:text>
+							<br/>
+							<c:if test="${empty circuit.user.url}">
+								<span><c:out value="${circuit.user.nickname}"/></span>
+							</c:if>
+							<c:if test="${not empty circuit.user.url}">
+								<a href="${circuit.user.url}" target="_blank"><c:out value="${circuit.user.nickname}"/></a>
+							</c:if>
+							<br/>
+							<jsp:text>last modified: </jsp:text>
+							<c:out value="${circuit.updateDate}"/>
+						</div>
+		
+						<c:set var="movie">
+							<jsp:text>${contextPath}/simcironline.swf</jsp:text>
+						
+							<jsp:text>?e=false</jsp:text>
+							<c:if test="${not circuit.showNonVisuals}">
+								<jsp:text>&amp;s=false</jsp:text>
+							</c:if>
+							
+							<jsp:text>&amp;o=openCircuitHandler</jsp:text>
+							<jsp:text>&amp;c=</jsp:text>
+							<s:encodeURL>
+								<jsp:text>${contextPath}/circuit?fmt=xml</jsp:text>
+								<jsp:text>&amp;key=${param.key}</jsp:text>
+							</s:encodeURL>
 						</c:set>
-						<img border="0" src="${contextPath}/circuit?fmt=tn&amp;key=${circuit.key}" alt="${altTitle}" />
-					</c:set>
-					
-					<s:swf 
-						id="simcir"
-						movie="${movie}"
-						width="800"
-						height="450"
-						alt="${alt}"
-					/>
-		
-					<div style="width:800px;">
-
-						<c:if test="${editable}">
-							<s:button click="edit_clickHandler()"
-								 label="Edit" />
-						</c:if>
-
-						<s:button click="addToLibrary_clickHandler()"
-							 label="Add to Library" />
-
-						<c:if test="${http}">
-							<div style="float: right;">
-		
-								<c:set var="linkURL">
-									<s:baseURL/>
-									<jsp:text>/circuit?key=${circuit.key}</jsp:text>
-								</c:set>
-								<c:set var="imgURL">
-									<s:baseURL/>
-									<jsp:text>/circuit?fmt=img&amp;key=${circuit.key}</jsp:text>
-								</c:set>
-								<c:set var="imgTag">
-									<a href="${linkURL}"><img src="${imgURL}" border="0" /></a>
-								</c:set>
-								<c:set var="imgTag">
-									<c:out value="${imgTag}"/>
-								</c:set>
-								
-								<span class="title">Link: </span>
-								<input class="img-link" type="text" value="${imgTag}" size="10" onclick="this.select()" readonly="readonly" />
 	
+						<c:set var="alt">
+							<c:set var="altTitle">
+								<c:out value="${circuit.title}" />
+							</c:set>
+							<img border="0" src="${contextPath}/circuit?fmt=tn&amp;key=${circuit.key}" alt="${altTitle}" />
+						</c:set>
+						
+						<s:swf 
+							id="simcir"
+							movie="${movie}"
+							width="800"
+							height="450"
+							alt="${alt}"
+						/>
+			
+						<div style="width:800px;">
+	
+							<c:if test="${editable}">
+								<s:button click="edit_clickHandler()"
+									 label="Edit" />
+							</c:if>
+	
+							<s:button click="addToLibrary_clickHandler()"
+								 label="Add to Library" />
+
+							<c:if test="${http}">
+								<div style="float: right;">
+			
+									<c:set var="linkURL">
+										<s:baseURL/>
+										<jsp:text>/circuit?key=${circuit.key}</jsp:text>
+									</c:set>
+									<c:set var="imgURL">
+										<s:baseURL/>
+										<jsp:text>/circuit?fmt=img&amp;key=${circuit.key}</jsp:text>
+									</c:set>
+									<c:set var="imgTag">
+										<a href="${linkURL}"><img src="${imgURL}" border="0" /></a>
+									</c:set>
+									<c:set var="imgTag">
+										<c:out value="${imgTag}"/>
+									</c:set>
+									
+									<span class="title">Link: </span>
+									<input class="img-link" type="text" value="${imgTag}" size="10" onclick="this.select()" readonly="readonly" />
+		
+								</div>
+							</c:if>
+	
+							<br style="clear: both;"/>
+	
+						</div>
+	
+						<c:if test="${http}">
+							<div style="margin:32px 0px 8px 0px;">
+								<s:socials/>
 							</div>
 						</c:if>
-
-						<br style="clear: both;"/>
-
+	
 					</div>
-
-					<c:if test="${http}">
-						<div style="margin:32px 0px 8px 0px;">
-							<s:socials/>
-						</div>
-					</c:if>
-
-				</div>
+				</form>
 		
 			</s:page>
 		</c:otherwise>

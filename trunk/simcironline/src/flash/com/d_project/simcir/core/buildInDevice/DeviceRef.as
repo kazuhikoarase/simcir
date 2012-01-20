@@ -125,6 +125,10 @@ package com.d_project.simcir.core.buildInDevice {
 			_devices = null;
 		}
 		
+		override public function get visualDevice() : Boolean {
+			return false;
+		}
+		
 		private function connectInternal(src : Node, dst : Node) : void {
 			src.addEventListener(NodeEvent.NODE_VALUE_CHANGE, function(event : NodeEvent) : void {
 				dst.value = src.value;

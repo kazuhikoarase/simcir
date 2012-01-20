@@ -25,15 +25,16 @@ package com.d_project.simcir.ui {
 		private var _outputs : Array;
 
 		private var _body : DeviceBody;
+		private var _nodes : UIBase;
 		private var _control : DisplayObject;
 		private var _labelField : TextField;
 
 		private var _selected : Boolean = false;
 
 		private var _active : Boolean = true;
-		
 		private var _editable : Boolean = true;
-
+		private var _showNonVisuals : Boolean = true;
+		
 		public function DeviceUI(device : Device) {
 
 			_device = device;
@@ -55,10 +56,8 @@ package com.d_project.simcir.ui {
 			_labelField.addEventListener(Event.CHANGE, label_changeHandler);
 			addChild(_labelField);
 
-			// body
-			_body = new DeviceBody();
-			addChild(_body);
-
+			_nodes = new UIBase();
+			
 			// in and out
 			_inputs = new Array();
 			_outputs = new Array();
@@ -68,23 +67,29 @@ package com.d_project.simcir.ui {
 			for (i = 0; i < device.inputs.length; i += 1) {
 				nodeUI = new NodeUI(device.inputs[i]);
 				_inputs.push(nodeUI);
-				_body.addChild(nodeUI);
+				_nodes.addChild(nodeUI);
 			}
 
 			for (i = 0; i < device.outputs.length; i += 1) {
 				nodeUI = new NodeUI(device.outputs[i]);
 				_outputs.push(nodeUI);
-				_body.addChild(nodeUI);
+				_nodes.addChild(nodeUI);
 			}
 
 			// control
 			_control = device.createControl();
+
+			// body
+			_body = new DeviceBody();
+			_body.addChild(_nodes);
 			_body.addChild(_control);
+			addChild(_body);
 
 			layout();
 		}
 
 		public function set active(value : Boolean) : void {
+			if (_active == value) return;
 			_active = value;
 
 			_body.mouseChildren = value;
@@ -97,6 +102,7 @@ package com.d_project.simcir.ui {
 		}
 		
 		public function set editable(value : Boolean) : void {
+			if (_editable == value) return;
 			_editable = value;
 			
 			var i : int;
@@ -113,6 +119,18 @@ package com.d_project.simcir.ui {
 
 		public function get editable() : Boolean {
 			return _editable;
+		}
+		
+		public function set showNonVisuals(value : Boolean) : void {
+			if (_showNonVisuals == value) return;
+			_showNonVisuals = value;
+
+			visible = value? true : device.visualDevice;
+			_nodes.visible = value;
+		}
+		
+		public function get showNonVisuals() : Boolean {
+			return _showNonVisuals;
 		}
 			
 		public function get label() : String {

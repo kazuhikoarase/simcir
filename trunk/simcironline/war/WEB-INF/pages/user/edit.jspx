@@ -26,7 +26,8 @@ if ("POST".equals(request.getMethod() ) ) {
 		request.getParameter("xml"),
 		request.getParameter("img"),
 		request.getParameter("tn"),
-		"1".equals(request.getParameter("private") )
+		"1".equals(request.getParameter("private") ),
+		"1".equals(request.getParameter("showNonVisuals") )
 	).getKey();
 
 	ss.putToolboxList(request.getParameter("tlxml") );
@@ -54,15 +55,20 @@ if ("POST".equals(request.getMethod() ) ) {
 		<s:script><![CDATA[
 
 var save_clickHandler = function() {
-	
-	var data = document.getElementById('simcir').getData();
+
+	var simcir = document.getElementById('simcir');
+	var form = document.forms[0];
+
+	simcir.setShowNonVisuals(form.elements['showNonVisuals'].checked);
+
+	var data = simcir.getData();
 
 	if (!data.ready) {
 		// not ready
+		simcir.setShowNonVisuals(true);
 		return;
 	}
 	
-	var form = document.forms[0];
 	form.method = 'POST';
 	form.action = contextPath + '/user/edit'; 
 	form.elements['xml'].value = data.xml;
@@ -95,20 +101,19 @@ var openCircuitHandler = function(url) {
 				<input type="hidden" name="tlxml" value=""/>
 
 				<div style="margin: 0px 0px 2px 0px;">
+
 					<span class="title">Title: </span>
 					<c:set var="title">
 						<c:out value="${circuit.title}"/>
 					</c:set>
 					<input type="text" name="title" size="20" maxlength="30" style="width: 200px;" value="${title}" />
-					<c:choose>
-						<c:when test="${circuit.private}">
-							<input type="checkbox" name="private" value="1" checked="checked" />
-						</c:when>
-						<c:otherwise>
-							<input type="checkbox" name="private" value="1" />
-						</c:otherwise>
-					</c:choose>
+
+					<s:checkbox name="private" value="${circuit.private}" />
 					<span>Private</span>
+
+					<jsp:text>&#xa0;</jsp:text>
+					<s:checkbox name="showNonVisuals" value="${circuit.showNonVisuals}" />
+					<span>Show Non Visials</span>
 				</div>
 			</form>
 
@@ -121,8 +126,8 @@ var openCircuitHandler = function(url) {
 				<s:encodeURL>http://localhost:1080/zzz/BasicSet.xml</s:encodeURL>
  -->
 				<jsp:text>&amp;tl=</jsp:text>
-				<s:encodeURL>${contextPath}/user/toolbox-list</s:encodeURL>
-				
+				<s:encodeURL>${contextPath}/toolbox-list</s:encodeURL>
+
 				<jsp:text>&amp;l=</jsp:text>
 				<s:encodeURL>${contextPath}/user/library?fmt=xml</s:encodeURL>
 

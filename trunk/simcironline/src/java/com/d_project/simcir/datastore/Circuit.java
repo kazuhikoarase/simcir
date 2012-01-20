@@ -20,6 +20,7 @@ public class Circuit implements Serializable {
 	private byte[] thumbnail;
 	private User user;
 	private boolean _private;
+	private boolean showNonVisuals;
 	private List<String> refKeys;
 	
 	public Circuit() {
@@ -78,6 +79,12 @@ public class Circuit implements Serializable {
 	}
 	public void setPrivate(boolean value) {
 		this._private = value;
+	}
+	public boolean isShowNonVisuals() {
+		return showNonVisuals;
+	}
+	public void setShowNonVisuals(boolean showNonVisuals) {
+		this.showNonVisuals = showNonVisuals;
 	}
 	public List<String> getRefKeys() {
 		return refKeys;

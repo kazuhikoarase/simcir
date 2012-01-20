@@ -29,6 +29,8 @@ package com.d_project.simcir.ui.workspaceClasses {
 
 		private var _editable : Boolean = true;
 		
+		private var _showNonVisuals : Boolean = true;
+		
 		private var _start : int;
 
 		public function DevicePane() {
@@ -45,10 +47,21 @@ package com.d_project.simcir.ui.workspaceClasses {
 		public function set editable(value : Boolean) : void {
 			if (_editable == value) return;
 			_editable = value;
+			invalidate();
 		}
 		
 		public function get editable() : Boolean {
 			return _editable;
+		}
+		
+		public function set showNonVisuals(value : Boolean) : void {
+			if (_showNonVisuals == value) return;
+			_showNonVisuals = value;
+			invalidate();
+		}
+
+		public function get showNonVisuals() : Boolean {
+			return _showNonVisuals;
 		}
 		
 		public function load(url : String) : void {
@@ -69,7 +82,10 @@ package com.d_project.simcir.ui.workspaceClasses {
 
 			removeAllChildren();
 			for (var i : int = 0; i < loader.devices.length; i += 1) {
-				addChild(new DeviceUI(loader.devices[i]) );
+				var deviceUI : DeviceUI = new DeviceUI(loader.devices[i]);
+				deviceUI.editable = editable;
+				deviceUI.showNonVisuals = showNonVisuals;
+				addChild(deviceUI);
 			}
 			adjust(true);
 			
@@ -79,6 +95,8 @@ package com.d_project.simcir.ui.workspaceClasses {
 			_ready = true;
 
 			dispatchEvent(event);
+			
+			invalidate();
 		}
 
 		public function get xml() : XML {
@@ -135,6 +153,11 @@ package com.d_project.simcir.ui.workspaceClasses {
 			mouseEnabled = editable;
 			forEachChild(function(deviceUI : DeviceUI) : void {
 				deviceUI.editable = editable;
+			} );
+
+			// snv
+			forEachChild(function(deviceUI : DeviceUI) : void {
+				deviceUI.showNonVisuals = showNonVisuals;
 			} );
 
 			// draw background

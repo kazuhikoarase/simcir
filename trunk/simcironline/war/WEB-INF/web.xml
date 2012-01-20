@@ -50,7 +50,7 @@
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>Simcir</servlet-name>
-		<url-pattern>/user/toolbox-list</url-pattern>
+		<url-pattern>/toolbox-list</url-pattern>
 	</servlet-mapping>
 
 	<welcome-file-list>
