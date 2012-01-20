@@ -7,6 +7,7 @@ package com.d_project.simcir.core {
 	import flash.display.Sprite;
 	import flash.events.EventDispatcher;
 	import flash.system.LoaderContext;
+	import flash.utils.getQualifiedClassName;
 
 	use namespace simcir_core;
 
@@ -69,7 +70,7 @@ package com.d_project.simcir.core {
 		public function init(loaderContext : LoaderContext, deviceDef : XML) : void {
 			_deviceDef = deviceDef;
 			id = _deviceDef.@id;
-			label = _deviceDef.@label.length > 0?
+			label = _deviceDef.@label.length()?
 				_deviceDef.@label : _deviceDef.@type;
 		}
 
