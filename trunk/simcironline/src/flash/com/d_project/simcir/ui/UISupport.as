@@ -26,7 +26,7 @@ package com.d_project.simcir.ui {
 		function get color() : uint;
 		
 		/**
-		 * Visible device (show always)
+		 * Visual device
 		 */
 		function get visualDevice() : Boolean;
 
