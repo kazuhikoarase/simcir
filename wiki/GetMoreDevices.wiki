@@ -59,14 +59,14 @@ Then 'MoreSet' menu will be added.
 
 http://simcir.googlecode.com/svn/assets/toolbox/AddToolbox3.png
 
-You could deploy a custom [ToolboxDefinitionFile Toolbox Definition File]
-on your site.
+Your custom [ToolboxDefinitionFile Toolbox Definition File]
+could deploy on your site.
+Please beware to a [CrossDomain crossdomain.xml] file required at host root.
+
 {{{
 http://www.example.com/YourSet.xml
                       /crossdomain.xml
 }}}
-
-Please beware to a [CrossDomain crossdomain.xml] file required at host root.
 
 In additionally, you could create your original device with
 [http://code.google.com/p/simcir/downloads/list SDK].
