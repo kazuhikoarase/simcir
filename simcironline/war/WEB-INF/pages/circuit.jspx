@@ -90,7 +90,7 @@ try {
 			<jsp:scriptlet><![CDATA[
 {
 	Circuit circuit = (Circuit)pageContext.getAttribute("circuit");
-	pageContext.setAttribute("numReferred", circuit.getRefKeys().size() );
+//	pageContext.setAttribute("numReferred", circuit.getRefKeys().size() );
 
 	response.setContentType("text/html;charset=UTF-8");
 }
