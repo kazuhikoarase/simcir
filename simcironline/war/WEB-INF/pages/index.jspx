@@ -21,6 +21,8 @@ pageContext.setAttribute("circuitList", ss.getRecentCircuitList(currentPage) );
 
 	<s:page description="simcir is online circuit simulator" >
 
+		<span><a href="http://code.google.com/p/simcir/wiki/GetMoreDevices">Get More Devices</a></span>
+
 		<h3>Recent Circuits</h3>
 
 		<s:button label="Create" click="location.href= contextPath + '/user/edit';"/>
