@@ -73,7 +73,7 @@ class Control extends UIBase {
 	}
 	
 	private var _device : Device;
-	private var _7seg : Sprite;
+	private var _seg : Sprite;
 	private var _hiColor : uint;
 	private var _loColor : uint;
 	
@@ -83,8 +83,8 @@ class Control extends UIBase {
 		mouseEnabled = false;
 		mouseChildren = false;
 		
-		_7seg = new Sprite();
-		addChild(_7seg);
+		_seg = new Sprite();
+		addChild(_seg);
 		
 		var ns : Namespace = DeviceLoader.NS;
 		_hiColor = GraphicsUtil.parseColor(
@@ -102,16 +102,16 @@ class Control extends UIBase {
 			}
 		}
 		
-		var g7s : Graphics = _7seg.graphics;
-		g7s.clear();
-		var size : Object = GraphicsUtil.drawSegment(
-			g7s, getPattern(value),
+		var segG : Graphics = _seg.graphics;
+		segG.clear();
+		var size : Object = GraphicsUtil.draw7seg(
+			segG, getPattern(value),
 			_hiColor, _loColor, 0x000000);
 		
 		var scale : Number = UIConstants.UNIT * 3.5 / size.height;
-		_7seg.scaleX = scale;
-		_7seg.scaleY = scale;
-		_7seg.x = (parent.width - _7seg.width) / 2;
-		_7seg.y = (parent.height - _7seg.height) / 2;
+		_seg.scaleX = scale;
+		_seg.scaleY = scale;
+		_seg.x = (parent.width - _seg.width) / 2;
+		_seg.y = (parent.height - _seg.height) / 2;
 	}
 }

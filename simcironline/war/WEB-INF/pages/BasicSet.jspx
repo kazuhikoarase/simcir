@@ -37,6 +37,8 @@
 		<device factory="${basicSet}" type="4bit7seg" label="4bit 7seg" />
 		<device factory="${basicSet}" type="4bitVol" label="4bit Volume" />
 
+		<device factory="${basicSet}" type="16seg" />
+
 	</simcir>
 
 </jsp:root>

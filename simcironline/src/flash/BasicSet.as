@@ -4,6 +4,7 @@ package {
 	import com.d_project.simcir.core.DeviceFactory;
 	import com.d_project.simcir.device.DirectCurrent;
 	import com.d_project.simcir.device.LED;
+	import com.d_project.simcir.device.LED16seg;
 	import com.d_project.simcir.device.LED4bit;
 	import com.d_project.simcir.device.LED7seg;
 	import com.d_project.simcir.device.LogicGate;
@@ -48,6 +49,8 @@ package {
 				return new Oscillator();
 			case "7seg" :
 				return new LED7seg();
+			case "16seg" :
+				return new LED16seg();
 			case "4bit7seg" :
 				return new LED4bit();
 			case "4bitVol" :
