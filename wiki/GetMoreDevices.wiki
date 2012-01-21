@@ -61,7 +61,7 @@ http://simcir.googlecode.com/svn/assets/toolbox/AddToolbox3.png
 
 Your custom [ToolboxDefinitionFile Toolbox Definition File]
 could deploy on your site.
-Please beware to a [CrossDomain crossdomain.xml] file required at host root.
+Please beware to a [CrossDomain crossdomain.xml] required at host root.
 
 {{{
 http://www.example.com/YourSet.xml
