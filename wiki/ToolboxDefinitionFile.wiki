@@ -1,3 +1,5 @@
+=Toolbox Definition File=
+
 The Toolbox Definition File defines  [http://simcir.googlecode.com/svn/assets/toolbox/BasicSet.png a list of devices].
 
 {{{
@@ -25,14 +27,14 @@ The Toolbox Definition File defines  [http://simcir.googlecode.com/svn/assets/to
 </simcir>
 }}}
 
-=== Simcir Element ===
+==Simcir Element==
 
 The simcir element is a root element of a file.
 
 || *Attribute* || *Required* || *Description* ||
 || title || No || Title of a toolbox. || 
 
-=== Device Element ===
+==Device Element==
 
 The device element defines a device.
 
@@ -41,7 +43,7 @@ The device element defines a device.
 || type || Yes || Type name of a device. ||
 || label || No || Label of a device. If absence, type attribute is applied. ||
 
-=== Param Element ===
+==Param Element==
 
 Optionally, the device element could have the param elements.
 
