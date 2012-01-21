@@ -1,7 +1,5 @@
 =More Devices=
-<wiki:comment>
-
-Here is a [ToolboxDefinitionFile Toolbox Definition File] of the BasicSet you see at first.
+Here is a [ToolboxDefinitionFile Toolbox Definition File] of the [http://simcir.googlecode.com/svn/assets/toolbox/toolbox.png BasicSet] you see at first.
 {{{
 <?xml version="1.0" encoding="UTF-8" ?>
 <simcir xmlns="http://www.d-project.com/simcir/2012" title="BasicSet">
@@ -50,8 +48,7 @@ LED related devices could change a color by the parameter 'color'.
 	</device>
 </simcir>
 }}}
-Deploy a file to your site and add it to toolbox.
+
+For example, open the toolbox menu and replace 'http://' with '[http://simcironline.appspot.com/MoreSet.xml /MoreSet.xml]' and push plus button. Then 'MoreSet' menu will be added.
 
 http://simcir.googlecode.com/svn/assets/toolbox/addToolbox.png
-
-</wiki:comment>
