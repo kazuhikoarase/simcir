@@ -1,6 +1,6 @@
 =More Devices=
 
-Here is a [ToolboxDefinitionFile Toolbox Definition File] of the [http://simcir.googlecode.com/svn/assets/toolbox/BasicSet.png BasicSet] you see at first.
+Here is a [ToolboxDefinitionFile Toolbox Definition File] of the BasicSet you see at first.
 {{{
 <?xml version="1.0" encoding="UTF-8" ?>
 <simcir xmlns="http://www.d-project.com/simcir/2012" title="BasicSet">
