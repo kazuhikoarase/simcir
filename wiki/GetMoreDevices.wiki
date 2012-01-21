@@ -67,3 +67,8 @@ http://www.example.com/YourSet.xml
 }}}
 
 Please beware to a [CrossDomain crossdomain.xml] file required at host root.
+
+In additionally, you could create your original device with
+[http://code.google.com/p/simcir/downloads/list SDK].
+
+Enjoy!
