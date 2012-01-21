@@ -70,3 +70,5 @@ http://www.example.com/YourSet.xml
 
 In additionally, you could create your original device with
 [http://code.google.com/p/simcir/downloads/list SDK].
+
+<g:plusone size="medium"></g:plusone>
