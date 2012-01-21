@@ -1,4 +1,4 @@
-The Toolbox Definition File defines a list of devices.
+The Toolbox Definition File defines  [http://simcir.googlecode.com/svn/assets/toolbox/toolbox.png a list of devices].
 
 {{{
 <?xml version="1.0" encoding="UTF-8" ?>
@@ -50,10 +50,7 @@ Optionally, the device element could have the param elements.
 || value || Yes || Value of parameter ||
 
 {{{
-<?xml version="1.0" encoding="UTF-8" ?>
-<simcir xmlns="http://www.d-project.com/simcir/2012" title="MoreSet">
-	<device factory="/BasicSet.swf" type="NAND" label="NAND(3in)">
-		<param name="numInputs" value="3"/>
-	</device>
-</simcir>
+<device factory="/BasicSet.swf" type="NAND" label="NAND(3in)">
+	<param name="numInputs" value="3"/>
+</device>
 }}}
