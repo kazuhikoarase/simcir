@@ -55,7 +55,7 @@ For example, open the toolbox menu and replace 'http://' with '[http://simcironl
 http://simcir.googlecode.com/svn/assets/toolbox/AddToolbox.png
 http://simcir.googlecode.com/svn/assets/toolbox/AddToolbox2.png
 
-Then 'MoreSet' menu will be added.
+Then 'MoreSet' will be added.
 
 http://simcir.googlecode.com/svn/assets/toolbox/AddToolbox3.png
 
