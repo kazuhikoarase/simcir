@@ -24,9 +24,12 @@ pageContext.setAttribute("circuitList", ss.getRecentCircuitList(currentPage) );
 		<h3>Recent Circuits</h3>
 
 		<s:button label="Create" click="location.href= contextPath + '/user/edit';"/>
+<!-- 
 		<c:if test="${not isUserLoggedIn}">
 			<s:button label="Try it Now!" click="location.href= contextPath + '/circuit?try';"/>
 		</c:if>
+-->
+
 		<br/>
 
 		<jsp:text>Total: </jsp:text>
