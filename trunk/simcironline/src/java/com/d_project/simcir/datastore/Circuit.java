@@ -21,8 +21,7 @@ public class Circuit implements Serializable {
 	private User user;
 	private boolean _private;
 	private boolean showNonVisuals;
-	private List<String> refKeys;
-	
+
 	public Circuit() {
 	}
 	
@@ -85,11 +84,5 @@ public class Circuit implements Serializable {
 	}
 	public void setShowNonVisuals(boolean showNonVisuals) {
 		this.showNonVisuals = showNonVisuals;
-	}
-	public List<String> getRefKeys() {
-		return refKeys;
-	}
-	public void setRefKeys(List<String> refKeys) {
-		this.refKeys = refKeys;
 	}
 }

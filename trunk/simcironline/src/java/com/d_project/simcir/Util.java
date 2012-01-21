@@ -29,8 +29,6 @@ public class Util {
 
 	private static final String DEV_EXPR = "simcir/device";
 
-	private static final String REF_EXPR = "simcir/device[string-length(@factory)=0 and @type='Ref']/param[@name='url']/@value";
-	
 	public static boolean isEmpty(String s) {
 		return s == null || s.length() == 0;
 	}
@@ -129,14 +127,6 @@ public class Util {
 		return (NodeList)XPathFactory.
 			newInstance().newXPath().
 			compile(DEV_EXPR).
-			evaluate(doc, XPathConstants.NODESET);
-	}
-
-	public static NodeList getDeviceRefUrls(Document doc) 
-	throws Exception {
-		return (NodeList)XPathFactory.
-			newInstance().newXPath().
-			compile(REF_EXPR).
 			evaluate(doc, XPathConstants.NODESET);
 	}
 }
