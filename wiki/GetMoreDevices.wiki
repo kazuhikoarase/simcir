@@ -58,3 +58,10 @@ http://simcir.googlecode.com/svn/assets/toolbox/AddToolbox2.png
 Then 'MoreSet' menu will be added.
 
 http://simcir.googlecode.com/svn/assets/toolbox/AddToolbox3.png
+
+You could deploy a custom [ToolboxDefinitionFile Toolbox Definition File] on your own site.
+{{{
+http://www.example.com/MoreSet.xml
+                      /crossdomain.xml
+}}}
+
