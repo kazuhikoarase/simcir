@@ -1,21 +1,5 @@
 The Toolbox Definition File defines a list of devices.
 
-=== Simcir Element ===
-
-The simcir element is a root element of a file.
-
-|| *Attribute* || *Required* || *Description* ||
-|| title || No || Title of a toolbox. || 
-
-=== Device Element ===
-
-The device element defines a device.
-
-|| *Attribute* || *Required* || *Description* ||
-|| factory || Yes || URL of a factory that provides a device. If absence, it treated as a built in device. URL need to be an absolute path. ||
-|| type || Yes || Type name of a device. ||
-|| label || No || Label of a device. If absence, type attribute is applied. ||
-
 {{{
 <?xml version="1.0" encoding="UTF-8" ?>
 <simcir xmlns="http://www.d-project.com/simcir/2012" title="BasicSet">
@@ -40,6 +24,22 @@ The device element defines a device.
 	<device factory="/BasicSet.swf" type="4bitVol" label="4bit Volume" />
 </simcir>
 }}}
+
+=== Simcir Element ===
+
+The simcir element is a root element of a file.
+
+|| *Attribute* || *Required* || *Description* ||
+|| title || No || Title of a toolbox. || 
+
+=== Device Element ===
+
+The device element defines a device.
+
+|| *Attribute* || *Required* || *Description* ||
+|| factory || Yes || URL of a factory that provides a device. If absence, it treated as a built in factory. URL need to be an absolute path. ||
+|| type || Yes || Type name of a device. ||
+|| label || No || Label of a device. If absence, type attribute is applied. ||
 
 === Param Element ===
 
