@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<simcir xmlns="http://www.d-project.com/simcir/2012" 
+		title="MyToolbox" >
+	<!-- 
+		@factory : Absolute URL to a factory swf. 
+		@type : type of device
+		@label : label for device
+	-->
+	<device factory="http://simcironline.appspot.com/MyToolbox.swf" type="Switch" label="Red SW">
+		<param name="color" value="red" />
+	</device>
+	<device factory="http://simcironline.appspot.com/MyToolbox.swf" type="Switch" label="Green SW">
+		<param name="color" value="green" />
+	</device>
+	<device factory="http://simcironline.appspot.com/MyToolbox.swf" type="Switch" label="Blue SW">
+		<param name="color" value="blue" />
+	</device>
+</simcir>
