@@ -8,12 +8,12 @@ package com.d_project.simcir.device {
 	import flash.system.LoaderContext;
 	
 	/**
-	 * LED7seg
+	 * LED16seg
 	 * @author kazuhiko arase
 	 */
-	public class LED7seg extends Device {
+	public class LED16seg extends Device {
 		
-		public function LED7seg() {
+		public function LED16seg() {
 		}
 		
 		override public function init(loaderContext : LoaderContext, deviceDef : XML) : void {
@@ -48,7 +48,7 @@ import flash.display.Sprite;
 
 class Control extends UIBase {
 
-	public static const PATTERNS : String= "abcdefg.";
+	public static const PATTERNS : String= "abcdefghijklmnop.";
 	
 	private var _device : Device;
 	private var _seg : Sprite;
@@ -82,7 +82,7 @@ class Control extends UIBase {
 
 		var segG : Graphics = _seg.graphics;
 		segG.clear();
-		var size : Object = GraphicsUtil.draw7seg(
+		var size : Object = GraphicsUtil.draw16seg(
 			segG, pattern,
 			_hiColor, _loColor, 0x000000);
 
