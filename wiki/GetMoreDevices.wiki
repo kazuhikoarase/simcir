@@ -67,8 +67,8 @@ Please beware to a [CrossDomain crossdomain.xml] required at host root.
 http://www.example.com/YourSet.xml
                       /crossdomain.xml
 }}}
-<wiki:comment>
-In additionally, you could create your original device with
+
+In additionally, you could create a custom device with
 [http://code.google.com/p/simcir/downloads/list SDK].
-</wiki:comment>
+
 <g:plusone size="medium"></g:plusone>
