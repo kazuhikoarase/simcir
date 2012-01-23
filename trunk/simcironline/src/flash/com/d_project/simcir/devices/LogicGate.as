@@ -1,4 +1,4 @@
-package com.d_project.simcir.device {
+package com.d_project.simcir.devices {
 
 	import com.d_project.simcir.core.Device;
 	import com.d_project.simcir.core.DeviceLoader;
@@ -126,8 +126,8 @@ package com.d_project.simcir.device {
 	}
 }
 
-import com.d_project.simcir.core.Device;
-import com.d_project.simcir.device.GraphicsUtil;
+import com.d_project.simcir.devices.GraphicsUtil;
+import com.d_project.simcir.devices.LogicGate;
 import com.d_project.simcir.ui.UIConstants;
 import com.d_project.ui.UIBase;
 
@@ -135,39 +135,39 @@ import flash.display.Graphics;
 
 class Control extends UIBase {
 
-	private var _device : Device;
-	private var _drawFunc : Function;
+	private var _gate : LogicGate;
+	private var _draw : Function;
 
-	public function Control(device : Device) : void {
-		_device = device;
+	public function Control(gate : LogicGate) : void {
+		_gate = gate;
 		mouseEnabled = false;
 
-		var type : String = device.deviceDef.@type;
+		var type : String = gate.deviceDef.@type;
 
 		switch(type) {
 		case "BUF" :
-			_drawFunc = GraphicsUtil.drawBuffer;
+			_draw = GraphicsUtil.drawBuffer;
 			break;
 		case "NOT" :
-			_drawFunc = GraphicsUtil.drawNOT;
+			_draw = GraphicsUtil.drawNOT;
 			break;
 		case "AND" :
-			_drawFunc = GraphicsUtil.drawAND;
+			_draw = GraphicsUtil.drawAND;
 			break;
 		case "NAND" :
-			_drawFunc = GraphicsUtil.drawNAND;
+			_draw = GraphicsUtil.drawNAND;
 			break;
 		case "OR" :
-			_drawFunc = GraphicsUtil.drawOR;
+			_draw = GraphicsUtil.drawOR;
 			break;
 		case "NOR" :
-			_drawFunc = GraphicsUtil.drawNOR;
+			_draw = GraphicsUtil.drawNOR;
 			break;
 		case "EOR" :
-			_drawFunc = GraphicsUtil.drawEOR;
+			_draw = GraphicsUtil.drawEOR;
 			break;
 		case "ENOR" :
-			_drawFunc = GraphicsUtil.drawENOR;
+			_draw = GraphicsUtil.drawENOR;
 			break;
 		default :
 			throw new Error(type);
@@ -178,7 +178,7 @@ class Control extends UIBase {
 		super.update(g);
 		g.lineStyle(1, 0x000000);
 		var size : Number = UIConstants.UNIT;
-		_drawFunc(g,
+		_draw(g,
 			(parent.width - size) / 2,
 			(parent.height - size) / 2,
 			size, size);

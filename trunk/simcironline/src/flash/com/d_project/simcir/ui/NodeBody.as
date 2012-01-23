@@ -29,7 +29,7 @@ package com.d_project.simcir.ui {
 					UIConstants.HOT_NODE_BORDER_COLOR :
 					UIConstants.NODE_BORDER_COLOR) );
 			g.beginFill(color);
-			g.drawCircle(0, 0, UIConstants.UNIT / 4);
+			g.drawCircle(0, 0, UIConstants.UNIT / 4 - 0.5);
 			g.endFill();
 		}
 	}

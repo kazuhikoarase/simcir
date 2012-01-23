@@ -1,4 +1,4 @@
-package com.d_project.simcir.device {
+package com.d_project.simcir.devices {
 	
 	import com.d_project.simcir.core.Device;
 	import com.d_project.simcir.ui.UIConstants;
@@ -8,27 +8,27 @@ package com.d_project.simcir.device {
 	import flash.system.LoaderContext;
 	
 	/**
-	 * LED16seg
+	 * LED4bit
 	 * @author kazuhiko arase
 	 */
-	public class LED16seg extends Device {
+	public class LED4bit extends Device {
 		
-		public function LED16seg() {
+		public function LED4bit() {
 		}
 		
 		override public function init(loaderContext : LoaderContext, deviceDef : XML) : void {
 			super.init(loaderContext, deviceDef);
-			for (var i : int = 0; i < Control.PATTERNS.length; i += 1) {
+			for (var i : int = 0; i < 4; i += 1) {
 				addInput();
 			}
 		}
 		
-		override public function get color() : uint {
-			return 0x999999;
-		}
-		
 		override public function get widthInUnit():Number {
 			return 4;
+		}
+		
+		override public function get color() : uint {
+			return 0x999999;
 		}
 		
 		override public function createControl() : DisplayObject {
@@ -37,9 +37,9 @@ package com.d_project.simcir.device {
 	}
 }
 
-import com.d_project.simcir.core.Device;
 import com.d_project.simcir.core.DeviceLoader;
-import com.d_project.simcir.device.GraphicsUtil;
+import com.d_project.simcir.devices.GraphicsUtil;
+import com.d_project.simcir.devices.LED4bit;
 import com.d_project.simcir.ui.UIConstants;
 import com.d_project.ui.UIBase;
 
@@ -48,14 +48,36 @@ import flash.display.Sprite;
 
 class Control extends UIBase {
 
-	public static const PATTERNS : String= "abcdefghijklmnop.";
+	private static const _PATTERNS : Object = {
+		"0" : "abcdef",
+		"1" : "bc",
+		"2" : "abdeg",
+		"3" : "abcdg",
+		"4" : "bcfg",
+		"5" : "acdfg",
+		"6" : "acdefg",
+		"7" : "abc",
+		"8" : "abcdefg",
+		"9" : "abcdfg",	
+
+		"a" : "abcefg",
+		"b" : "cdefg",
+		"c" : "adef",
+		"d" : "bcdeg",
+		"e" : "adefg",
+		"f" : "aefg"
+	};
+
+	private static function getPattern(value : int) : String {
+		return _PATTERNS["0123456789abcdef".charAt(value)];
+	}
 	
-	private var _device : Device;
+	private var _device : LED4bit;
 	private var _seg : Sprite;
 	private var _hiColor : uint;
 	private var _loColor : uint;
 	
-	public function Control(device : Device) : void {
+	public function Control(device : LED4bit) : void {
 		
 		_device = device;
 		mouseEnabled = false;
@@ -63,7 +85,7 @@ class Control extends UIBase {
 		
 		_seg = new Sprite();
 		addChild(_seg);
-
+		
 		var ns : Namespace = DeviceLoader.NS;
 		_hiColor = GraphicsUtil.parseColor(
 			device.deviceDef.ns::param.(@name == "color").@value) || 0xff0000;
@@ -73,20 +95,28 @@ class Control extends UIBase {
 	override protected function update(g : Graphics) : void {
 		super.update(g);
 
-		var pattern : String = "";
-		for (var i : int = 0; i < PATTERNS.length; i += 1) {
+		var value : int = 0;
+		for (var i : int = 0; i < 4; i += 1) {
 			if (_device.isHot(_device.inputs[i].value) ) {
-				pattern += PATTERNS.charAt(i);
+				value += (1 << i);
 			}
 		}
-
+		
 		var segG : Graphics = _seg.graphics;
 		segG.clear();
-		var size : Object = GraphicsUtil.draw16seg(
-			segG, pattern,
+		var size : Object = GraphicsUtil.draw7seg(
+			segG, getPattern(value),
 			_hiColor, _loColor, 0x000000);
+		
+		var sw : Number = size.width;
+		var sh : Number = size.height;
+		var dw : Number = _device.widthInUnit;
+		var dh : Number = _device.heightInUnit;
+		
+		var scale : Number = (sw / sh > dw / dh)?
+			UIConstants.UNIT * (dw - 1) / sw :
+			UIConstants.UNIT * (dh - 1) / sh;
 
-		var scale : Number = UIConstants.UNIT * 5 / size.height;
 		_seg.scaleX = scale;
 		_seg.scaleY = scale;
 		_seg.x = (parent.width - _seg.width) / 2;

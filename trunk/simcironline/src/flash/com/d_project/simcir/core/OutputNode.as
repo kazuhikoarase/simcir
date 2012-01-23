@@ -28,7 +28,7 @@ package com.d_project.simcir.core {
 			}
 			inputNodes.push(inputNode);
 			inputNode.outputNode = this;
-			inputNode.value = value;
+			inputNode.setValue(value, true);
 		}
 
 		override simcir_core function disconnect() : void {

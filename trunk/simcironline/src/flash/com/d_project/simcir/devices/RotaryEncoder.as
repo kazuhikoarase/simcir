@@ -1,4 +1,4 @@
-package com.d_project.simcir.device {
+package com.d_project.simcir.devices {
 	
 	import com.d_project.simcir.core.Device;
 	import com.d_project.simcir.core.NodeEvent;
@@ -8,14 +8,14 @@ package com.d_project.simcir.device {
 	import flash.system.LoaderContext;
 	
 	/**
-	 * Volume4bit
+	 * RotaryEncoder
 	 * @author kazuhiko arase
 	 */
-	public class Volume4bit extends Device {
+	public class RotaryEncoder extends Device {
 
 		private var _value : int = 0;
 		
-		public function Volume4bit() {
+		public function RotaryEncoder() {
 		}
 
 		override public function init(loaderContext : LoaderContext, deviceDef : XML) : void {
@@ -59,8 +59,7 @@ package com.d_project.simcir.device {
 	}
 }
 
-import com.d_project.simcir.core.Device;
-import com.d_project.simcir.device.Volume4bit;
+import com.d_project.simcir.devices.RotaryEncoder;
 import com.d_project.simcir.ui.UIConstants;
 import com.d_project.ui.UIBase;
 
@@ -74,12 +73,12 @@ class Control extends UIBase {
 	private static const _MIN_ANGLE : Number = 45;
 	private static const _MAX_ANGLE : Number = 315;
 
-	private var _device : Device;
+	private var _vol : RotaryEncoder;
 
 	private var _theta : Number = 0;
 
-	public function Control(device : Device) : void {
-		_device = device;
+	public function Control(vol : RotaryEncoder) : void {
+		_vol = vol;
 		angle = 45;
 	}
 	
@@ -88,8 +87,7 @@ class Control extends UIBase {
 		_theta = angleToTheta(Math.max(_MIN_ANGLE,
 			Math.min(value, _MAX_ANGLE) ) );
 		
-		var vol : Volume4bit = _device as Volume4bit;
-		vol.value = Math.min( ( (angle - _MIN_ANGLE) /
+		_vol.value = Math.min( ( (angle - _MIN_ANGLE) /
 			(_MAX_ANGLE - _MIN_ANGLE) * 16), 15);
 
 		invalidate();

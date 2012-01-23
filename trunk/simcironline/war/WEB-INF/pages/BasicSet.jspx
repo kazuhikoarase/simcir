@@ -34,8 +34,10 @@
 		<device factory="${basicSet}" type="OSC" />
 
 		<device factory="${basicSet}" type="7seg" />
+		<device factory="${basicSet}" type="16seg" />
+
 		<device factory="${basicSet}" type="4bit7seg" label="4bit 7seg" />
-		<device factory="${basicSet}" type="4bitVol" label="4bit Volume" />
+		<device factory="${basicSet}" type="RotaryEncoder" label="Rotary Encoder" />
 
 	</simcir>
 

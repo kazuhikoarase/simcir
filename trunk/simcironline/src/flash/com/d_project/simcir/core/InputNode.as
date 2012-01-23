@@ -30,7 +30,7 @@ package com.d_project.simcir.core {
 			outputNode.inputNodes = outputNode.inputNodes.slice(0, index).
 				concat(outputNode.inputNodes.slice(index + 1) )
 			outputNode = null;
-			value = null;
+			setValue(null, true);
 		}
 	}
 }

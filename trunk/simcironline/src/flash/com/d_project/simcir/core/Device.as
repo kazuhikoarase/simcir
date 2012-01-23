@@ -167,7 +167,9 @@ package com.d_project.simcir.core {
 		 *  @inheritDoc
 		 */
 		public function get heightInUnit() : Number {
-			return Math.max(2, inputs.length, outputs.length);
+			return halfPitch?
+				Math.max(2, 0.5 + Math.max(inputs.length / 2, outputs.length / 2) ) :
+				Math.max(2, inputs.length, outputs.length);
 		}
 		
 		/**
@@ -182,6 +184,13 @@ package com.d_project.simcir.core {
 		 */
 		public function get visualDevice() : Boolean {
 			return true;
+		}
+
+		/**
+		 *  @inheritDoc
+		 */
+		public function get halfPitch() : Boolean {
+			return false;
 		}
 
 		/**

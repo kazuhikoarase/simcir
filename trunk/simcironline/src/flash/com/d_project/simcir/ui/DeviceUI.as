@@ -57,7 +57,8 @@ package com.d_project.simcir.ui {
 			addChild(_labelField);
 
 			_nodes = new UIBase();
-			
+			_nodes.mouseEnabled = false;
+
 			// in and out
 			_inputs = new Array();
 			_outputs = new Array();
@@ -194,12 +195,15 @@ package com.d_project.simcir.ui {
 
 			measure();
 
+			var pitch : Number = device.halfPitch?
+					UIConstants.UNIT / 2 : UIConstants.UNIT;
+
 			var layoutNodes : Function = function(nodes : Array, x : Number) : void {
-				var offset : Number = (height - UIConstants.UNIT * (nodes.length - 1) ) / 2;
+				var offset : Number = (height - pitch * (nodes.length - 1) ) / 2;
 				for (var i : int = 0; i < nodes.length; i += 1) {
 					var nodeUI : NodeUI = nodes[i];
 					nodeUI.x = x;
-					nodeUI.y = UIConstants.UNIT * i + offset;
+					nodeUI.y = pitch * i + offset;
 				}
 			};
 

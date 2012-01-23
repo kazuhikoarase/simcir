@@ -54,8 +54,12 @@ package com.d_project.simcir.core {
 		}
 
 		public function set value(value : Object) : void {
+			setValue(value, false);
+		}
+		
+		simcir_core function setValue(value : Object, force : Boolean) : void {
 
-			if (_value == value) {
+			if (_value == value && !force) {
 				return;
 			}
 
