@@ -1,4 +1,4 @@
-package com.d_project.simcir.device {
+package com.d_project.simcir.devices {
 
 	import com.d_project.simcir.core.Device;
 	import com.d_project.simcir.core.NodeEvent;
@@ -68,55 +68,61 @@ package com.d_project.simcir.device {
 	}
 }
 
-import com.d_project.simcir.core.Device;
-import com.d_project.simcir.device.Switch;
+import com.d_project.simcir.devices.Switch;
 import com.d_project.simcir.ui.UIConstants;
 import com.d_project.ui.UIBase;
 
+import flash.display.GradientType;
 import flash.display.Graphics;
 import flash.events.Event;
 import flash.events.MouseEvent;
+import flash.geom.Matrix;
 
 class Control extends UIBase {
 
-	private var _device : Device;
+	private var _sw : Switch;
 
 	private var _down : Boolean = false;
 
-	public function Control(device : Device) : void {
-		_device = device;
+	public function Control(sw : Switch) : void {
+		_sw = sw;
 	}
 
 	override protected function update(g : Graphics) : void {
 		super.update(g);
-		var sw : Switch = _device as Switch;
 		var size : Number = UIConstants.UNIT;
 		g.lineStyle(2, mouseOver?
 			0x6666ff :
 			UIConstants.BORDER_COLOR);
-		g.beginFill(_down? 0x999999 : _device.color);
-		g.drawRoundRect(
-			(parent.width - size) / 2,
-			(parent.height - size) / 2,
-			size, size, 4, 4);
+		var mat : Matrix = new Matrix();
+		var rx : Number = (parent.width - size) / 2;
+		var ry : Number = (parent.height - size) / 2;
+		mat.createGradientBox(size, size, Math.PI / 2, rx, ry);
+//		g.beginFill(_down? 0x999999 : _sw.color);
+		g.beginGradientFill(
+			GradientType.LINEAR,
+			_down?
+				[0x3333cc, 0xddddff] : 
+				[0xddddff, 0x3333cc],
+			[1, 1], [0, 255],mat);
+		g.drawRoundRect(rx, ry, size, size, 4, 4);
 		g.endFill();
 	}
 
 	override protected function mouseDownHandler(event : MouseEvent) : void {
 		super.mouseDownHandler(event);
-		var sw : Switch = _device as Switch;
-		switch(sw.type) {
+		switch(_sw.type) {
 		case Switch.PUSH_ON :
-			sw.on = true;
+			_sw.on = true;
 			_down = true;
 			break;
 		case Switch.PUSH_OFF :
-			sw.on = false;
+			_sw.on = false;
 			_down = true;
 			break;
 		case Switch.TOGGLE :
-			sw.on = !sw.on;
-			_down = sw.on;
+			_sw.on = !_sw.on;
+			_down = _sw.on;
 			break;
 		default :
 			throw new Error();
@@ -125,18 +131,17 @@ class Control extends UIBase {
 
 	override protected function mouseUpHandler(event : Event) : void {
 		super.mouseUpHandler(event);
-		var sw : Switch = _device as Switch;
-		switch(sw.type) {
+		switch(_sw.type) {
 		case Switch.PUSH_ON :
-			sw.on = false;
+			_sw.on = false;
 			_down = false;
 			break;
 		case Switch.PUSH_OFF :
-			sw.on = true;
+			_sw.on = true;
 			_down = false;
 			break;
 		case Switch.TOGGLE :
-			_down = sw.on;
+			_down = _sw.on;
 			break;
 		default :
 			throw new Error();

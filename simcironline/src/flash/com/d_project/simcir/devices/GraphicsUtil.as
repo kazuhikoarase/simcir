@@ -1,4 +1,4 @@
-package com.d_project.simcir.device {
+package com.d_project.simcir.devices {
 
 	import flash.display.GradientType;
 	import flash.display.Graphics;
@@ -13,6 +13,10 @@ package com.d_project.simcir.device {
 	 */
 	public class GraphicsUtil {
 
+		public function GraphicsUtil() {
+			throw new Error();
+		}
+		
 		public static function drawGlass(
 			g : Graphics,
 			x : Number, y : Number, radius : Number,
@@ -256,6 +260,8 @@ package com.d_project.simcir.device {
 			return (mc(r, ratio) << 16) | (mc(g, ratio) << 8) | mc(b, ratio);
 		}
 
+		private static const HEX : String = "0123456789abcdef";
+
 		public static function parseColor(sColor : String) : uint {
 			if (!sColor || !sColor.match(/^#[0-9a-f]{6}$/i) ) {
 				return 0x000000;
@@ -267,9 +273,7 @@ package com.d_project.simcir.device {
 			}
 			return color;
 		}
-		
-		private static const HEX : String = "0123456789abcdef";
-		
+
 		public static function draw7seg(
 			g : Graphics,
 			pattern : String,

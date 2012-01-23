@@ -2,15 +2,14 @@ package {
 
 	import com.d_project.simcir.core.Device;
 	import com.d_project.simcir.core.DeviceFactory;
-	import com.d_project.simcir.device.DirectCurrent;
-	import com.d_project.simcir.device.LED;
-	import com.d_project.simcir.device.LED16seg;
-	import com.d_project.simcir.device.LED4bit;
-	import com.d_project.simcir.device.LED7seg;
-	import com.d_project.simcir.device.LogicGate;
-	import com.d_project.simcir.device.Oscillator;
-	import com.d_project.simcir.device.Switch;
-	import com.d_project.simcir.device.Volume4bit;
+	import com.d_project.simcir.devices.DirectCurrent;
+	import com.d_project.simcir.devices.LED;
+	import com.d_project.simcir.devices.LED4bit;
+	import com.d_project.simcir.devices.LEDSeg;
+	import com.d_project.simcir.devices.LogicGate;
+	import com.d_project.simcir.devices.Oscillator;
+	import com.d_project.simcir.devices.RotaryEncoder;
+	import com.d_project.simcir.devices.Switch;
 	
 	import flash.display.Sprite;
 
@@ -48,13 +47,13 @@ package {
 			case "OSC" :
 				return new Oscillator();
 			case "7seg" :
-				return new LED7seg();
+				return new LEDSeg(LEDSeg.$7SEG);
 			case "16seg" :
-				return new LED16seg();
+				return new LEDSeg(LEDSeg.$16SEG);
 			case "4bit7seg" :
 				return new LED4bit();
-			case "4bitVol" :
-				return new Volume4bit();
+			case "RotaryEncoder" :
+				return new RotaryEncoder();
 			default :
 				throw new Error(type);
 			}

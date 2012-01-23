@@ -31,6 +31,11 @@ package com.d_project.simcir.ui {
 		function get visualDevice() : Boolean;
 
 		/**
+		 * Half pitch
+		 */
+		function get halfPitch() : Boolean;
+
+		/**
 		 * Create a control for a device.
 		 */
 		function createControl() : DisplayObject;

@@ -4,6 +4,7 @@
     xmlns:s="urn:jsptagdir:/WEB-INF/tags/s"
 	xmlns="http://www.w3.org/1999/xhtml"
 >
+	<jsp:directive.page import="com.d_project.simcir.datastore.Circuit"/>
 	<jsp:directive.page import="com.d_project.simcir.Util"/>
 	<jsp:directive.page import="com.d_project.simcir.datastore.SimcirstoreServiceFactory"/>
 	<jsp:directive.page import="com.d_project.simcir.datastore.SimcirstoreService"/>
@@ -43,6 +44,11 @@ if ("POST".equals(request.getMethod() ) ) {
 	String key = request.getParameter("key");
 	if (!Util.isEmpty(key) ) {
 		pageContext.setAttribute("circuit", ss.getCircuit(key, false) );
+	} else {
+		Circuit newCircuit = new Circuit();
+		newCircuit.setPrivate(false);
+		newCircuit.setShowNonVisuals(true);
+		pageContext.setAttribute("circuit", newCircuit);
 	}
 }
 

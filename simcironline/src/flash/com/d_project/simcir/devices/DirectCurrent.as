@@ -1,4 +1,4 @@
-package com.d_project.simcir.device {
+package com.d_project.simcir.devices {
 
 	import com.d_project.simcir.core.Device;
 	
