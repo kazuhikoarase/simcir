@@ -33,8 +33,9 @@ pageContext.setAttribute("circuitList", ss.getRecentCircuitList(currentPage) );
 		<div style="margin: 8px 0px 8px 0px;">
 			<img src="assets/simcir_top.png" alt="Create, Integrate and Extend" width="800" height="160" border="0" />
 		</div>
-
+<!-- 
 		<span>&gt;&gt;<a href="http://code.google.com/p/simcir/wiki/GetMoreDevices">Get More Devices</a></span>
+ -->
 
 		<h3>Recent Circuits</h3>
 
