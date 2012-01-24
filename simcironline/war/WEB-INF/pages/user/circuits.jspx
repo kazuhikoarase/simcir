@@ -95,6 +95,10 @@ var delete_clickHandler = function(key) {
 			<div class="list-item">
 				<div>
 					<span class="title"><c:out value="${item.title}"/></span>
+					<c:if test="${item.private}">
+						<jsp:text>&#xa0;</jsp:text>
+						<span>(Private)</span>
+					</c:if>
 					<br/>
 					<span><c:out value="${item.user.nickname}"/></span>
 					<br/>

@@ -8,6 +8,7 @@ import com.d_project.simcir.datastore.CircuitList;
 import com.d_project.simcir.datastore.Library;
 import com.d_project.simcir.datastore.SimcirstoreService;
 import com.d_project.simcir.datastore.User;
+import com.google.appengine.api.memcache.MemcacheServiceException;
 
 /**
  * MemcacheSimcirstoreService
@@ -20,7 +21,11 @@ public class MemcacheSimcirstoreService extends AbstractSimcirstoreService {
 		protected CircuitList get(Integer currentPage) throws Exception {
 			CircuitList circuitList = service.getRecentCircuitList(currentPage);
 			for (Circuit circuit : circuitList.getList() ) {
-				circuitCache.put(circuit.getKey(), circuit);
+				try {
+					circuitCache.put(circuit.getKey(), circuit);
+				} catch(MemcacheServiceException e) {
+					// ignore while update cache.
+				}
 			}
 			return circuitList;
 		}
