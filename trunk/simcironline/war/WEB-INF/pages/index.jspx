@@ -21,7 +21,20 @@ pageContext.setAttribute("circuitList", ss.getRecentCircuitList(currentPage) );
 
 	<s:page description="simcir is online circuit simulator" >
 
-		<span><a href="http://code.google.com/p/simcir/wiki/GetMoreDevices">Get More Devices</a></span>
+<!-- 
+		<c:if test="${not isUserLoggedIn}">
+			<a href="${contextPath}/user/circuits">
+				<jsp:text>Sign On</jsp:text>
+			</a>
+			<jsp:text>&#xa0;(for free)</jsp:text>
+		</c:if>
+ -->
+
+		<div style="margin: 8px 0px 8px 0px;">
+			<img src="assets/simcir_top.png" alt="Create, Integrate and Extend" width="800" height="160" border="0" />
+		</div>
+
+		<span>&gt;&gt;<a href="http://code.google.com/p/simcir/wiki/GetMoreDevices">Get More Devices</a></span>
 
 		<h3>Recent Circuits</h3>
 
