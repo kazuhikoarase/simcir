@@ -25,6 +25,10 @@
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>Simcir</servlet-name>
+		<url-pattern>/terms</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Simcir</servlet-name>
 		<url-pattern>/circuit</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>

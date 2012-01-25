@@ -75,6 +75,7 @@ var save_clickHandler = function() {
 		return;
 	}
 	
+	
 	form.method = 'POST';
 	form.action = contextPath + '/user/edit'; 
 	form.elements['xml'].value = data.xml;
@@ -108,55 +109,70 @@ var openCircuitHandler = function(url) {
 
 				<div style="margin: 0px 0px 2px 0px;">
 
-					<span class="title">Title: </span>
-					<c:set var="title">
-						<c:out value="${circuit.title}"/>
-					</c:set>
-					<input type="text" name="title" size="20" maxlength="30" style="width: 200px;" value="${title}" />
-
-					<s:checkbox name="private" value="${circuit.private}" />
-					<span>Private</span>
-
-					<jsp:text>&#xa0;</jsp:text>
-					<s:checkbox name="showNonVisuals" value="${circuit.showNonVisuals}" />
-					<span>Show Non Visuals</span>
-				</div>
-			</form>
-
-			<c:set var="movie">
-				<jsp:text>${contextPath}/simcironline.swf</jsp:text>
-
-				<jsp:text>?t=</jsp:text>
+					<table class="std">
+						<tr>
+							<th>Title:</th>
+							<td>
+								<c:set var="title">
+									<c:out value="${circuit.title}"/>
+								</c:set>
+								<input type="text" name="title" size="20" maxlength="30" style="width: 200px;" value="${title}" />
+							</td>
+						</tr>
+					</table>
 <!-- 
-				<s:encodeURL>${contextPath}/BasicSet</s:encodeURL>
-				<s:encodeURL>http://localhost:1080/zzz/BasicSet.xml</s:encodeURL>
+					<s:checkbox name="private" selected="${circuit.private}" />
+					<span>Private</span>
+					<jsp:text>&#xa0;</jsp:text>
  -->
-				<jsp:text>&amp;tl=</jsp:text>
-				<s:encodeURL>${contextPath}/toolbox-list</s:encodeURL>
+	 				<s:radio name="private" selectedValue="${circuit.private? '1' : '0'}" value="1" />
+	 				<jsp:text>Private</jsp:text>
+	 				<s:radio name="private" selectedValue="${circuit.private? '1' : '0'}" value="0" />
+					<jsp:text>Public (licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported</a>)</jsp:text>
 
-				<jsp:text>&amp;l=</jsp:text>
-				<s:encodeURL>${contextPath}/user/library?fmt=xml</s:encodeURL>
+	 				<br/>
 
-				<jsp:text>&amp;o=openCircuitHandler</jsp:text>
-						
-				<c:if test="${not empty param.key}">
-					<jsp:text>&amp;c=</jsp:text>
-					<s:encodeURL>
-						<jsp:text>${contextPath}/circuit?fmt=xml</jsp:text>
-						<jsp:text>&amp;key=${param.key}</jsp:text>
-					</s:encodeURL>
-				</c:if>
-			</c:set>			
+					<s:checkbox name="showNonVisuals" selected="${circuit.showNonVisuals}" />
+					<span>Show Non Visuals</span>
 
-			<s:swf 
-				id="simcir"
-				movie="${movie}"
-				width="928"
-				height="450" />
+				</div>
 
-			<div>
-				<s:button click="save_clickHandler()" label="Save"/>
-			</div>
+				<c:set var="movie">
+					<jsp:text>${contextPath}/simcironline.swf</jsp:text>
+	
+					<jsp:text>?t=</jsp:text>
+<!-- 
+					<s:encodeURL>${contextPath}/BasicSet</s:encodeURL>
+					<s:encodeURL>http://localhost:1080/zzz/BasicSet.xml</s:encodeURL>
+-->
+					<jsp:text>&amp;tl=</jsp:text>
+					<s:encodeURL>${contextPath}/toolbox-list</s:encodeURL>
+	
+					<jsp:text>&amp;l=</jsp:text>
+					<s:encodeURL>${contextPath}/user/library?fmt=xml</s:encodeURL>
+	
+					<jsp:text>&amp;o=openCircuitHandler</jsp:text>
+							
+					<c:if test="${not empty param.key}">
+						<jsp:text>&amp;c=</jsp:text>
+						<s:encodeURL>
+							<jsp:text>${contextPath}/circuit?fmt=xml</jsp:text>
+							<jsp:text>&amp;key=${param.key}</jsp:text>
+						</s:encodeURL>
+					</c:if>
+				</c:set>			
+	
+				<s:swf 
+					id="simcir"
+					movie="${movie}"
+					width="928"
+					height="450" />
+	
+				<div>
+					<s:button click="save_clickHandler()" label="Save"/>
+				</div>
+
+			</form>
 
 		</div>
 

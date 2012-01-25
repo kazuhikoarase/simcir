@@ -119,3 +119,27 @@ FORM {
 	width: 220px;
 	margin: 2px;
 }
+
+TABLE.std {
+	border-collapse: collapse;
+	margin: 0px;
+	padding:0px;
+}
+
+TABLE.std, TABLE.std TR, TABLE.std TD {
+	border-style: none;
+	border-width: 0px;
+}
+
+TABLE.std TH {
+	text-align: right;
+	padding: 0px 4px 0px 0px;
+}
+
+TABLE.std TD {
+	padding: 0px;
+}
+
+DIV.terms UL, DIV.terms LI {
+	font-size: 10pt;
+}

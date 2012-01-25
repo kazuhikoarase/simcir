@@ -19,20 +19,16 @@ pageContext.setAttribute("circuitList", ss.getRecentCircuitList(currentPage) );
 
 	<jsp:directive.page contentType="text/html;charset=UTF-8" />
 
-	<s:page description="simcir is online circuit simulator" >
-
-<!-- 
-		<c:if test="${not isUserLoggedIn}">
-			<a href="${contextPath}/user/circuits">
-				<jsp:text>Sign On</jsp:text>
-			</a>
-			<jsp:text>&#xa0;(for free)</jsp:text>
-		</c:if>
- -->
+	<s:page description="Simcir is the online circuit simulator. You could create, integrate and extend your circuits for free." >
 
 		<div style="margin: 8px 0px 8px 0px;">
-			<img src="assets/simcir_top.png" alt="Create, Integrate and Extend" width="800" height="160" border="0" />
+			<img
+				src="assets/simcir_top.png"
+				alt="Create, Integrate and Extend"
+				style="width:800px; height:160px; border-width:0px;" />
 		</div>
+
+		<jsp:text>Simcir is the online circuit simulator. You could create, integrate and extend your circuits for free.</jsp:text>
 <!-- 
 		<span>&gt;&gt;<a href="http://code.google.com/p/simcir/wiki/GetMoreDevices">Get More Devices</a></span>
  -->
@@ -77,22 +73,7 @@ pageContext.setAttribute("circuitList", ss.getRecentCircuitList(currentPage) );
 		<c:forEach var="item" items="${circuitList.list}">
 			<c:if test="${not item.private}">
 				<div class="list-item">
-					<div>
-						<span class="title"><c:out value="${item.title}"/></span>
-						<br/>
-						<span><c:out value="${item.user.nickname}"/></span>
-						<br/>
-						<jsp:text>last modified: </jsp:text>
-						<c:out value="${item.updateDate}"/>
-					</div>
-					<div>
-						<span style="display: inline-block;vertical-align: middle;">
-							<c:set var="title"><c:out value="${item.title}"/></c:set>
-							<a href="${contextPath}/circuit?key=${item.key}">
-								<img width="160" height="90" border="0" alt="${title}" src="${contextPath}/circuit?fmt=tn&amp;key=${item.key}" />
-							</a>
-						</span>
-					</div>
+					<s:circuit circuit="${item}" />
 				</div>
 			</c:if>
 		</c:forEach>	
