@@ -141,37 +141,51 @@ var openCircuitHandler = function(url) {
 						<input type="hidden" name="op" value=""/>
 		
 						<div style="margin: 0px 0px 2px 0px;">
-							<span class="title">
+
+							<h1>
 								<c:out value="${circuit.title}"/>
-<!-- 
-								<c:if test="${numReferred gt 0}">
-									<jsp:text> (</jsp:text>
-									<c:out value="${numReferred}"/>
-									<jsp:text>)</jsp:text>
+								<c:if test="${circuit.private}">
+									<jsp:text>&#xa0;(Private)</jsp:text>
 								</c:if>
--->
-							</span>
-							<c:if test="${circuit.private}">
-								<jsp:text>&#xa0;</jsp:text>
-								<span>(Private)</span>
-							</c:if>
-							<jsp:text>&#xa0;</jsp:text>
+							</h1>
+
+							<table class="std">
+								<tr>
+									<th>Author:</th>
+									<td>
+										<c:choose>
+											<c:when test="${empty circuit.user.url}">
+												<span><c:out value="${circuit.user.nickname}"/></span>
+											</c:when>
+											<c:otherwise>
+												<a href="${circuit.user.url}" target="_blank"><c:out value="${circuit.user.nickname}"/></a>
+											</c:otherwise>
+										</c:choose>
+									</td>
+								</tr>
+								<tr>
+									<th>Last modified:</th>
+									<td>
+										<c:out value="${circuit.updateDate}"/>
+									</td>
+								</tr>
+								<c:if test="${not circuit.private}">
+									<tr>
+										<th>License:</th>
+										<td>
+											<a rel="license" target="_blank" href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported</a>
+										</td>
+									</tr>
+								</c:if>
+							</table>
+
 							<s:checkbox name="showNonVisuals"
-								value="${circuit.showNonVisuals}"
+								selected="${circuit.showNonVisuals}"
 								onclick="showNonVisuals_clickHandler()" />
 							<jsp:text>Show Non Visuals</jsp:text>
-							<br/>
-							<c:if test="${empty circuit.user.url}">
-								<span><c:out value="${circuit.user.nickname}"/></span>
-							</c:if>
-							<c:if test="${not empty circuit.user.url}">
-								<a href="${circuit.user.url}" target="_blank"><c:out value="${circuit.user.nickname}"/></a>
-							</c:if>
-							<br/>
-							<jsp:text>last modified: </jsp:text>
-							<c:out value="${circuit.updateDate}"/>
+							
 						</div>
-		
+
 						<c:set var="movie">
 							<jsp:text>${contextPath}/simcironline.swf</jsp:text>
 						
@@ -189,10 +203,16 @@ var openCircuitHandler = function(url) {
 						</c:set>
 	
 						<c:set var="alt">
+
 							<c:set var="altTitle">
 								<c:out value="${circuit.title}" />
 							</c:set>
-							<img border="0" src="${contextPath}/circuit?fmt=tn&amp;key=${circuit.key}" alt="${altTitle}" />
+
+							<img
+								src="${contextPath}/circuit?fmt=img&amp;key=${circuit.key}"
+								alt="${altTitle}"
+								style="border: 0px;" />
+
 						</c:set>
 						
 						<s:swf 
@@ -202,7 +222,7 @@ var openCircuitHandler = function(url) {
 							height="450"
 							alt="${alt}"
 						/>
-			
+
 						<div style="width:800px;">
 	
 							<c:if test="${editable}">
@@ -215,25 +235,28 @@ var openCircuitHandler = function(url) {
 
 							<c:if test="${http}">
 								<div style="float: right;">
-			
-									<c:set var="linkURL">
-										<s:baseURL/>
-										<jsp:text>/circuit?key=${circuit.key}</jsp:text>
-									</c:set>
-									<c:set var="imgURL">
-										<s:baseURL/>
-										<jsp:text>/circuit?fmt=img&amp;key=${circuit.key}</jsp:text>
-									</c:set>
-									<c:set var="imgTag">
-										<a href="${linkURL}"><img src="${imgURL}" border="0" /></a>
-									</c:set>
-									<c:set var="imgTag">
-										<c:out value="${imgTag}"/>
-									</c:set>
-									
-									<span class="title">Link: </span>
-									<input class="img-link" type="text" value="${imgTag}" size="10" onclick="this.select()" readonly="readonly" />
-		
+									<table class="std">
+										<tr>
+											<th>Image Link:</th>
+											<td>
+												<c:set var="linkURL">
+													<s:baseURL/>
+													<jsp:text>/circuit?key=${circuit.key}</jsp:text>
+												</c:set>
+												<c:set var="imgURL">
+													<s:baseURL/>
+													<jsp:text>/circuit?fmt=img&amp;key=${circuit.key}</jsp:text>
+												</c:set>
+												<c:set var="imgTag">
+													<a href="${linkURL}"><img src="${imgURL}" border="0" /></a>
+												</c:set>
+												<c:set var="imgTag">
+													<c:out value="${imgTag}"/>
+												</c:set>
+												<input class="img-link" type="text" value="${imgTag}" size="10" onclick="this.select()" readonly="readonly" />
+											</td>
+										</tr>
+									</table>
 								</div>
 							</c:if>
 	

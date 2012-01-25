@@ -91,14 +91,14 @@ class Control extends UIBase {
 	override protected function update(g : Graphics) : void {
 		super.update(g);
 		var size : Number = UIConstants.UNIT;
-		g.lineStyle(2, mouseOver?
-			0x6666ff :
-			UIConstants.BORDER_COLOR);
+
 		var mat : Matrix = new Matrix();
 		var rx : Number = (parent.width - size) / 2;
 		var ry : Number = (parent.height - size) / 2;
 		mat.createGradientBox(size, size, Math.PI / 2, rx, ry);
-//		g.beginFill(_down? 0x999999 : _sw.color);
+
+		g.lineStyle(2, mouseOver?
+			0x6666ff : UIConstants.BORDER_COLOR);
 		g.beginGradientFill(
 			GradientType.LINEAR,
 			_down?

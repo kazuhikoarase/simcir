@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:s="urn:jsptagdir:/WEB-INF/tags/s"
+	xmlns="http://www.w3.org/1999/xhtml"
+>
+
+	<jsp:directive.attribute name="circuit" type="java.lang.Object" required="true" />
+
+	<div>
+		<a class="title" href="${contextPath}/circuit?key=${circuit.key}">
+			<c:out value="${circuit.title}"/>
+			<c:if test="${circuit.private}">
+				<jsp:text> (Private)</jsp:text>
+			</c:if>
+		</a>
+		<br/>
+		<jsp:text>Author: </jsp:text>
+		<span><c:out value="${circuit.user.nickname}"/></span>
+		<br/>
+		<jsp:text>Last modified: </jsp:text>
+		<c:out value="${circuit.updateDate}"/>
+	</div>
+
+	<div>
+		<span style="display: inline-block;vertical-align: middle;">
+			<c:set var="title"><c:out value="${circuit.title}"/></c:set>
+			<a href="${contextPath}/circuit?key=${circuit.key}">
+				<img
+					src="${contextPath}/circuit?fmt=tn&amp;key=${circuit.key}"
+					alt="${title}"
+					style="width:160px; height:90px; border-width:0px;" />
+			</a>
+		</span>
+		<span style="display: inline-block;vertical-align: middle;">
+			<jsp:doBody/>
+		</span>
+	</div>
+
+</jsp:root>

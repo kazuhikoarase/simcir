@@ -93,28 +93,9 @@ var delete_clickHandler = function(key) {
 		
 		<c:forEach var="item" items="${circuitList.list}">
 			<div class="list-item">
-				<div>
-					<span class="title"><c:out value="${item.title}"/></span>
-					<c:if test="${item.private}">
-						<jsp:text>&#xa0;</jsp:text>
-						<span>(Private)</span>
-					</c:if>
-					<br/>
-					<span><c:out value="${item.user.nickname}"/></span>
-					<br/>
-					<jsp:text>last modified: </jsp:text>
-					<c:out value="${item.updateDate}"/>
-				</div>
-				<div>
-					<span style="display: inline-block;vertical-align: middle;">
-						<a href="${contextPath}/circuit?key=${item.key}">
-							<img border="0" src="${contextPath}/circuit?fmt=tn&amp;key=${item.key}" />
-						</a>
-					</span>
-					<span style="display: inline-block;vertical-align: middle;">
-						<s:delete-button click="delete_clickHandler('${item.key}')"/>
-					</span>
-				</div>
+				<s:circuit circuit="${item}">
+					<s:delete-button click="delete_clickHandler('${item.key}')"/>
+				</s:circuit>
 			</div>
 		</c:forEach>	
 

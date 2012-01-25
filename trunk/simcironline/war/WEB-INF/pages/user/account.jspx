@@ -68,23 +68,23 @@ var save_clickHandler = function() {
 		<h3>Account Settings</h3>
 
 		<form>
-			<table>
+			<table class="std">
 				<tr>
-					<c:set var="nickname">
-						<c:out value="${user.nickname}"/>
-					</c:set>
-					<td class="title" align="right">Nickname: </td>
+					<th>Nickname:</th>
 					<td>
+						<c:set var="nickname">
+							<c:out value="${user.nickname}"/>
+						</c:set>
 						<input type="text" name="nickname" value="${nickname}" maxlength="30" />
 						<span class="error"><c:out value="${errors.nickname_error}"/></span>
 					</td>
 				</tr>
 				<tr>
-					<c:set var="url">
-						<c:out value="${user.url}"/>
-					</c:set>
-					<td class="title" align="right">URL: </td>
+					<th>URL: </th>
 					<td>
+						<c:set var="url">
+							<c:out value="${user.url}"/>
+						</c:set>
 						<input type="text" name="url" value="${url}" maxlength="200" />
 						<span class="error"><c:out value="${errors.url_error}"/></span>
 					</td>

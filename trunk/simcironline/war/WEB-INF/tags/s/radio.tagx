@@ -6,15 +6,16 @@
 >
 
 	<jsp:directive.attribute name="name" required="true" />
-	<jsp:directive.attribute name="selected" required="true" />
+	<jsp:directive.attribute name="value" required="true" />
+	<jsp:directive.attribute name="selectedValue" required="true" />
 	<jsp:directive.attribute name="onclick" />
 
 	<c:choose>
-		<c:when test="${selected}">
-			<input type="checkbox" name="${name}" onclick="${onclick}" value="1" checked="checked" />
+		<c:when test="${selectedValue == value}">
+			<input type="radio" name="${name}" onclick="${onclick}" value="${value}" checked="checked" />
 		</c:when>
 		<c:otherwise>
-			<input type="checkbox" name="${name}" onclick="${onclick}" value="1" />
+			<input type="radio" name="${name}" onclick="${onclick}" value="${value}" />
 		</c:otherwise>
 	</c:choose>
 
