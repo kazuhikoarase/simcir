@@ -170,12 +170,6 @@ if (ss.isUserLoggedIn() ) {
 			<div style="float: left;">
 				<a href="http://code.google.com/p/simcir/">simcir</a>
 				<jsp:text> &#xA9; 1998, 2012 kazuhiko arase</jsp:text>
-				<jsp:text> - </jsp:text>
-				<a href="${contentType}/terms">Terms</a>
-			</div>
-			<div style="float: right;">
-				<jsp:text>hosted on </jsp:text>
-				<a href="http://code.google.com/appengine/">Google App Engine</a>
 			</div>
 			<br style="clear: both;"/>
 		</div>
