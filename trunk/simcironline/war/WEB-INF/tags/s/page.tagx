@@ -9,6 +9,7 @@
 
 	<jsp:directive.attribute name="title" required="false" />
 	<jsp:directive.attribute name="description" required="false" />
+	<jsp:directive.attribute name="thumbnail" required="false" />
 
 	<jsp:scriptlet><![CDATA[
 
@@ -32,12 +33,18 @@ if (ss.isUserLoggedIn() ) {
 	<head>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 
-		<c:set var="description">
-			<c:out value="${description}"/>
-		</c:set>
 		<c:if test="${not empty description}">
+			<c:set var="description">
+				<c:out value="${description}"/>
+			</c:set>
 			<meta name="description" content="${description}" />
 		</c:if>
+		
+		<c:if test="${not empty thumbnail}">
+			<meta itemprop="image" content="${thumbnail}" />
+		</c:if>
+		
+		<link rel="icon" href="${contextPath}/assets/simcir.png" type="image/png" />
 
 		<title>simcir<c:out value="${title}"/></title>
 		<s:style src="/assets/style.css" />
