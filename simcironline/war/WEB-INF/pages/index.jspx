@@ -28,13 +28,15 @@ pageContext.setAttribute("circuitList", ss.getRecentCircuitList(currentPage) );
 				style="width:800px; height:160px; border-width:0px;" />
 		</div>
 
-		<jsp:text>Simcir is an online circuit simulator. With this tool, you could create, integrate and <a href="http://code.google.com/p/simcir/wiki/GetMoreDevices">extend</a> your circuits for free.</jsp:text>
-		<c:if test="${not isUserLoggedIn}">
-			<br />
-			<jsp:text>To create a circuit, please read these </jsp:text>
-			<jsp:text><a href="${contextPath}/terms">Terms</a> and </jsp:text>
-			<jsp:text>sign on with your Google Account.</jsp:text>
-		</c:if>
+		<div style="width:800px;">
+			<jsp:text>Simcir is an online circuit simulator. With this tool, you could create, integrate and <a href="http://code.google.com/p/simcir/wiki/GetMoreDevices">extend</a> your circuits for free.</jsp:text>
+			<c:if test="${not isUserLoggedIn}">
+				<br />
+				<jsp:text>To create a circuit, please read these </jsp:text>
+				<jsp:text><a href="${contextPath}/terms">Terms</a> and </jsp:text>
+				<jsp:text>sign on with your Google Account.</jsp:text>
+			</c:if>
+		</div>
 		
 		<h3>Recent Circuits</h3>
 
