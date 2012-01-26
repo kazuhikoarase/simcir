@@ -100,6 +100,10 @@ package com.d_project.simcir.devices {
 			return false;
 		}
 
+		override public function get halfPitch() : Boolean {
+			return inputs.length > 2;
+		}
+
 		override public function createControl() : DisplayObject {
 			return new Control(this);
 		}

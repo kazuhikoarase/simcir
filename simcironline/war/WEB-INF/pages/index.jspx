@@ -28,10 +28,7 @@ pageContext.setAttribute("circuitList", ss.getRecentCircuitList(currentPage) );
 				style="width:800px; height:160px; border-width:0px;" />
 		</div>
 
-		<jsp:text>Simcir is the online circuit simulator. You could create, integrate and extend your circuits for free.</jsp:text>
-<!-- 
-		<span>&gt;&gt;<a href="http://code.google.com/p/simcir/wiki/GetMoreDevices">Get More Devices</a></span>
- -->
+		<jsp:text>Simcir is the online circuit simulator. You could create, integrate and <a href="http://code.google.com/p/simcir/wiki/GetMoreDevices">extend</a> your circuits for free.</jsp:text>
 
 		<h3>Recent Circuits</h3>
 
