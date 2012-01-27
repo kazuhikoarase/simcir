@@ -20,8 +20,8 @@ Click and select a label to edit.
 
  http://simcir.googlecode.com/svn/assets/tutor/t5.png
 
-You can use a circuit added to your library as an integrated circuit.
+You can use a circuit in your library as an integrated circuit.
 
 If double click it, a source circuit would be shown in new window.
 
- http://simcir.googlecode.com/svn/assets/tutor/t6.png
+ http://simcir.googlecode.com/svn/assets/tutor/t6.png http://simcir.googlecode.com/svn/assets/tutor/t7.png
