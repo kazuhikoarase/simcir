@@ -19,6 +19,11 @@ out.write("<!doctype html>");
 
 	<jsp:scriptlet><![CDATA[
 
+// UA check
+String userAgent = request.getHeader("User-Agent");
+userAgent = (userAgent != null)? userAgent : "";
+jspContext.setAttribute("MSIE", userAgent.indexOf("MSIE") != -1);
+
 SimcirstoreService ss = SimcirstoreServiceFactory.getSimcirstoreService();
 if (ss.isUserLoggedIn() ) {
 	jspContext.setAttribute("user", ss.getUser(true) );
@@ -31,7 +36,12 @@ if (ss.isUserLoggedIn() ) {
 
 	<html>
 	<head>
-		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+
+		<c:if test="${MSIE}">
+			<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+		</c:if>
+
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
 		<c:if test="${not empty description}">
 			<c:set var="description">
@@ -46,7 +56,7 @@ if (ss.isUserLoggedIn() ) {
 		
 		<link rel="icon" href="${contextPath}/assets/simcir.png" type="image/png" />
 
-		<title>simcir<c:out value="${title}"/></title>
+		<title>Simcir<c:out value="${title}"/></title>
 		<s:style src="/assets/style.css" />
 		<s:style src="/WEB-INF/js/core/ui.css" />
 		<s:script src="/WEB-INF/js/core/domBuilder.js" />
@@ -142,7 +152,7 @@ if (ss.isUserLoggedIn() ) {
 		
 		var h = d('DIV.header');
 		
-		crtBtn(h('SPAN.logo'), 'simcir', function() {
+		crtBtn(h('SPAN.logo'), 'Simcir', function() {
 			location.href = contextPath + '/';
 		} );
 
@@ -165,11 +175,15 @@ if (ss.isUserLoggedIn() ) {
 			<jsp:doBody/>
 		</div>	
 
-		<div style="padding: 4px;">
-			<hr/>
+		<hr style="margin: 4px 0px 4px 0px;"/>
+
+		<div class="footer">
 			<div style="float: left;">
-				<a href="http://code.google.com/p/simcir/">simcir</a>
+				<a href="http://code.google.com/p/simcir/">Simcir</a>
 				<jsp:text> &#xA9; 1998, 2012 kazuhiko arase</jsp:text>
+			</div>
+			<div style="float: left;">
+				<jsp:text>&#xa0;&#xa0;All registered trademarks belong to their respective owners</jsp:text>
 			</div>
 			<br style="clear: both;"/>
 		</div>
