@@ -38,6 +38,10 @@ pageContext.setAttribute("circuitList", ss.getRecentCircuitList(currentPage) );
 			</c:if>
 		</div>
 		
+		<div>
+		<jsp:text>&gt;&gt;</jsp:text><a href="http://code.google.com/p/simcir/wiki/Usage">Usage</a>
+		</div>
+		
 		<h3>Recent Circuits</h3>
 
 		<s:button label="Create" click="location.href= contextPath + '/user/edit';"/>
