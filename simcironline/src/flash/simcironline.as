@@ -123,13 +123,15 @@ package {
 				return;
 			}
 			
-			if (!deviceUI.editable || !deviceUI.active) {
-				// call openCircuitHandler with url.
-				var ns : Namespace = DeviceLoader.NS;
-				var deviceDef : XML = deviceUI.device.deviceDef;
-				var url : String = deviceDef.ns::param.(@name == "url").@value;
-				ExternalInterface.call(o, url);
+			if (deviceUI.editable && deviceUI.active) {
+				//return;
 			}
+
+			// call openCircuitHandler with url.
+			var ns : Namespace = DeviceLoader.NS;
+			var deviceDef : XML = deviceUI.device.deviceDef;
+			var url : String = deviceDef.ns::param.(@name == "url").@value;
+			ExternalInterface.call(o, url);
 		}
 		
 		private function toXMLString(xml : XML) : String {
