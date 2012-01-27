@@ -22,16 +22,29 @@ formatter.setTimeZone(TimeZone.getTimeZone("UTC") );
 Date lastMod = circuitList.getList().size() > 0?
 		circuitList.getList().get(0).getCreateDate() : new Date();
 pageContext.setAttribute("lastMod", formatter.format(lastMod) );
+pageContext.setAttribute("circuitList", circuitList);
 
 ]]></jsp:scriptlet>
 	
-	<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+	<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+			xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 		<url>
 			<loc><s:baseURL/>/</loc>
 			<lastmod>${lastMod}</lastmod>
 			<changefreq>daily</changefreq>
 			<priority>0.8</priority>
-		</url> 
+		</url>
+		<c:forEach var="circuit" items="${circuitList.list}">
+			<c:if test="${not circuit.private}">
+				<url>			
+					<loc><s:baseURL/>/circuit?key=${circuit.key}</loc>
+					<image:image>
+						<image:loc><s:baseURL/>/circuit?fmt=img&amp;amp;key=${circuit.key}</image:loc>
+						<image:title><c:out value="${circuit.title}"/></image:title>
+					</image:image>
+				</url> 
+			</c:if>
+  			</c:forEach>
 	</urlset>
 
 </jsp:root>

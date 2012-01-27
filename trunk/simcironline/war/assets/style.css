@@ -1,5 +1,5 @@
 
-* {
+BODY, TH, TD {
 	font-family: sans-serif;
 	font-size: 12pt;
 }
@@ -67,6 +67,11 @@ FORM {
 .title {
 	font-size: 12pt;
 	font-weight: bold;
+}
+
+.footer {
+	font-size: 10pt;
+	padding: 4px 8px 20px 8px;
 }
 
 .button {
