@@ -2,7 +2,6 @@ package com.d_project.simcir.datastore;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Circuit

@@ -80,11 +80,9 @@ pageContext.setAttribute("circuitList", ss.getRecentCircuitList(currentPage) );
 		<c:out value="${pages}" escapeXml="false"/>
 
 		<c:forEach var="item" items="${circuitList.list}">
-			<c:if test="${not item.private}">
-				<div class="list-item">
-					<s:circuit circuit="${item}" />
-				</div>
-			</c:if>
+			<div class="list-item">
+				<s:circuit circuit="${item}" />
+			</div>
 		</c:forEach>	
 
 		<c:out value="${pages}" escapeXml="false"/>

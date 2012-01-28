@@ -35,16 +35,14 @@ pageContext.setAttribute("circuitList", circuitList);
 			<priority>0.8</priority>
 		</url>
 		<c:forEach var="circuit" items="${circuitList.list}">
-			<c:if test="${not circuit.private}">
-				<url>			
-					<loc><s:baseURL/>/circuit?key=${circuit.key}</loc>
-					<image:image>
-						<image:loc><s:baseURL/>/circuit?fmt=img&amp;amp;key=${circuit.key}</image:loc>
-						<image:title><c:out value="${circuit.title}"/></image:title>
-					</image:image>
-				</url> 
-			</c:if>
-  			</c:forEach>
+			<url>			
+				<loc><s:baseURL/>/circuit?key=${circuit.key}</loc>
+				<image:image>
+					<image:loc><s:baseURL/>/circuit?fmt=img&amp;amp;key=${circuit.key}</image:loc>
+					<image:title><c:out value="${circuit.title}"/></image:title>
+				</image:image>
+			</url> 
+		</c:forEach>
 	</urlset>
 
 </jsp:root>
