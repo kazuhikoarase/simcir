@@ -35,7 +35,7 @@ public interface SimcirstoreService {
 
 	User getUser(String userId, boolean useCache) throws Exception;
 
-	User putUser(String nickname, String url, String toolboxListXml, boolean newUser) throws Exception;
+	User putUser(String email, String nickname, String url, String toolboxListXml, boolean newUser) throws Exception;
 
 	User putUser(String nickname, String url) throws Exception;
 
