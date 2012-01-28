@@ -276,12 +276,19 @@ public class SimcirstoreServiceGAE extends AbstractSimcirstoreService {
 
 	public User getUser(boolean useCache) throws Exception {
 		try {
-			return getUser(getCurrentUserId(), useCache);
+			User user = getUser(getCurrentUserId(), useCache);
+			// TODO
+			if (Util.isEmpty(user.getEmail() ) ) {
+				UserService us = UserServiceFactory.getUserService();
+				com.google.appengine.api.users.User cu = us.getCurrentUser();
+				user.setEmail(cu.getEmail() );
+			}
+			return user;
 		} catch(EntityNotFoundException e) {
 			// put default.
 			UserService us = UserServiceFactory.getUserService();
 			com.google.appengine.api.users.User cu = us.getCurrentUser();
-			return putUser(cu.getEmail(), "", "", true);
+			return putUser(cu.getEmail(), cu.getEmail(), "", "", true);
 		}
 	}
 	
@@ -291,6 +298,7 @@ public class SimcirstoreServiceGAE extends AbstractSimcirstoreService {
 	}
 
 	public User putUser(
+		String email,
 		String nickname,
 		String url, 
 		String toolboxListXml,
@@ -300,6 +308,7 @@ public class SimcirstoreServiceGAE extends AbstractSimcirstoreService {
 		DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
 		
 		Entity entity = new Entity(getCurrentUserKey() );
+		entity.setProperty("email", email);
 		entity.setProperty("nickname", nickname);
 		entity.setProperty("url", url);
 		entity.setProperty("toolboxListXml",
@@ -395,6 +404,7 @@ public class SimcirstoreServiceGAE extends AbstractSimcirstoreService {
 
 		User user = new User();
 		user.setUserId(entity.getKey().getName() );
+		user.setEmail( (String)entity.getProperty("email") );
 		user.setNickname( (String)entity.getProperty("nickname") );
 		user.setUrl( (String)entity.getProperty("url") );
 

@@ -150,13 +150,14 @@ public class MemcacheSimcirstoreService extends AbstractSimcirstoreService {
 	}
 	
 	public User putUser(
+		String email,
 		String nickname,
 		String url, 
 		String toolboxListXml,
 		boolean newUser
 	) throws Exception {
 		User user = service.putUser(
-			nickname, url, toolboxListXml, newUser);
+			email, nickname, url, toolboxListXml, newUser);
 		userCache.put(user.getUserId(), user);
 		return user;
 	}
