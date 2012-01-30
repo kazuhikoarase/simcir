@@ -168,7 +168,7 @@ var openCircuitHandler = function(url) {
 								<tr>
 									<th>Last modified:</th>
 									<td>
-										<c:out value="${circuit.updateDate}"/>
+										<s:date value="${circuit.updateDate}"/>
 									</td>
 								</tr>
 								<c:if test="${not circuit.private}">

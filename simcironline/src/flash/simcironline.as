@@ -51,44 +51,18 @@ package {
 		private function createWorkspace() : void {
 			
 			_ws = new Workspace();
+			_ws.addEventListener(Event.ADDED_TO_STAGE,
+				ws_addedToStageHandler);
 			_ws.addEventListener(Event.ENTER_FRAME,
 				ws_enterFrameHandler);
 			_ws.addEventListener(MouseEvent.DOUBLE_CLICK,
 				ws_doubleClickHandler);
 
-			// toolbox
-			var t : String = stage.loaderInfo.parameters.t;
-			// toolboxList
-			var tl : String = stage.loaderInfo.parameters.tl;
-			// library
-			var l : String = stage.loaderInfo.parameters.l;
-			// circuit
-			var c : String = stage.loaderInfo.parameters.c;
 			// editable
 			var e : String = stage.loaderInfo.parameters.e;
 			// showNonVisuals
 			var s : String = stage.loaderInfo.parameters.s;
 
-			if (t) {
-				_ws.loadToolbox(t);
-			}
-//			_ws.loadToolbox("BasicSet.xml");
-
-			if (l) {
-				_ws.loadLibrary(l);
-			}
-//			_ws.loadLibrary("library.xml");
-
-			if (c) {
-				_ws.loadCircuit(c);
-			}
-//			_ws.loadCircuit("simcir.xml");
-
-			if (tl) {
-				_ws.loadToolboxList(tl);
-			}			
-//			_ws.loadToolboxList("/toolbox-list.xml");
-			
 			if (e) {
 				_ws.editable = (e == "true");
 			}
@@ -99,7 +73,39 @@ package {
 			
 			addChild(_ws);
 		}
+		
+		private function ws_addedToStageHandler(event : Event) : void {
 
+			// toolbox
+			var t : String = stage.loaderInfo.parameters.t;
+			// toolboxList
+			var tl : String = stage.loaderInfo.parameters.tl;
+			// library
+			var l : String = stage.loaderInfo.parameters.l;
+			// circuit
+			var c : String = stage.loaderInfo.parameters.c;
+
+			if (t) {
+				_ws.loadToolbox(t);
+			}
+//			_ws.loadToolbox("BasicSet.xml");
+			
+			if (l) {
+				_ws.loadLibrary(l);
+			}
+//			_ws.loadLibrary("library.xml");
+			
+			if (c) {
+				_ws.loadCircuit(c);
+			}
+//			_ws.loadCircuit("simcir.xml");
+			
+			if (tl) {
+				_ws.loadToolboxList(tl);
+			}			
+//			_ws.loadToolboxList("/toolbox-list.xml");
+		}
+		
 		private function ws_enterFrameHandler(event : Event) : void {
 			_ws.width = stage.stageWidth;
 			_ws.height = stage.stageHeight;

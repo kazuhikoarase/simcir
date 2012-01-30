@@ -1,5 +1,9 @@
 package com.d_project.simcir.devices {
 
+	import com.d_project.simcir.devices.graphicsUtilClasses.Seg;
+	import com.d_project.simcir.devices.graphicsUtilClasses._16seg;
+	import com.d_project.simcir.devices.graphicsUtilClasses._7seg;
+	
 	import flash.display.GradientType;
 	import flash.display.Graphics;
 	import flash.display.InterpolationMethod;
@@ -274,187 +278,37 @@ package com.d_project.simcir.devices {
 			return color;
 		}
 
-		public static function draw7seg(
-			g : Graphics,
-			pattern : String,
-			hiColor : uint,
-			loColor : uint,
-			bgColor : uint
-		) : Object {
-			return drawSeg(_7seg,
-				g, pattern, hiColor, loColor, bgColor);
-		}
-		
-		public static function draw16seg(
-			g : Graphics,
-			pattern : String,
-			hiColor : uint,
-			loColor : uint,
-			bgColor : uint
-		) : Object {
-			return drawSeg(_16seg,
-				g, pattern, hiColor, loColor, bgColor);
-		}
+		public static const _7SEG : Seg = new _7seg();
+
+		public static const _16SEG : Seg = new _16seg();
 
 		public static function drawSeg(
-			Seg : Object,
+			seg : Seg,
 			g : Graphics,
 			pattern : String,
-			hiColor : uint,
-			loColor : uint,
-			bgColor : uint
-		) : Object {
+			hiColor : int,
+			loColor : int,
+			bgColor : int
+		) : void {
 
-			g.beginFill(bgColor);
-			g.drawRect(0, 0, 
-				Seg.SEG_WIDTH,
-				Seg.SEG_HEIGHT);
-			g.endFill();
-
+			if (bgColor >= 0) {
+				g.beginFill(bgColor);
+				g.drawRect(0, 0, 
+					seg.width,
+					seg.height);
+				g.endFill();
+			}
+			
 			var on : Boolean;
 			
-			for (var i : int = 0; i < Seg.ALL_SEGMENT.length; i += 1) {
-				var c : String = Seg.ALL_SEGMENT.charAt(i);
+			for (var i : int = 0; i < seg.allSegments.length; i += 1) {
+				var c : String = seg.allSegments.charAt(i);
 				on = (pattern != null && pattern.indexOf(c) != -1);
-				Seg.drawSegment(g, c, on? hiColor : loColor);
+				seg.drawSegment(g, c, on? hiColor : loColor);
 			}
 			
 			on = (pattern != null && pattern.indexOf(".") != -1);
-			Seg.drawPoint(g, on? hiColor : loColor);
-			
-			return {
-				width: Seg.SEG_WIDTH,
-				height: Seg.SEG_HEIGHT
-			};
+			seg.drawPoint(g, on? hiColor : loColor);
 		}
-	}
-}
-
-import flash.display.Graphics;
-
-class _7seg {
-
-	public static function drawSegment(
-		g : Graphics,
-		segment : String,
-		color : uint
-	) : void {
-		
-		if (color < 0) {
-			return;
-		}
-		
-		var data : Array = _SEGMENT_DATA[segment];
-		var numPoints : int = data.length / 2;
-		
-		g.beginFill(color);
-		
-		for (var i : int = 0; i < numPoints; i += 1) {
-			
-			var x : Number = data[i * 2];
-			var y : Number = data[i * 2 + 1];
-			
-			if (i == 0) {
-				g.moveTo(x, y);
-			} else {
-				g.lineTo(x, y);
-			}
-		}
-		
-		g.endFill();
-	}
-	
-	public static function drawPoint(
-		g : Graphics,
-		color: uint
-	) : void {
-		if (color < 0) {
-			return;
-		}
-		g.beginFill(color);
-		g.drawCircle(542, 840, 46);
-		g.endFill();
-	}
-	
-	public static const SEG_WIDTH : Number = 636;
-	public static const SEG_HEIGHT : Number = 1000;
-	public static const ALL_SEGMENT : String = "abcdefg";
-	
-	private static const _SEGMENT_DATA : Object = {
-		"a" : [575, 138, 494, 211, 249, 211, 194, 137, 213, 120, 559, 120],
-		"b" : [595, 160, 544, 452, 493, 500, 459, 456, 500, 220, 582, 146],
-		"c" : [525, 560, 476, 842, 465, 852, 401, 792, 441, 562, 491, 516],
-		"d" : [457, 860, 421, 892, 94, 892, 69, 864, 144, 801, 394, 801],
-		"e" : [181, 560, 141, 789, 61, 856, 48, 841, 96, 566, 148, 516],
-		"f" : [241, 218, 200, 453, 150, 500, 115, 454, 166, 162, 185, 145],
-		"g" : [485, 507, 433, 555, 190, 555, 156, 509, 204, 464, 451, 464]
-	}
-}
-
-class _16seg {
-	
-	public static function drawSegment(
-		g : Graphics,
-		segment : String,
-		color : uint
-	) : void {
-		
-		if (color < 0) {
-			return;
-		}
-		
-		var data : Array = _SEGMENT_DATA[segment];
-		var numPoints : int = data.length / 2;
-		
-		g.beginFill(color);
-		
-		for (var i : int = 0; i < numPoints; i += 1) {
-			
-			var x : Number = data[i * 2];
-			var y : Number = data[i * 2 + 1];
-			
-			if (i == 0) {
-				g.moveTo(x, y);
-			} else {
-				g.lineTo(x, y);
-			}
-		}
-		
-		g.endFill();
-	}
-	
-	public static function drawPoint(
-		g : Graphics,
-		color: uint
-	) : void {
-		if (color < 0) {
-			return;
-		}
-		g.beginFill(color);
-		g.drawCircle(610, 900, 30);
-		g.endFill();
-	}
-	
-	public static const SEG_WIDTH : Number = 690;
-	public static const SEG_HEIGHT : Number = 1000;
-	public static const ALL_SEGMENT : String = "abcdefghijklmnop";
-	
-	private static const _SEGMENT_DATA : Object = {
-		"a" : [255, 184, 356, 184, 407, 142, 373, 102, 187, 102],
-		"b" : [418, 144, 451, 184, 552, 184, 651, 102, 468, 102],
-		"c" : [557, 190, 507, 455, 540, 495, 590, 454, 656, 108],
-		"d" : [487, 550, 438, 816, 506, 898, 573, 547, 539, 507],
-		"e" : [281, 863, 315, 903, 500, 903, 432, 821, 331, 821],
-		"f" : [35, 903, 220, 903, 270, 861, 236, 821, 135, 821],
-		"g" : [97, 548, 30, 897, 129, 815, 180, 547, 147, 507],
-		"h" : [114, 455, 148, 495, 198, 454, 248, 189, 181, 107],
-		"i" : [233, 315, 280, 452, 341, 493, 326, 331, 255, 200],
-		"j" : [361, 190, 334, 331, 349, 485, 422, 312, 445, 189, 412, 149],
-		"k" : [430, 316, 354, 492, 432, 452, 522, 334, 547, 200],
-		"l" : [354, 502, 408, 542, 484, 542, 534, 500, 501, 460, 434, 460],
-		"m" : [361, 674, 432, 805, 454, 691, 405, 550, 351, 509],
-		"n" : [265, 693, 242, 816, 276, 856, 326, 815, 353, 676, 343, 518],
-		"o" : [255, 546, 165, 671, 139, 805, 258, 689, 338, 510],
-		"p" : [153, 502, 187, 542, 254, 542, 338, 500, 278, 460, 203, 460]
 	}
 }

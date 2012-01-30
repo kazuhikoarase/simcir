@@ -22,13 +22,13 @@ package com.d_project.simcir.devices {
 				addInput();
 			}
 		}
+
+		override public function get color() : uint {
+			return 0x999999;
+		}
 		
 		override public function get widthInUnit():Number {
 			return 4;
-		}
-		
-		override public function get color() : uint {
-			return 0x999999;
 		}
 		
 		override public function createControl() : DisplayObject {
@@ -40,6 +40,7 @@ package com.d_project.simcir.devices {
 import com.d_project.simcir.core.DeviceLoader;
 import com.d_project.simcir.devices.GraphicsUtil;
 import com.d_project.simcir.devices.LED4bit;
+import com.d_project.simcir.devices.graphicsUtilClasses.Seg;
 import com.d_project.simcir.ui.UIConstants;
 import com.d_project.ui.UIBase;
 
@@ -101,15 +102,17 @@ class Control extends UIBase {
 				value += (1 << i);
 			}
 		}
-		
+
 		var segG : Graphics = _seg.graphics;
 		segG.clear();
-		var size : Object = GraphicsUtil.draw7seg(
+		var seg : Seg = GraphicsUtil._7SEG;
+		GraphicsUtil.drawSeg(
+			seg,
 			segG, getPattern(value),
 			_hiColor, _loColor, 0x000000);
 		
-		var sw : Number = size.width;
-		var sh : Number = size.height;
+		var sw : Number = seg.width;
+		var sh : Number = seg.height;
 		var dw : Number = _device.widthInUnit;
 		var dh : Number = _device.heightInUnit;
 		
