@@ -71,7 +71,7 @@ class Anim extends Sprite {
 	}
 
 	public function reset() : void {
-		_delay = 50;
+		_delay = 24;
 		_index = 0;
 		for (var i : int = 0; i < _seg.allSegments.length; i += 1) {
 			var sp : Sprite = getChildAt(i) as Sprite;
