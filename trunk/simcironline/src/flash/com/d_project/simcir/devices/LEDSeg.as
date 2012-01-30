@@ -1,6 +1,7 @@
 package com.d_project.simcir.devices {
 	
 	import com.d_project.simcir.core.Device;
+	import com.d_project.simcir.devices.graphicsUtilClasses.Seg;
 	import com.d_project.simcir.ui.UIConstants;
 	
 	import flash.display.DisplayObject;
@@ -17,6 +18,8 @@ package com.d_project.simcir.devices {
 		public static const $16SEG : String = "16SEG";
 		
 		private var _type : String;
+
+		private var _seg : Seg = null;
 		
 		public function LEDSeg(type : String) {
 			_type = type;
@@ -26,27 +29,30 @@ package com.d_project.simcir.devices {
 			return _type;
 		}
 		
+		public function get seg() : Seg {		
+			return _seg;
+		}
+		
 		override public function init(loaderContext : LoaderContext, deviceDef : XML) : void {
 			super.init(loaderContext, deviceDef);
 
-			var numInputs : int;
-			
 			switch(type) {
 			case $7SEG :
-				numInputs = Control.PATTERNS_7.length;
+				_seg = GraphicsUtil._7SEG;
 				break;
 			case $16SEG :
-				numInputs = Control.PATTERNS_16.length;
+				_seg = GraphicsUtil._16SEG;
 				break;
 			default :
 				throw new Error(type);
 			}
-			
+
+			var numInputs : int = _seg.allSegments.length + 1;
 			for (var i : int = 0; i < numInputs; i += 1) {
 				addInput();
 			}
 		}
-		
+
 		override public function get color() : uint {
 			return 0x999999;
 		}
@@ -76,15 +82,13 @@ import flash.display.Sprite;
 
 class Control extends UIBase {
 
-	public static const PATTERNS_7 : String= "abcdefg.";
-	public static const PATTERNS_16 : String= "abcdefghijklmnop.";
-	
 	private var _device : LEDSeg;
-	private var _draw : Function;
+
+	private var _patterns : String;
+
 	private var _seg : Sprite;
 	private var _hiColor : uint;
 	private var _loColor : uint;
-	private var _patterns : String;
 	
 	public function Control(device : LEDSeg) : void {
 		
@@ -92,18 +96,7 @@ class Control extends UIBase {
 		mouseEnabled = false;
 		mouseChildren = false;
 
-		switch(device.type) {
-		case LEDSeg.$7SEG :
-			_patterns = PATTERNS_7;
-			_draw = GraphicsUtil.draw7seg;
-			break;
-		case LEDSeg.$16SEG :
-			_patterns = PATTERNS_16;
-			_draw = GraphicsUtil.draw16seg;
-			break;
-		default :
-			throw new Error(device.type);
-		}
+		_patterns = _device.seg.allSegments + ".";
 
 		_seg = new Sprite();
 		addChild(_seg);
@@ -113,29 +106,26 @@ class Control extends UIBase {
 			device.deviceDef.ns::param.(@name == "color").@value) || 0xff0000;
 		_loColor = GraphicsUtil.multiplyColor(_hiColor, 0.25);
 	}
-	
-	public function get patterns() : String {
-		return _patterns;
-	}
-	
+
 	override protected function update(g : Graphics) : void {
 		super.update(g);
 
 		var pattern : String = "";
-		for (var i : int = 0; i < patterns.length; i += 1) {
+		for (var i : int = 0; i < _patterns.length; i += 1) {
 			if (_device.isHot(_device.inputs[i].value) ) {
-				pattern += patterns.charAt(i);
+				pattern += _patterns.charAt(i);
 			}
 		}
 
 		var segG : Graphics = _seg.graphics;
 		segG.clear();
-		var size : Object = _draw(
+		GraphicsUtil.drawSeg(
+			_device.seg,
 			segG, pattern,
 			_hiColor, _loColor, 0x000000);
 
-		var sw : Number = size.width;
-		var sh : Number = size.height;
+		var sw : Number = _device.seg.width;
+		var sh : Number = _device.seg.height;
 		var dw : Number = _device.widthInUnit;
 		var dh : Number = _device.heightInUnit;
 		

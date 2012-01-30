@@ -11,6 +11,7 @@ package com.d_project.simcir.ui {
 	import com.d_project.simcir.ui.workspaceClasses.DragSelection;
 	import com.d_project.simcir.ui.workspaceClasses.DragToolboxDevice;
 	import com.d_project.simcir.ui.workspaceClasses.IconButton;
+	import com.d_project.simcir.ui.workspaceClasses.LockPane;
 	import com.d_project.simcir.ui.workspaceClasses.ToolboxList;
 	import com.d_project.simcir.ui.workspaceClasses.ToolboxPane;
 	import com.d_project.ui.Accordion;
@@ -37,7 +38,7 @@ package com.d_project.simcir.ui {
 		simcir_core var temporaryPane : UIBase;
 
 		private var _popupPane : UIBase;
-		private var _lockPane : UIBase;
+		private var _lockPane : LockPane;
 
 		private var _toolboxPane : ToolboxPane;
 		private var _libraryPane : ToolboxPane;
@@ -77,7 +78,7 @@ package com.d_project.simcir.ui {
 			_popupPane = new UIBase();
 			addChild(_popupPane);
 			
-			_lockPane = new UIBase();
+			_lockPane = new LockPane();
 			addChild(_lockPane);
 
 			_toolboxList = new ToolboxList();
@@ -215,6 +216,11 @@ package com.d_project.simcir.ui {
 			connectorPane.x = devicePane.x;
 			connectorPane.y = devicePane.y;
 
+			_lockPane.x = 0;
+			_lockPane.y = 0;
+			_lockPane.width = width;
+			_lockPane.height = height;
+
 			g.beginFill(0xff0000);
 			g.drawRect(0, 0, width, height);
 			g.endFill();
@@ -253,19 +259,9 @@ package com.d_project.simcir.ui {
 		}
 		
 		private function lockManager_changeHandler(event : Event) : void {
-
-			if (LockManager.getInstance().locked) {
-
-				var g : Graphics = _lockPane.graphics;
-				g.clear();
-				g.beginFill(0x000000, 0.1);
-				g.drawRect(0, 0, width, height);				
-				g.endFill();
-				
-				_lockPane.visible = true;
-
-			} else {
-				_lockPane.visible = false;
+			_lockPane.visible = LockManager.getInstance().locked;
+			if (_lockPane.visible) {
+				_lockPane.reset();
 			}
 		}
 		

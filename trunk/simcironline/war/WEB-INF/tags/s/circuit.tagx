@@ -19,7 +19,7 @@
 		<span><c:out value="${circuit.user.nickname}"/></span>
 		<br/>
 		<jsp:text>Last modified: </jsp:text>
-		<c:out value="${circuit.updateDate}"/>
+		<s:date value="${circuit.updateDate}"/>
 	</div>
 
 	<div>

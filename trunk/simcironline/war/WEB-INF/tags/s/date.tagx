@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:s="urn:jsptagdir:/WEB-INF/tags/s"
+	xmlns="http://www.w3.org/1999/xhtml"
+>
+	<jsp:directive.tag import="java.util.Date"/>
+	<jsp:directive.tag import="java.text.SimpleDateFormat"/>
+
+	<jsp:directive.attribute name="value" required="true" type="java.lang.Object" />
+	<jsp:scriptlet><![CDATA[
+
+Date date = (Date)jspContext.getAttribute("value");
+if (date != null) {
+	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm z");	                        
+	jspContext.setAttribute("dispValue", formatter.format(date) );
+} else {
+	jspContext.setAttribute("dispValue", "");
+}
+
+	]]></jsp:scriptlet>
+
+	<c:out value="${dispValue}"/>
+	
+</jsp:root>
