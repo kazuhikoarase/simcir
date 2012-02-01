@@ -59,14 +59,13 @@ package com.d_project.simcir.devices {
 	}
 }
 
+import com.d_project.simcir.devices.GraphicsUtil;
 import com.d_project.simcir.devices.RotaryEncoder;
 import com.d_project.simcir.ui.UIConstants;
 import com.d_project.ui.UIBase;
 
-import flash.display.GradientType;
 import flash.display.Graphics;
 import flash.events.MouseEvent;
-import flash.geom.Matrix;
 
 class Control extends UIBase {
 	
@@ -105,23 +104,7 @@ class Control extends UIBase {
 		var size : Number = UIConstants.UNIT;
 		var radius : Number = (parent.width - size) / 2;
 
-		var mat : Matrix = new Matrix();
-		mat.createGradientBox(radius * 4, radius * 4, 0, -radius * 1.5, -radius * 1.5);
-		
-		g.beginGradientFill(GradientType.RADIAL, [0x666666, 0x000000], [1, 1], [0, 255], mat);
-		g.drawCircle(cx, cy, radius);
-		g.endFill();
-		
-		var r1 : Number = radius * 0.4; 
-		var r2 : Number = radius - 3 / 2; 
-		
-		g.lineStyle(3, 0xffffff, 0.8);
-		g.moveTo(Math.cos(_theta) * r1 + cx, Math.sin(_theta) * r1 + cx);
-		g.lineTo(Math.cos(_theta) * r2 + cx, Math.sin(_theta) * r2 + cx);
-		
-		g.lineStyle(1, 0, 1);
-		g.drawCircle(cx, cy, radius);		
-		
+		GraphicsUtil.drawVolume(g, cx, cy, radius, _theta);
 	}
 
 	override protected function mouseDragHandler(event : MouseEvent) : void {

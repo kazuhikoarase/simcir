@@ -301,6 +301,7 @@ package com.d_project.simcir.ui {
 				return;
 			}
 			removePopup();
+			toolboxesPane.selectedIndex = 0;
 			loadToolbox(_toolboxList.getToolboxUrlAt(
 				_toolboxList.selectedIndex) );
 		}

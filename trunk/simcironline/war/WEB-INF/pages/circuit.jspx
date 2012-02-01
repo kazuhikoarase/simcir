@@ -4,11 +4,19 @@
     xmlns:s="urn:jsptagdir:/WEB-INF/tags/s"
 	xmlns="http://www.w3.org/1999/xhtml"
 >
+
+	<jsp:directive.page import="com.d_project.simcir.Util"/>
 	<jsp:directive.page import="com.d_project.simcir.datastore.Circuit"/>
 	<jsp:directive.page import="com.d_project.simcir.datastore.SimcirstoreServiceFactory"/>
 	<jsp:directive.page import="com.d_project.simcir.datastore.SimcirstoreService"/>
 
 	<jsp:directive.page import="java.io.OutputStream"/>
+	<jsp:directive.page import="java.util.HashSet"/>
+	<jsp:directive.page import="java.util.Set"/>
+	<jsp:directive.page import="javax.xml.xpath.XPathFactory"/>
+	<jsp:directive.page import="javax.xml.xpath.XPathConstants"/>
+	<jsp:directive.page import="org.w3c.dom.NodeList"/>
+	<jsp:directive.page import="org.w3c.dom.Document"/>
 
 	<jsp:scriptlet><![CDATA[
 
@@ -92,12 +100,34 @@ try {
 	Circuit circuit = (Circuit)pageContext.getAttribute("circuit");
 //	pageContext.setAttribute("numReferred", circuit.getRefKeys().size() );
 
+	Document doc = Util.parseDocument(circuit.getXml() );
+	NodeList attrList = (NodeList)XPathFactory.
+			newInstance().newXPath().
+			compile("//@title|//@type|//@label").
+			evaluate(doc, XPathConstants.NODESET);
+	Set<String> attrSet = new HashSet<String>();
+	for (int i = 0; i < attrList.getLength(); i += 1) {
+		String attr = attrList.item(i).getNodeValue();
+		if (Util.isEmpty(attr) ) {
+			continue;
+		}
+		attrSet.add(attr);
+	}
+	StringBuilder attrs = new StringBuilder();
+	for (String attr : attrSet) {
+		if (attrs.length() > 0) {
+			attrs.append(' ');
+		}
+		attrs.append(attr);
+	}
+	pageContext.setAttribute("attrs", attrs);
+
 	response.setContentType("text/html;charset=UTF-8");
 }
 			]]></jsp:scriptlet>
 	
 			<s:page title=" - ${circuit.title}" 
-				description="${circuit.title}"
+				description="${attrs}"
 				thumbnail="${contextPath}/circuit?fmt=tn&amp;key=${circuit.key}">
 		
 				<s:script><![CDATA[

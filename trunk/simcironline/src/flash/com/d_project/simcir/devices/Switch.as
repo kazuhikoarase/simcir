@@ -104,7 +104,7 @@ class Control extends UIBase {
 			_down?
 				[0x3333cc, 0xddddff] : 
 				[0xddddff, 0x3333cc],
-			[1, 1], [0, 255],mat);
+			[1, 1], [0, 255], mat);
 		g.drawRoundRect(rx, ry, size, size, 4, 4);
 		g.endFill();
 	}

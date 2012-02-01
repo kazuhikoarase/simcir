@@ -4,6 +4,8 @@ package com.d_project.simcir.core.deviceLoaderClasses {
 	import flash.events.EventDispatcher;
 
 	[Event(name="complete", type="flash.events.Event")]
+	[Event(name="ioError", type="flash.events.IOErrorEvent")]
+	[Event(name="securityErrot", type="flash.events.SecurityErrorEvent")]
 
 	/**
 	 * Task
