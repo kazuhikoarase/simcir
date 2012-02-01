@@ -50,7 +50,9 @@ import com.d_project.simcir.core.buildInDevice.Port;
 import com.d_project.simcir.ui.UIConstants;
 import com.d_project.ui.UIBase;
 
+import flash.display.GradientType;
 import flash.display.Graphics;
+import flash.geom.Matrix;
 
 class Control extends UIBase {
 
@@ -69,7 +71,17 @@ class Control extends UIBase {
 		var cy : Number = parent.height / 2;
 		var size : Number = UIConstants.UNIT;
 
-		g.lineStyle(2, UIConstants.BORDER_COLOR);
+		var mat : Matrix = new Matrix();
+		var s : Number = size / 2;
+		mat.createGradientBox(s, s, Math.PI / 3, cx - s / 2, cy - s / 2);
+		
+//		g.lineStyle(2, UIConstants.BORDER_COLOR);
+		g.lineStyle(2);
+		g.lineGradientStyle(GradientType.LINEAR,
+			[UIConstants.BORDER_COLOR, 0xffffff, UIConstants.BORDER_COLOR],
+			[1, 1, 1],
+			[0, 127, 255], mat
+		);
 		g.beginFill(port.type == Port.IN?
 			UIConstants.INPUT_NODE_COLOR :
 			UIConstants.OUTPUT_NODE_COLOR);

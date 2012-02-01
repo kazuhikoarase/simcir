@@ -1,8 +1,8 @@
 package com.d_project.simcir.devices {
 
-	import com.d_project.simcir.devices.graphicsUtilClasses.Seg;
-	import com.d_project.simcir.devices.graphicsUtilClasses._16seg;
-	import com.d_project.simcir.devices.graphicsUtilClasses._7seg;
+	import com.d_project.simcir.devices.devGraphicsUtilClasses.Seg;
+	import com.d_project.simcir.devices.devGraphicsUtilClasses._16seg;
+	import com.d_project.simcir.devices.devGraphicsUtilClasses._7seg;
 	
 	import flash.display.GradientType;
 	import flash.display.Graphics;
@@ -12,12 +12,12 @@ package com.d_project.simcir.devices {
 	import flash.geom.Point;
 
 	/**
-	 * GraphicsUtil
+	 * DevGraphicsUtil
 	 * @author kazuhiko arase
 	 */
-	public class GraphicsUtil {
+	public class DevGraphicsUtil {
 
-		public function GraphicsUtil() {
+		public function DevGraphicsUtil() {
 			throw new Error();
 		}
 		
@@ -88,8 +88,7 @@ package com.d_project.simcir.devices {
 		}
 
 		private static function drawReflect(
-			g : Graphics,
-			x : Number, y : Number, radius : Number
+			g : Graphics, x : Number, y : Number, radius : Number
 		) : void {
 
 			var gradRadius : Number = radius * 8;
@@ -116,8 +115,7 @@ package com.d_project.simcir.devices {
 
 		}
 
-		private static function drawCrescent(
-			g : Graphics,
+		private static function drawCrescent(g : Graphics,
 			x1 : Number, y1 : Number, r1 : Number,
 			x2 : Number, y2 : Number, r2 : Number
 		) : void {
@@ -170,7 +168,7 @@ package com.d_project.simcir.devices {
 			}
 		}
 
-		private static function getControlPoint(
+		public static function getControlPoint(
 			x : Number, y : Number, r : Number,
 			t1 : Number, t2 : Number
 		) : Point {
@@ -256,27 +254,29 @@ package com.d_project.simcir.devices {
 			g.drawCircle(x + width - 2, y + height / 2, 2);
 		}
 		
-		public static function drawVolume(g : Graphics, x : Number, y : Number, radius : Number, theta : Number) : void {
-			
-			var mat : Matrix = new Matrix();
-			mat.createGradientBox(radius * 4, radius * 4, 0,
-				-radius * 1.5, -radius * 1.5);
-			
-			g.beginGradientFill(GradientType.RADIAL,
-				[0x666666, 0x000000], [1, 1], [0, 255], mat);
-			g.drawCircle(x, y, radius);
-			g.endFill();
-			
-			var r1 : Number = radius * 0.4; 
-			var r2 : Number = radius - 3 / 2; 
-			
-			g.lineStyle(3, 0xffffff, 0.8);
-			g.moveTo(Math.cos(theta) * r1 + x, Math.sin(theta) * r1 + y);
-			g.lineTo(Math.cos(theta) * r2 + x, Math.sin(theta) * r2 + y);
-			
-			g.lineStyle();
-			g.drawCircle(x, y, radius);
-		} 
+		public static function multiplyColor(color : uint, ratio : Number) : uint {
+			var r : int = (color >>> 16) & 0xff;
+			var g : int = (color >>> 8) & 0xff;
+			var b : int = color & 0xff;
+			var mc : Function = function(v : int, ratio : Number) : int {
+				return Math.max(0, Math.min(v * ratio, 255) );
+			}
+			return (mc(r, ratio) << 16) | (mc(g, ratio) << 8) | mc(b, ratio);
+		}
+
+		private static const HEX : String = "0123456789abcdef";
+
+		public static function parseColor(sColor : String) : uint {
+			if (!sColor || !sColor.match(/^#[0-9a-f]{6}$/i) ) {
+				return 0x000000;
+			}
+			sColor = sColor.toLowerCase();
+			var color : uint = 0;
+			for (var i : int = 0; i < 6; i += 1) {
+				color = (color << 4) | HEX.indexOf(sColor.charAt(i + 1) );
+			}
+			return color;
+		}
 
 		public static const _7SEG : Seg = new _7seg();
 
@@ -309,30 +309,6 @@ package com.d_project.simcir.devices {
 			
 			on = (pattern != null && pattern.indexOf(".") != -1);
 			seg.drawPoint(g, on? hiColor : loColor);
-		}
-
-		public static function multiplyColor(color : uint, ratio : Number) : uint {
-			var r : int = (color >>> 16) & 0xff;
-			var g : int = (color >>> 8) & 0xff;
-			var b : int = color & 0xff;
-			var mc : Function = function(v : int, ratio : Number) : int {
-				return Math.max(0, Math.min(v * ratio, 255) );
-			}
-			return (mc(r, ratio) << 16) | (mc(g, ratio) << 8) | mc(b, ratio);
-		}
-		
-		private static const HEX : String = "0123456789abcdef";
-		
-		public static function parseColor(sColor : String) : uint {
-			if (!sColor || !sColor.match(/^#[0-9a-f]{6}$/i) ) {
-				return 0x000000;
-			}
-			sColor = sColor.toLowerCase();
-			var color : uint = 0;
-			for (var i : int = 0; i < 6; i += 1) {
-				color = (color << 4) | HEX.indexOf(sColor.charAt(i + 1) );
-			}
-			return color;
 		}
 	}
 }

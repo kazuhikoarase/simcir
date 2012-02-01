@@ -29,7 +29,11 @@ pageContext.setAttribute("circuitList", ss.getRecentCircuitList(currentPage) );
 		</div>
 
 		<div style="width:800px;">
-			<jsp:text>Simcir is an online circuit simulator. With this tool, you could create, integrate and <a href="http://code.google.com/p/simcir/wiki/GetMoreDevices">extend</a> your circuits for free.</jsp:text>
+			<jsp:text>Simcir is an online circuit simulator. With this tool, you could create, integrate and <a href="http://code.google.com/p/simcir/wiki/GetMoreDevices">extend</a> your circuits for free. </jsp:text>
+<!-- 
+			<jsp:text>At new version of Simcir, you could use not only logic gate, but also more various devices such as sound media. </jsp:text>
+ -->
+
 			<c:if test="${not isUserLoggedIn}">
 				<br />
 				<jsp:text>To create a circuit, </jsp:text>
@@ -49,7 +53,7 @@ pageContext.setAttribute("circuitList", ss.getRecentCircuitList(currentPage) );
 		<c:if test="${not isUserLoggedIn}">
 			<s:button label="Try it Now!" click="location.href= contextPath + '/circuit?try';"/>
 		</c:if>
--->
+ -->
 
 		<br/>
 

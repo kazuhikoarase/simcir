@@ -9,6 +9,8 @@ package com.d_project.simcir.core {
 	
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
+	import flash.events.IOErrorEvent;
+	import flash.events.SecurityErrorEvent;
 	import flash.system.ApplicationDomain;
 	import flash.system.LoaderContext;
 	import flash.system.SecurityDomain;
@@ -59,9 +61,16 @@ package com.d_project.simcir.core {
 //			var task : URLLoaderTask = new URLLoaderTask(url);
 			var task : URLLoaderTask = new CachedURLLoaderTask(url);
 			task.addEventListener(Event.COMPLETE, function(event : Event) : void {
-				LockManager.getInstance().unlock();
 				loadXml(new XML(task.data) );
 			} );
+
+			var unlockHandler : Function = function(event : Event) : void {
+				LockManager.getInstance().unlock();
+			};
+			task.addEventListener(Event.COMPLETE, unlockHandler);
+			task.addEventListener(IOErrorEvent.IO_ERROR, unlockHandler);
+			task.addEventListener(SecurityErrorEvent.SECURITY_ERROR, unlockHandler);
+
 			TaskQueue.getInstance().postTask(task);
 		}
 

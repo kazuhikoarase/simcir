@@ -8,12 +8,14 @@
 	<jsp:directive.attribute name="circuit" type="java.lang.Object" required="true" />
 
 	<div>
-		<a class="title" href="${contextPath}/circuit?key=${circuit.key}">
-			<c:out value="${circuit.title}"/>
+		<span class="title">
+			<a href="${contextPath}/circuit?key=${circuit.key}">
+				<c:out value="${circuit.title}"/>
+			</a>
 			<c:if test="${circuit.private}">
 				<jsp:text> (Private)</jsp:text>
 			</c:if>
-		</a>
+		</span>
 		<br/>
 		<jsp:text>Author: </jsp:text>
 		<span><c:out value="${circuit.user.nickname}"/></span>
