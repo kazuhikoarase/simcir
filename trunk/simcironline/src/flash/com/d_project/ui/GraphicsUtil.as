@@ -36,6 +36,5 @@ package com.d_project.ui {
 			g.lineTo(x, y);
 			g.lineTo(width - 1, y);			
 		}
-		
 	}
 }

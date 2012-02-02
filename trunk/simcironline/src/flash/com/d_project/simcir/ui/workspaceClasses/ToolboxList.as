@@ -53,7 +53,7 @@ package com.d_project.simcir.ui.workspaceClasses {
 			return _selectedIndex;
 		}
 		
-		public function load(url : String) : void {
+		public function loadUrl(url : String) : void {
 			_ready = false;
 			/* deep loading causes fatal error.
 			var loader : DeviceLoader = new DeviceLoader();

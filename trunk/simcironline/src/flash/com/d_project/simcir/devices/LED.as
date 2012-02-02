@@ -27,8 +27,8 @@ package com.d_project.simcir.devices {
 }
 
 import com.d_project.simcir.core.DeviceLoader;
-import com.d_project.simcir.devices.GraphicsUtil;
 import com.d_project.simcir.devices.LED;
+import com.d_project.simcir.ui.GraphicsUtil;
 import com.d_project.simcir.ui.UIConstants;
 import com.d_project.ui.UIBase;
 

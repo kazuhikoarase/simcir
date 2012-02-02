@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<simcir xmlns="http://www.d-project.com/simcir/2012"
-		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		xsi:schemaLocation="http://www.d-project.com/simcir/2012 simcir.xsd"
-		title="BasicSet">
+<simcir xmlns="http://www.d-project.com/simcir/2012" title="BasicSet">
 
 	<device type="In" />
 	<device type="Out" />

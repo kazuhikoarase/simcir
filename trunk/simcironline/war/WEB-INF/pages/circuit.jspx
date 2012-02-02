@@ -220,8 +220,10 @@ var openCircuitHandler = function(url) {
 
 						<c:set var="movie">
 							<jsp:text>${contextPath}/simcironline.swf</jsp:text>
-						
-							<jsp:text>?e=false</jsp:text>
+						</c:set>
+	
+						<c:set var="flashVars">
+							<jsp:text>e=false</jsp:text>
 							<c:if test="${not circuit.showNonVisuals}">
 								<jsp:text>&amp;s=false</jsp:text>
 							</c:if>
@@ -233,7 +235,7 @@ var openCircuitHandler = function(url) {
 								<jsp:text>&amp;key=${param.key}</jsp:text>
 							</s:encodeURL>
 						</c:set>
-	
+
 						<c:set var="alt">
 
 							<c:set var="altTitle">
@@ -250,6 +252,7 @@ var openCircuitHandler = function(url) {
 						<s:swf 
 							id="simcir"
 							movie="${movie}"
+							flashVars="${flashVars}"
 							width="800"
 							height="450"
 							alt="${alt}"

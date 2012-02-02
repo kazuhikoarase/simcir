@@ -1,8 +1,8 @@
-package com.d_project.simcir.devices {
+package com.d_project.simcir.ui {
 
-	import com.d_project.simcir.devices.graphicsUtilClasses.Seg;
-	import com.d_project.simcir.devices.graphicsUtilClasses._16seg;
-	import com.d_project.simcir.devices.graphicsUtilClasses._7seg;
+	import com.d_project.simcir.ui.graphicsUtilClasses.Seg;
+	import com.d_project.simcir.ui.graphicsUtilClasses._16seg;
+	import com.d_project.simcir.ui.graphicsUtilClasses._7seg;
 	
 	import flash.display.GradientType;
 	import flash.display.Graphics;
@@ -21,6 +21,30 @@ package com.d_project.simcir.devices {
 			throw new Error();
 		}
 		
+		public static function multiplyColor(color : uint, ratio : Number) : uint {
+			var r : int = (color >>> 16) & 0xff;
+			var g : int = (color >>> 8) & 0xff;
+			var b : int = color & 0xff;
+			var mc : Function = function(v : int, ratio : Number) : int {
+				return Math.max(0, Math.min(v * ratio, 255) );
+			}
+			return (mc(r, ratio) << 16) | (mc(g, ratio) << 8) | mc(b, ratio);
+		}
+		
+		private static const HEX : String = "0123456789abcdef";
+		
+		public static function parseColor(sColor : String) : uint {
+			if (!sColor || !sColor.match(/^#[0-9a-f]{6}$/i) ) {
+				return 0x000000;
+			}
+			sColor = sColor.toLowerCase();
+			var color : uint = 0;
+			for (var i : int = 0; i < 6; i += 1) {
+				color = (color << 4) | HEX.indexOf(sColor.charAt(i + 1) );
+			}
+			return color;
+		}
+
 		public static function drawGlass(
 			g : Graphics,
 			x : Number, y : Number, radius : Number,
@@ -309,30 +333,6 @@ package com.d_project.simcir.devices {
 			
 			on = (pattern != null && pattern.indexOf(".") != -1);
 			seg.drawPoint(g, on? hiColor : loColor);
-		}
-
-		public static function multiplyColor(color : uint, ratio : Number) : uint {
-			var r : int = (color >>> 16) & 0xff;
-			var g : int = (color >>> 8) & 0xff;
-			var b : int = color & 0xff;
-			var mc : Function = function(v : int, ratio : Number) : int {
-				return Math.max(0, Math.min(v * ratio, 255) );
-			}
-			return (mc(r, ratio) << 16) | (mc(g, ratio) << 8) | mc(b, ratio);
-		}
-		
-		private static const HEX : String = "0123456789abcdef";
-		
-		public static function parseColor(sColor : String) : uint {
-			if (!sColor || !sColor.match(/^#[0-9a-f]{6}$/i) ) {
-				return 0x000000;
-			}
-			sColor = sColor.toLowerCase();
-			var color : uint = 0;
-			for (var i : int = 0; i < 6; i += 1) {
-				color = (color << 4) | HEX.indexOf(sColor.charAt(i + 1) );
-			}
-			return color;
 		}
 	}
 }

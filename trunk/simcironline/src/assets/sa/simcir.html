@@ -1,0 +1,77 @@
+<html>	
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link rel="stylesheet" type="text/css" href="assets/style.css" />
+        <script type="text/javascript" src="assets/swfobject.js"></script>
+        <script type="text/javascript">
+
+var openCircuitHandler = function(url) {
+	window.open('?' + url, '_blank');
+};
+
+!function() {
+
+	var swfVersionStr = '10.0.0';
+    var xiSwfUrlStr = 'assets/playerProductInstall.swf';
+
+    var flashvars = {};
+    flashvars.sa = "true"; // standalone (Save and Load menu are added in context menu)
+    flashvars.o = 'openCircuitHandler'; // open circuit handler
+    flashvars.tl = 'assets/toolbox-list.xml'; // toolbox list definition
+    flashvars.l = 'assets/library.xml'; // library definition
+    if (location.search.match(/^\?(.+)$/) ) {
+        flashvars.c = RegExp.$1; // circuit data
+    }
+        
+    var params = {};
+    params.quality = 'high';
+    params.bgcolor = '#ffffff';
+    params.allowscriptaccess = 'sameDomain';
+    params.allowfullscreen = 'true';
+
+    var attributes = {};
+    attributes.id = 'simcironline';
+    attributes.name = 'simcironline';
+    attributes.align = 'middle';
+
+    swfobject.embedSWF(
+        'simcironline.swf', 'flashContent', 
+        '928', '450', 
+        swfVersionStr, xiSwfUrlStr, 
+        flashvars, params, attributes);
+
+    swfobject.createCSS('#flashContent', 'display:block;text-align:left;');
+}();
+        </script>
+        <title>Simcir</title>         
+    </head>
+    <body>
+
+		<a href="index.html">index</a>
+
+    	<h1><span id="logo"></span>Simcir</h1>
+
+        <p>From context menu, save or load a circuit data.</p>
+
+        <div id="flashContent">
+        	<p>
+	        	To view this page ensure that Adobe Flash Player version 
+				10.0.0 or greater is installed. 
+			</p>
+			<script type="text/javascript"> 
+!function() {
+	var pageHost = ((document.location.protocol == 'https:') ? 'https://' :	'http://'); 
+	document.write('<a href="http://www.adobe.com/go/getflashplayer"><img src="' +
+		pageHost +
+		'www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash player" /></a>'); 
+}();
+			</script> 
+        </div>
+
+        <hr/>
+        
+       	<a href="http://code.google.com/p/simcir/">Simcir</a>
+       	&copy; 1998, 2012 kazuhiko arase
+        
+   </body>
+</html>

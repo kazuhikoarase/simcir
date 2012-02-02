@@ -1,6 +1,5 @@
 package com.d_project.simcir.ui {
 
-	import com.d_project.simcir.devices.GraphicsUtil;
 	import com.d_project.ui.UIBase;
 	
 	import flash.display.GradientType;

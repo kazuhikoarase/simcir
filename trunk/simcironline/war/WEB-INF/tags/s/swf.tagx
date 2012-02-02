@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:s="urn:jsptagdir:/WEB-INF/tags/s"
 	xmlns="http://www.w3.org/1999/xhtml"
 >
 
 	<jsp:directive.attribute name="id" required="true" />
 	<jsp:directive.attribute name="movie" required="true" />
+	<jsp:directive.attribute name="flashVars" />
 	<jsp:directive.attribute name="width" />
 	<jsp:directive.attribute name="height" />
 	<jsp:directive.attribute name="alt" />
 
 	<!--  vars -->	
 	<c:set var="placeHolderId" value="fl_${id}" />
-	<c:set var="swfVersion" value="10.3.0" />
+	<c:set var="swfVersion" value="10.0.0" />
 	<c:set var="bgcolor" value="#ffffff" />
 	<c:set var="quality" value="high" />
 	<c:set var="allowScriptAccess" value="sameDomain" />
@@ -40,13 +42,13 @@ out.write("<script type=\"text/javascript\" src=\"" + assetsPath + "/swfobject.j
 }
 
 	]]></jsp:scriptlet>
-
-<script type="text/javascript">
-(function() {
+	<s:script>
+!function() {
 	var swfVersionStr = "${swfVersion}";
 	var xiSwfUrlStr = "${assetsPath}/playerProductInstall.swf";
 	var flashvars = {};
 	var params = {};
+	params.FlashVars = "${flashVars}";
 	params.quality = "${quality}";
 	params.bgcolor = "${bgcolor}";
 	params.allowscriptaccess = "${allowScriptAccess}";
@@ -60,28 +62,25 @@ out.write("<script type=\"text/javascript\" src=\"" + assetsPath + "/swfobject.j
 		"${width}", "${height}", 
 		swfVersionStr, xiSwfUrlStr, 
 		flashvars, params, attributes);
-	swfobject.createCSS("#${placeHolderId}", "display:block;text-align:left;");
-}() );
-</script>
-
+	swfobject.createCSS("#${placeHolderId}",
+		"display:block;text-align:left;");
+}();
+	</s:script>
 	<div id="${placeHolderId}">
 		<p>
-			To view this page ensure that Adobe Flash Player version
-			${swfVersion} or greater is installed.
+			<jsp:text>To view this page ensure that Adobe Flash Player version</jsp:text>
+			<jsp:text> ${swfVersion} or greater is installed.</jsp:text>
 		</p>
-<script type="text/javascript"><![CDATA[
-(function() {
-	var pageHost = (document.location.protocol == "https:") ? "https://" : "http://";
-	document.write("<a href='http://www.adobe.com/go/getflashplayer'><img src='" + pageHost +
-		 "www.adobe.com/images/shared/download_buttons/get_flash_player.gif' alt='Get Adobe Flash player' /></a>"); 
-}() );
-]]></script> 
+		<a href="http://www.adobe.com/go/getflashplayer">
+			<img src="${pageContext.request.scheme}://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash player" />
+		</a>	
 	</div>
    	
    	<noscript>
 		<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
 				id="${id}" width="${width}" height="${height}">
 			<param name="movie" value="${movie}" />
+			<param name="FlashVars" value="${flashVars}" />
 			<param name="quality" value="${quality}" />
 			<param name="bgcolor" value="${bgcolor}" />
 			<param name="allowScriptAccess" value="${allowScriptAccess}" />
@@ -89,6 +88,7 @@ out.write("<script type=\"text/javascript\" src=\"" + assetsPath + "/swfobject.j
 
 <jsp:scriptlet><![CDATA[out.write("<!--[if !IE]>-->");]]></jsp:scriptlet>
 			<object type="application/x-shockwave-flash" data="${movie}" width="${width}" height="${height}">
+				<param name="FlashVars" value="${flashVars}" />
 				<param name="quality" value="${quality}" />
 				<param name="bgcolor" value="${bgcolor}" />
 				<param name="allowScriptAccess" value="${allowScriptAccess}" />
@@ -97,8 +97,8 @@ out.write("<script type=\"text/javascript\" src=\"" + assetsPath + "/swfobject.j
 
 				<jsp:scriptlet><![CDATA[out.write("<!--[if gte IE 6]>-->");]]></jsp:scriptlet>
 					<p>
-						Either scripts and active content are not permitted to run or Adobe Flash Player version
-						${swfVersion} or greater is not installed.
+						<jsp:text>Either scripts and active content are not permitted to run or Adobe Flash Player version</jsp:text>
+						<jsp:text> ${swfVersion} or greater is not installed.</jsp:text>
 					</p>
 				<jsp:scriptlet><![CDATA[out.write("<!--<![endif]-->");]]></jsp:scriptlet>
 				<a href="http://www.adobe.com/go/getflashplayer">

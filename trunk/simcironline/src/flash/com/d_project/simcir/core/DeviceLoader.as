@@ -55,7 +55,7 @@ package com.d_project.simcir.core {
 		}
 
 		public function loadUrl(url : String) : void {
-			
+			trace("ll:" + url);
 			LockManager.getInstance().lock();
 			
 //			var task : URLLoaderTask = new URLLoaderTask(url);

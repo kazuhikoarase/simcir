@@ -1,6 +1,11 @@
-package com.d_project.simcir.devices.graphicsUtilClasses {
+package com.d_project.simcir.ui.graphicsUtilClasses {
+
 	import flash.display.Graphics;
 
+	/**
+	 * Seg
+	 * @author kazuhiko arase
+	 */
 	public class Seg {
 		
 		private var _width : Number;	
