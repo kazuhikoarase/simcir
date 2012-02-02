@@ -1,7 +1,11 @@
-package com.d_project.simcir.devices.graphicsUtilClasses {
+package com.d_project.simcir.ui.graphicsUtilClasses {
 
 	import flash.display.Graphics;
 
+	/**
+	 * _16seg
+	 * @author kazuhiko arase
+	 */	
 	public class _16seg extends Seg {
 
 		public function _16seg() {

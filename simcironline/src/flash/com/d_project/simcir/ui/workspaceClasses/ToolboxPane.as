@@ -28,7 +28,7 @@ package com.d_project.simcir.ui.workspaceClasses {
 			return _title;
 		}
 
-		public function load(url : String) : void {
+		public function loadUrl(url : String) : void {
 			var loader : DeviceLoader = new DeviceLoader();
 			loader.addEventListener(Event.COMPLETE, loader_completeHandler);
 			loader.loadUrl(url);

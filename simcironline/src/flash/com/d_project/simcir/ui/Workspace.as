@@ -57,7 +57,6 @@ package com.d_project.simcir.ui {
 			_toolboxPane = new ToolboxPane();
 			_toolboxPane.addEventListener(Event.COMPLETE, toolboxPane_completeHandler);
 			toolboxesPane.addContent(_toolboxPane, "Toolbox", btn);
-//			toolboxesPane.addContent(_toolboxPane, "Toolbox");
 
 			_libraryPane = new ToolboxPane();
 			toolboxesPane.addContent(_libraryPane, "Library");
@@ -79,6 +78,7 @@ package com.d_project.simcir.ui {
 			addChild(_popupPane);
 			
 			_lockPane = new LockPane();
+			_lockPane.visible = false;
 			addChild(_lockPane);
 
 			_toolboxList = new ToolboxList();
@@ -97,20 +97,24 @@ package com.d_project.simcir.ui {
 			devicePane.showNonVisuals = value;
 		}
 
-		public function loadCircuit(url : String) : void {
-			devicePane.load(url);
+		public function loadToolboxUrl(url : String) : void {
+			_toolboxPane.loadUrl(url);
+		}
+		
+		public function loadToolboxListUrl(url : String) : void {
+			_toolboxList.loadUrl(url);
 		}
 
-		public function loadToolbox(url : String) : void {
-			_toolboxPane.load(url);
+		public function loadLibraryUrl(url : String) : void {
+			_libraryPane.loadUrl(url);
 		}
-
-		public function loadLibrary(url : String) : void {
-			_libraryPane.load(url);
+		
+		public function loadCircuitUrl(url : String) : void {
+			devicePane.loadUrl(url);
 		}
-
-		public function loadToolboxList(url : String) : void {
-			_toolboxList.load(url);
+		
+		public function loadCircuitXml(xml : XML) : void {
+			devicePane.loadXml(xml);
 		}
 		
 		public function get xml() : XML {
@@ -302,14 +306,14 @@ package com.d_project.simcir.ui {
 			}
 			removePopup();
 			toolboxesPane.selectedIndex = 0;
-			loadToolbox(_toolboxList.getToolboxUrlAt(
+			loadToolboxUrl(_toolboxList.getToolboxUrlAt(
 				_toolboxList.selectedIndex) );
 		}
 		
 		private function toolboxList_completeHandler(event : Event) : void {
 			if (_toolboxList.numToolboxes > 0) {
 				_toolboxList.selectedIndex = 0;
-				loadToolbox(_toolboxList.getToolboxUrlAt(
+				loadToolboxUrl(_toolboxList.getToolboxUrlAt(
 					_toolboxList.selectedIndex) );
 			}
 		}

@@ -30,8 +30,6 @@ package com.d_project.simcir.ui.workspaceClasses {
 		private var _editable : Boolean = true;
 		
 		private var _showNonVisuals : Boolean = true;
-		
-		private var _start : int;
 
 		public function DevicePane() {
 		}
@@ -64,16 +62,22 @@ package com.d_project.simcir.ui.workspaceClasses {
 			return _showNonVisuals;
 		}
 		
-		public function load(url : String) : void {
+		public function loadUrl(url : String) : void {
 			
 			_ready = false;
-			
-			_start = getTimer();
-			trace("load start");
-			
+
 			var loader : DeviceLoader = new DeviceLoader();
 			loader.addEventListener(Event.COMPLETE, loader_completeHandler);
 			loader.loadUrl(url);
+		}
+		
+		public function loadXml(xml : XML) : void {
+			
+			_ready = false;
+			
+			var loader : DeviceLoader = new DeviceLoader();
+			loader.addEventListener(Event.COMPLETE, loader_completeHandler);
+			loader.loadXml(xml);
 		}
 
 		private function loader_completeHandler(event : Event) : void {
@@ -88,8 +92,6 @@ package com.d_project.simcir.ui.workspaceClasses {
 				addChild(deviceUI);
 			}
 			adjust(true);
-			
-			trace("load complete in " + (getTimer() - _start) + "ms");
 
 			_title = loader.xml.@title;
 			_ready = true;

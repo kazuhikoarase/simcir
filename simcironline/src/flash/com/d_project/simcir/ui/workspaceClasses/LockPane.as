@@ -38,8 +38,8 @@ package com.d_project.simcir.ui.workspaceClasses {
 	}
 }
 
-import com.d_project.simcir.devices.GraphicsUtil;
-import com.d_project.simcir.devices.graphicsUtilClasses.Seg;
+import com.d_project.simcir.ui.GraphicsUtil;
+import com.d_project.simcir.ui.graphicsUtilClasses.Seg;
 
 import flash.display.Graphics;
 import flash.display.Sprite;

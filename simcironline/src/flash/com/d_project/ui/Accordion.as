@@ -118,17 +118,28 @@ class AccordionLabel extends Label {
 	
 	override protected function drawBody(g : Graphics) : void {
 		
-		var mat : Matrix = new Matrix();
+		g.lineStyle();
+
+		var mat : Matrix;
+
+		mat = new Matrix();
 		mat.createGradientBox(width, height, Math.PI / 2);
 		
-		g.lineStyle();
 		g.beginGradientFill(GradientType.LINEAR, 
-			selected? [0xccffcc, 0x99ff99] : 
+			selected? [0x66cc66, 0x33ff33] : 
 			mouseOver? [0xf0f0f0, 0xcccccc] :
-			[0xcccccc, 0x999999], [1, 1], [0, 255], mat);
+			[0x999999, 0xcccccc], [1, 1], [0, 255], mat);
 		g.drawRect(0, 0, width, height);
 		g.endFill();
 		
+		mat = new Matrix();
+		mat.createGradientBox(width, height / 2, Math.PI / 2);
+		
+		g.beginGradientFill(GradientType.LINEAR, 
+			[0xffffff, 0xffffff], [1, 0.6], [0, 255], mat);
+		g.drawRect(0, 0, width, height / 2);
+		g.endFill();
+
 		GraphicsUtil.draw3DRect(g, 0, 0, width, height, true);
 	}
 }
