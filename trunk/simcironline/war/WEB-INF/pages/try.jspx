@@ -32,7 +32,10 @@ var openCircuitHandler = function(url) {
 
 			<c:set var="movie">
 				<jsp:text>${contextPath}/simcironline.swf</jsp:text>
-				<jsp:text>?o=openCircuitHandler</jsp:text>
+			</c:set>
+
+			<c:set var="flashVars">				
+				<jsp:text>sa=true&amp;o=openCircuitHandler</jsp:text>
 				<jsp:text>&amp;tl=</jsp:text>
 				<s:encodeURL>${contextPath}/toolbox-list</s:encodeURL>
 			</c:set>
@@ -40,6 +43,7 @@ var openCircuitHandler = function(url) {
 			<s:swf 
 				id="simcir"
 				movie="${movie}"
+				flashVars="${flashVars}"
 				width="928"
 				height="450"
 			/>
