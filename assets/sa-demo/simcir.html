@@ -30,12 +30,12 @@ var openCircuitHandler = function(url) {
     params.allowfullscreen = 'true';
 
     var attributes = {};
-    attributes.id = 'simcironline';
-    attributes.name = 'simcironline';
+    attributes.id = 'simcir';
+    attributes.name = 'simcir';
     attributes.align = 'middle';
 
     swfobject.embedSWF(
-        'simcironline.swf', 'flashContent', 
+        'simcir.swf', 'flashContent', 
         '928', '450', 
         swfVersionStr, xiSwfUrlStr, 
         flashvars, params, attributes);
