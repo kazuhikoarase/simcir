@@ -10,7 +10,7 @@
 	<target name="copy-to-war">
 		<copy toDir="${war}">
 			<fileset dir="${build}/flash">
-				<include name="simcironline.swf" />
+				<include name="simcir.swf" />
 				<include name="BasicSet.swf" />
 			</fileset>
 			<fileset dir="${src}/flash">

@@ -22,15 +22,15 @@ package {
 	import flash.ui.ContextMenuItem;
 
 	/**
-	 * simcironline
+	 * simcir
 	 * @author kazuhiko arase
 	 */
 	[SWF(backgroundColor="0xffffff", frameRate="24")]
-	public class simcironline extends Sprite {
+	public class simcir extends Sprite {
 
 		private var _ws : Workspace;
 
-		public function simcironline() {
+		public function simcir() {
 			addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
 		}
 		
