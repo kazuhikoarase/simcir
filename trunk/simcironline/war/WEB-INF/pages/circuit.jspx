@@ -219,7 +219,7 @@ var openCircuitHandler = function(url) {
 						</div>
 
 						<c:set var="movie">
-							<jsp:text>${contextPath}/simcironline.swf</jsp:text>
+							<jsp:text>${contextPath}/simcir.swf</jsp:text>
 						</c:set>
 	
 						<c:set var="flashVars">

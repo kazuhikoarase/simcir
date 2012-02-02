@@ -21,7 +21,7 @@
 	<property name="simcirsa" value="simcir-standalone" />
 	<property name="version" value="1.0" />
 
-	<property name="target.simcironline" location="${build.flash}/simcironline.swf"/>
+	<property name="target.simcir" location="${build.flash}/simcir.swf"/>
 	<property name="target.basicset" location="${build.flash}/BasicSet.swf"/>
 	<property name="target.simcircorelib" location="${build.flash}/${simcircorelib}"/>
 
@@ -40,6 +40,8 @@
 			<format property="timestamp" pattern="yyyyMMddHHmm"/>
 		</tstamp>
 		
+		<echo message="Timestamp:${timestamp}"/>
+		
 		<fail unless="FLEX_HOME" message="Environment variable FLEX_HOME is required."/>
 
 		<mkdir dir="${build}"/>
@@ -56,8 +58,8 @@
 
 	<target name="apps" depends="init">
 
-		<mxmlc output="${target.simcironline}" locale="en_US"
-				file="${src.flash}/simcironline.as">
+		<mxmlc output="${target.simcir}" locale="en_US"
+				file="${src.flash}/simcir.as">
 			
 			<target-player>${target.player}</target-player>
 			<compiler.actionscript-file-encoding>UTF-8</compiler.actionscript-file-encoding>
@@ -139,7 +141,7 @@
 			</fileset>
 		</copy>
 
-		<zip zipfile="${dist}/${simcirsdk}-${version}.zip">
+		<zip zipfile="${dist}/${simcirsdk}-${version}.v${timestamp}.zip">
 			<zipfileset dir="${dist}/${simcirsdk}" prefix="${simcirsdk}-${version}">
 				<include name="**/*" />
 			</zipfileset>
@@ -162,7 +164,7 @@
 			</fileset>
 		</copy>
 
-		<zip zipfile="${dist}/${simcirsa}-${version}.zip">
+		<zip zipfile="${dist}/${simcirsa}-${version}.v${timestamp}.zip">
 			<zipfileset dir="${dist}/${simcirsa}" prefix="${simcirsa}-${version}">
 				<include name="**/*" />
 			</zipfileset>
