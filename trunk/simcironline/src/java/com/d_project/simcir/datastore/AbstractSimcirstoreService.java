@@ -15,13 +15,7 @@ implements SimcirstoreService {
 	}
 	
 	public User putUser(String nickname, String url) throws Exception {
-		User user = getUser(false);
-		return putUser(
-			user.getEmail(), 
-			nickname, 
-			url,
-			user.getToolboxListXml(), 
-			false);
+		return putUser(null, nickname, url, null, false);
 	}
 
 	public void putToolboxList(String toolboxListXml) throws Exception {
@@ -34,12 +28,6 @@ implements SimcirstoreService {
 			toolboxListXml = "";
 		}
 		
-		User user = getUser(false);
-		putUser(
-			user.getEmail(),
-			user.getNickname(),
-			user.getUrl(),
-			toolboxListXml,
-			false);
+		putUser(null, null, null, toolboxListXml, false);
 	}
 }

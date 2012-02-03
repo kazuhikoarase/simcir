@@ -306,19 +306,31 @@ public class SimcirstoreServiceGAE extends AbstractSimcirstoreService {
 	) throws Exception {
 
 		DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
-		
-		Entity entity = new Entity(getCurrentUserKey() );
-		entity.setProperty("email", email);
-		entity.setProperty("nickname", nickname);
-		entity.setProperty("url", url);
-		entity.setProperty("toolboxListXml",
-				stringToBlob(toolboxListXml) );
-		
+
 		Date date = new Date();
+		
+		Entity entity;
 		if (newUser) {
+			entity = new Entity(getCurrentUserKey() );
 			entity.setProperty("createDate", date);
+		} else { 
+			entity = ds.get(getCurrentUserKey() );
 		}
 		entity.setProperty("updateDate", date);
+		
+		if (email != null) {
+			entity.setProperty("email", email);
+		}
+		if (nickname != null) {
+			entity.setProperty("nickname", nickname);
+		}
+		if (url != null) {
+			entity.setProperty("url", url);
+		}
+		if (toolboxListXml != null) {
+			entity.setProperty("toolboxListXml",
+					stringToBlob(toolboxListXml) );
+		}
 
 		Key key = ds.put(entity);
 		User user = entityToUser(entity);
