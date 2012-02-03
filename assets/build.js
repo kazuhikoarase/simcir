@@ -5,8 +5,10 @@
 		var defaultMimeType = 'application/octet-stream';
 		
 		var mimeTypes = {
-			'^.*\\.(txt|c|cpp|h|hpp|php|pl|sh|bat|vbs|wsf|js|java|MF|scala|as|mxml|xml|xsd|xsl|xsi|xmi|css|properties|jsp|jspx|tag|tagx|sql)$': 'text/plain',
+			'^.*\\.(txt|c|cpp|h|hpp|php|pl|sh|bat|vbs|wsf|java|MF|scala|as|mxml|xml|xsd|xsl|xsi|xmi|properties|jsp|jspx|tag|tagx|sql)$': 'text/plain',
 			'^.*\\.(html|htm)$': 'text/html',
+			'^.*\\.js$': 'text/javascript',
+			'^.*\\.css$': 'text/css',
 			'^.*\\.pdf$': 'application/pdf',
 			'^.*\\.jpg$': 'image/jpeg',
 			'^.*\\.gif$': 'image/gif',
