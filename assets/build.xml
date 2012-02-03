@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project default="all">
+
+	<property name="svnant.home" location="/usr/local/svnant-1.3.1" />
+	<property name="svnkit.home" location="/usr/local/svnkit-1.3.7" />
+
+	<target name="all" depends="svn.setprop" />
+
+	<target name="svn.setprop">
+
+		<path id="path.svnant">
+			<pathelement location="${svnant.home}/lib/svnant.jar" />
+			<pathelement location="${svnant.home}/lib/svnClientAdapter.jar" />
+			<fileset dir="${svnant.home}/lib">
+				<include name="*.jar"/>
+			</fileset>
+		</path>
+
+		<typedef 
+			resource="org/tigris/subversion/svnant/svnantlib.xml" 
+			classpathref="path.svnant"
+		/>
+
+		<fileset id="fs" dir=".">
+			<include name="**/*"/>
+			<exclude name="build*" />
+			<exclude name=".project" />
+			<exclude name=".settings/**" />
+		</fileset>
+	  	
+		<script language="ECMAScript" src="build.js" />
+
+	</target>
+	
+	<target name="propset">
+		<echo message="${path} ${mimeType}"/>
+		<svnSetting id="svn.settings" svnkit="true" javahl="false" />
+		<svn refid="svn.settings">
+			<propset recurse="true" path="${path}" 
+				name="svn:mime-type" value="${mimeType}" />
+		</svn>
+	</target>
+	
+</project>
