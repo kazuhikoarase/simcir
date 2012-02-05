@@ -1,4 +1,4 @@
-= Simcir.swf =
+= simcir.swf =
 
 ==FlashVars==
 
