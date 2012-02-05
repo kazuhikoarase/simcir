@@ -6,8 +6,8 @@
 || e || Editable Flag (true/false) || true || ||
 || s || Show Non Visuals Flag (true/false) || true || ||
 || sa || Standalone Flag (true/false) || false || ||
-|| t || URL for Toolbox || - || ||
-|| tl || URL for ToolboxList || - || ||
-|| l || URL for Library || - || ||
-|| c || URL for Circuit || - || ||
+|| t || URL for Toolbox XML File || - || ||
+|| tl || URL for ToolboxList XML File || - || ||
+|| l || URL for Library XML File || - || ||
+|| c || URL for Circuit XML File || - || ||
 || o || Open Circuit Handler || - || ||
