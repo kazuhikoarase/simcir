@@ -1,6 +1,7 @@
 package com.d_project.simcir.datastore;
 
 import java.io.Serializable;
+import java.net.URLEncoder;
 import java.util.Date;
 
 /**
@@ -83,5 +84,14 @@ public class Circuit implements Serializable {
 	}
 	public void setShowNonVisuals(boolean showNonVisuals) {
 		this.showNonVisuals = showNonVisuals;
+	}
+
+	public String getKeyParams() throws Exception {
+		StringBuilder qs = new StringBuilder();
+		qs.append("title=");
+		qs.append(URLEncoder.encode(getTitle(), "UTF-8") );
+		qs.append("&key=");
+		qs.append(getKey() );
+		return qs.toString();
 	}
 }

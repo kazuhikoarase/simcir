@@ -4,17 +4,53 @@
     xmlns:s="urn:jsptagdir:/WEB-INF/tags/s"
 	xmlns="http://www.w3.org/1999/xhtml"
 >
+	<jsp:directive.page import="java.util.ArrayList"/>
+	<jsp:directive.page import="java.util.List"/>
 	<jsp:directive.page import="com.d_project.simcir.Util"/>
+	<jsp:directive.page import="com.d_project.simcir.datastore.Circuit"/>
 	<jsp:directive.page import="com.d_project.simcir.datastore.SimcirstoreServiceFactory"/>
 	<jsp:directive.page import="com.d_project.simcir.datastore.SimcirstoreService"/>
 
 	<jsp:scriptlet><![CDATA[
 
-int currentPage = Util.parseInt(request.getParameter("p") );
 SimcirstoreService ss = SimcirstoreServiceFactory.getSimcirstoreService();
 pageContext.setAttribute("isUserLoggedIn", ss.isUserLoggedIn() );
-pageContext.setAttribute("circuitList", ss.getRecentCircuitList(currentPage) );
 
+String[] keys = new String[]{
+
+	"agxzaW1jaXJvbmxpbmVyKwsSBFVzZXIiFDE4NTgwNDc2NDIyMDEzOTEyNDExDAsSB0NpcmN1aXQYagw",
+	"agxzaW1jaXJvbmxpbmVyKwsSBFVzZXIiFDE4NTgwNDc2NDIyMDEzOTEyNDExDAsSB0NpcmN1aXQYagw",
+	"agxzaW1jaXJvbmxpbmVyKwsSBFVzZXIiFDE4NTgwNDc2NDIyMDEzOTEyNDExDAsSB0NpcmN1aXQYagw",
+	"agxzaW1jaXJvbmxpbmVyKwsSBFVzZXIiFDE4NTgwNDc2NDIyMDEzOTEyNDExDAsSB0NpcmN1aXQYagw",
+//
+
+	"ag5zfnNpbWNpcm9ubGluZXIsCxIEVXNlciIVMTAzMjc3NDY0OTMyNDkyNjkyMzY1DAsSB0NpcmN1aXQYAQw",
+	"ag5zfnNpbWNpcm9ubGluZXItCxIEVXNlciIVMTAzMjc3NDY0OTMyNDkyNjkyMzY1DAsSB0NpcmN1aXQYpx8M",
+	"ag5zfnNpbWNpcm9ubGluZXItCxIEVXNlciIVMTAzMjc3NDY0OTMyNDkyNjkyMzY1DAsSB0NpcmN1aXQY1g8M",
+	"ag5zfnNpbWNpcm9ubGluZXItCxIEVXNlciIVMTAzMjc3NDY0OTMyNDkyNjkyMzY1DAsSB0NpcmN1aXQYoh8M",
+	"ag5zfnNpbWNpcm9ubGluZXItCxIEVXNlciIVMTAzMjc3NDY0OTMyNDkyNjkyMzY1DAsSB0NpcmN1aXQYox8M",
+
+	"ag5zfnNpbWNpcm9ubGluZXItCxIEVXNlciIVMTAzMjc3NDY0OTMyNDkyNjkyMzY1DAsSB0NpcmN1aXQYuhcM",
+	"ag5zfnNpbWNpcm9ubGluZXItCxIEVXNlciIVMTAzMjc3NDY0OTMyNDkyNjkyMzY1DAsSB0NpcmN1aXQY7AcM",
+	"ag5zfnNpbWNpcm9ubGluZXItCxIEVXNlciIVMTAzMjc3NDY0OTMyNDkyNjkyMzY1DAsSB0NpcmN1aXQY2TYM",
+	"ag5zfnNpbWNpcm9ubGluZXItCxIEVXNlciIVMTAzMjc3NDY0OTMyNDkyNjkyMzY1DAsSB0NpcmN1aXQY0w8M",
+	"ag5zfnNpbWNpcm9ubGluZXItCxIEVXNlciIVMTAzMjc3NDY0OTMyNDkyNjkyMzY1DAsSB0NpcmN1aXQY7gcM",
+	
+	"ag5zfnNpbWNpcm9ubGluZXItCxIEVXNlciIVMTAzMjc3NDY0OTMyNDkyNjkyMzY1DAsSB0NpcmN1aXQYjicM",
+	"ag5zfnNpbWNpcm9ubGluZXItCxIEVXNlciIVMTAzMjc3NDY0OTMyNDkyNjkyMzY1DAsSB0NpcmN1aXQY1w8M",
+	"ag5zfnNpbWNpcm9ubGluZXItCxIEVXNlciIVMTAzMjc3NDY0OTMyNDkyNjkyMzY1DAsSB0NpcmN1aXQYrkYM"
+
+};
+
+List<Circuit> list = new ArrayList<Circuit>();
+for (String key : keys) {
+	try {
+		list.add(ss.getCircuit(key, true) );
+	} catch(Exception e) {
+	}
+}
+pageContext.setAttribute("list", list);
+	
 	]]></jsp:scriptlet>
 
 	<jsp:directive.page contentType="text/html;charset=UTF-8" />
@@ -46,50 +82,20 @@ pageContext.setAttribute("circuitList", ss.getRecentCircuitList(currentPage) );
 		<jsp:text>&gt;&gt;</jsp:text><a href="http://code.google.com/p/simcir/wiki/Usage">Usage</a>
 		</div>
 		
-		<h3>Recent Circuits</h3>
-
 		<s:button label="Create" click="location.href= contextPath + '/user/edit';"/>
-<!-- 
-		<c:if test="${not isUserLoggedIn}">
-			<s:button label="Try it Now!" click="location.href= contextPath + '/circuit?try';"/>
-		</c:if>
- -->
+		
+		<h3 style="margin-top: 8px;">Gallery</h3>
 
-		<br/>
-
-		<jsp:text>Total: </jsp:text>
-		<c:out value="${circuitList.numCircuits}"/>
-		<jsp:text> circuits</jsp:text>
-
-		<c:set var="pages">
-			<c:if test="${circuitList.numPages gt 1}">
-				<div class="pages">
-					<c:forEach var="page" begin="0" end="${circuitList.numPages - 1}">
-						<c:if test="${page gt 0}">&#xa0;</c:if>
-						<c:choose>
-							<c:when test="${page == circuitList.currentPage}">
-								<c:out value="${page + 1}"/>
-							</c:when>
-							<c:otherwise>
-								<a href="${contextPath}/?p=${page}">
-									<c:out value="${page + 1}"/>
-								</a>
-							</c:otherwise>
-						</c:choose>
-					</c:forEach>
-				</div>
+		<c:forEach var="item" items="${list}" varStatus="itemStatus">
+			<c:if test="${itemStatus.index gt 0 and itemStatus.index mod 2 == 0}">
+				<br style="clear:both;"/>
 			</c:if>
-		</c:set>
-
-		<c:out value="${pages}" escapeXml="false"/>
-
-		<c:forEach var="item" items="${circuitList.list}">
-			<div class="list-item">
-				<s:circuit circuit="${item}" />
+			<div class="list-item" style="width:386px; margin:2px; float: left;">
+				<s:circuit circuit="${item}" noauthor="true" />
 			</div>
 		</c:forEach>	
 
-		<c:out value="${pages}" escapeXml="false"/>
+		<br style="clear:both;"/>
 
 		<c:if test="${empty pageContext.request.queryString}">
 			<div style="margin: 32px 0px 8px 0px;">

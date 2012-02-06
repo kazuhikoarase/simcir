@@ -6,10 +6,11 @@
 >
 
 	<jsp:directive.attribute name="circuit" type="java.lang.Object" required="true" />
+	<jsp:directive.attribute name="noauthor" />
 
 	<div>
 		<span class="title">
-			<a href="${contextPath}/circuit?key=${circuit.key}">
+			<a href="${contextPath}/circuit?${circuit.keyParams}">
 				<c:out value="${circuit.title}"/>
 			</a>
 			<c:if test="${circuit.private}">
@@ -17,17 +18,19 @@
 			</c:if>
 		</span>
 		<br/>
-		<jsp:text>Author: </jsp:text>
-		<span><c:out value="${circuit.user.nickname}"/></span>
-		<br/>
-		<jsp:text>Last modified: </jsp:text>
-		<s:date value="${circuit.updateDate}"/>
+		<c:if test="${not noauthor}">
+			<jsp:text>Author: </jsp:text>
+			<span><c:out value="${circuit.user.nickname}"/></span>
+			<br/>
+			<jsp:text>Last modified: </jsp:text>
+			<s:date value="${circuit.updateDate}"/>
+		</c:if>
 	</div>
 
 	<div>
 		<span style="display: inline-block;vertical-align: middle;">
 			<c:set var="title"><c:out value="${circuit.title}"/></c:set>
-			<a href="${contextPath}/circuit?key=${circuit.key}">
+			<a href="${contextPath}/circuit?${circuit.keyParams}">
 				<img
 					src="${contextPath}/circuit?fmt=tn&amp;key=${circuit.key}"
 					alt="${title}"
