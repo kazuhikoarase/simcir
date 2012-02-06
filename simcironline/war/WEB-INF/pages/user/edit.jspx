@@ -21,7 +21,7 @@ if ("POST".equals(request.getMethod() ) ) {
 		title = "untitled";
 	}
 	
-	String key = ss.putCircuit(
+	Circuit circuit = ss.putCircuit(
 		request.getParameter("key"),
 		title,
 		request.getParameter("xml"),
@@ -29,13 +29,13 @@ if ("POST".equals(request.getMethod() ) ) {
 		request.getParameter("tn"),
 		"1".equals(request.getParameter("private") ),
 		"1".equals(request.getParameter("showNonVisuals") )
-	).getKey();
+	);
 
 	ss.putToolboxList(request.getParameter("tlxml") );
 
 	response.sendRedirect(
 			request.getContextPath() +
-			"/circuit?key=" + key);
+			"/circuit?" + circuit.getKeyParams() );
 	return;
 
 } else if ("GET".equals(request.getMethod() ) ) {
@@ -101,7 +101,7 @@ var openCircuitHandler = function(url) {
 
 			<form onsubmit="return false;">
 
-				<input type="hidden" name="key" value="${param.key}"/>
+				<input type="hidden" name="key" value="${circuit.key}"/>
 				<input type="hidden" name="xml" value=""/>
 				<input type="hidden" name="img" value=""/>
 				<input type="hidden" name="tn"  value=""/>
@@ -155,11 +155,11 @@ var openCircuitHandler = function(url) {
 	
 					<jsp:text>&amp;o=openCircuitHandler</jsp:text>
 							
-					<c:if test="${not empty param.key}">
+					<c:if test="${not empty circuit.key}">
 						<jsp:text>&amp;c=</jsp:text>
 						<s:encodeURL>
 							<jsp:text>${contextPath}/circuit?fmt=xml</jsp:text>
-							<jsp:text>&amp;key=${param.key}</jsp:text>
+							<jsp:text>&amp;key=${circuit.key}</jsp:text>
 						</s:encodeURL>
 					</c:if>
 				</c:set>			

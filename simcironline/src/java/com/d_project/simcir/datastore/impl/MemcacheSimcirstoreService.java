@@ -8,38 +8,12 @@ import com.d_project.simcir.datastore.CircuitList;
 import com.d_project.simcir.datastore.Library;
 import com.d_project.simcir.datastore.SimcirstoreService;
 import com.d_project.simcir.datastore.User;
-import com.google.appengine.api.memcache.MemcacheServiceException;
 
 /**
  * MemcacheSimcirstoreService
  * @author kazuhiko arase
  */
 public class MemcacheSimcirstoreService extends AbstractSimcirstoreService {
-
-	private CacheHelper<Integer,CircuitList> circuitListCache = new MemcacheHelper<Integer,CircuitList>("circuitList") {
-		
-		protected CircuitList get(Integer currentPage) throws Exception {
-			CircuitList circuitList = service.getRecentCircuitList(currentPage);
-			for (Circuit circuit : circuitList.getList() ) {
-				try {
-					circuitCache.put(circuit.getKey(), circuit);
-				} catch(MemcacheServiceException e) {
-					// ignore while update cache.
-				}
-			}
-			return circuitList;
-		}
-
-		protected void updateCache(CircuitList circuitList) throws Exception {
-			for (int i = 0; i < circuitList.getList().size(); i += 1) {
-				Circuit circuit = circuitList.getList().get(i);
-				Circuit cache = circuitCache.get(circuit.getKey(), true);
-				if (cache != null) {
-					circuitList.getList().set(i, cache);
-				}
-			}
-		}
-	};
 	
 	private CacheHelper<String,Circuit> circuitCache = new MemcacheHelper<String,Circuit>("circuit") {
 		
@@ -69,10 +43,6 @@ public class MemcacheSimcirstoreService extends AbstractSimcirstoreService {
 	
 	public MemcacheSimcirstoreService(SimcirstoreService service) {
 		this.service = service;
-	}
-	
-	public CircuitList getRecentCircuitList(int currentPage) throws Exception {
-		return circuitListCache.get(currentPage, true);
 	}
 
 	public void deleteCircuit(String circuitKey) throws Exception {

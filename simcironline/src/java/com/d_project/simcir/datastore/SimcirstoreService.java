@@ -8,8 +8,6 @@ import java.util.List;
  */
 public interface SimcirstoreService {
 
-	CircuitList getRecentCircuitList(int currentPage) throws Exception;
-
 	void deleteCircuit(String circuitKey) throws Exception;
 	
 	CircuitList getCircuitList(int currentPage) throws Exception;

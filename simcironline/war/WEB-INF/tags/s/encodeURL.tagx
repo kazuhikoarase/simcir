@@ -12,7 +12,7 @@
 	<jsp:scriptlet><![CDATA[
 
 String body = (String)jspContext.getAttribute("body");
-out.write(URLEncoder.encode(body, "Utf-8") );
+out.write(URLEncoder.encode(body, "UTF-8") );
 
 	]]></jsp:scriptlet>
 

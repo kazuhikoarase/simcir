@@ -26,7 +26,6 @@ import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Text;
-import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.images.Image;
 import com.google.appengine.api.images.ImagesService;
 import com.google.appengine.api.images.ImagesServiceFactory;
@@ -48,47 +47,12 @@ public class SimcirstoreServiceGAE extends AbstractSimcirstoreService {
 
 	private static final String CHAR_ENCODING = "UTF-8";
 
-	private static final long DAY_IN_MILLIS = 1000L * 3600 * 24;
-	
 //	private int numPerPage = 3;
 	private int numPerPage = 10;
 
 	public SimcirstoreServiceGAE() {
 	}
-	
-	public CircuitList getRecentCircuitList(int currentPage) throws Exception {
 
-		Date date = new Date(System.currentTimeMillis() - DAY_IN_MILLIS * 7);
-		
-		DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
-
-		Query query = new Query(KIND_CIRCUIT);
-		query.addFilter("private", FilterOperator.EQUAL, false);
-//		query.addFilter("createDate", FilterOperator.GREATER_THAN, date);
-		query.addSort("createDate", Query.SortDirection.DESCENDING);
-
-		PreparedQuery pq = ds.prepare(query);
-
-		int offset = currentPage * numPerPage;
-		int limit = numPerPage;
-		
-		List<Circuit> list = new ArrayList<Circuit>();
-		for (Entity entity : pq.asList(FetchOptions.Builder.withOffset(offset).limit(limit) ) ) {
-			list.add(entityToCircuit(ds, entity) );
-		}
-
-		int numCircuits = pq.countEntities(FetchOptions.Builder.withDefaults() );
-		int numPages = ( (numCircuits - 1) / numPerPage) + 1;
-
-		CircuitList circuitList = new CircuitList();
-		circuitList.setList(list);
-		circuitList.setCurrentPage(currentPage);
-		circuitList.setNumPages(numPages);
-		circuitList.setNumPerPage(numPerPage);
-		circuitList.setNumCircuits(numCircuits);
-		return circuitList;
-	}
-	
 	public void deleteCircuit(String circuitKey) throws Exception {
 
 		checkOwner(circuitKey);
@@ -277,7 +241,7 @@ public class SimcirstoreServiceGAE extends AbstractSimcirstoreService {
 	public User getUser(boolean useCache) throws Exception {
 		try {
 			User user = getUser(getCurrentUserId(), useCache);
-			// TODO
+			// TODO data fix
 			if (Util.isEmpty(user.getEmail() ) ) {
 				UserService us = UserServiceFactory.getUserService();
 				com.google.appengine.api.users.User cu = us.getCurrentUser();
@@ -315,6 +279,11 @@ public class SimcirstoreServiceGAE extends AbstractSimcirstoreService {
 			entity.setProperty("createDate", date);
 		} else { 
 			entity = ds.get(getCurrentUserKey() );
+			// TODO data fix
+			if (entity.getProperty("createDate") == null) {
+				entity.setProperty("createDate",
+					entity.getProperty("updateDate") );
+			}
 		}
 		entity.setProperty("updateDate", date);
 		
@@ -420,7 +389,7 @@ public class SimcirstoreServiceGAE extends AbstractSimcirstoreService {
 		user.setNickname( (String)entity.getProperty("nickname") );
 		user.setUrl( (String)entity.getProperty("url") );
 
-		// TODO
+		// TODO data fix
 		try {
 			user.setToolboxListXml(
 				blobToString( (Blob)entity.getProperty("toolboxListXml") ) );
