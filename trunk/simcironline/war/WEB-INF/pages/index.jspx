@@ -87,10 +87,10 @@ pageContext.setAttribute("list", list);
 		<h3 style="margin-top: 8px;">Gallery</h3>
 
 		<c:forEach var="item" items="${list}" varStatus="itemStatus">
-			<c:if test="${itemStatus.index gt 0 and itemStatus.index mod 2 == 0}">
+			<c:if test="${itemStatus.index gt 0 and itemStatus.index mod 3 == 0}">
 				<br style="clear:both;"/>
 			</c:if>
-			<div class="list-item" style="width:386px; margin:2px; float: left;">
+			<div class="list-item" style="width: 254px; margin: 2px; float: left;">
 				<s:circuit circuit="${item}" noauthor="true" />
 			</div>
 		</c:forEach>	
