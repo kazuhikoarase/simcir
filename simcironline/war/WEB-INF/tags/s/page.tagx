@@ -183,14 +183,8 @@ if (ss.isUserLoggedIn() ) {
 				<jsp:text> &#xA9; 1998, 2012 kazuhiko arase</jsp:text>
 			</div>
 			<div style="float: left;">
-				<jsp:text>&#xa0;&#xa0;All registered trademarks belong to their respective owners</jsp:text>
+				<jsp:text>&#xa0;&#xa0;-&#xa0;&#xa0;All registered trademarks belong to their respective owners</jsp:text>
 			</div>
-<!-- 
-			<div style="float: right;">
-				<jsp:text>hosted on </jsp:text>
-				<a href="http://code.google.com/appengine/">Google App Engine</a>
-			</div>
- -->
 			<br style="clear: both;"/>
 		</div>
 
