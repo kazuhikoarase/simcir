@@ -24,4 +24,4 @@ You can use a circuit in your library as an integrated circuit.
 
 If double click it, a circuit of itself would be shown in new window.
 
- http://simcir.googlecode.com/svn/assets/tutor/t6.png http://simcir.googlecode.com/svn/assets/tutor/t7.png
+ http://simcir.googlecode.com/svn/assets/tutor/t8.png 
