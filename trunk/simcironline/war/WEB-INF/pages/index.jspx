@@ -79,10 +79,17 @@ pageContext.setAttribute("list", list);
 		</div>
 		
 		<div>
-		<jsp:text>&gt;&gt;</jsp:text><a href="http://code.google.com/p/simcir/wiki/Usage">Usage</a>
+			<jsp:text>&gt;&gt;</jsp:text>
+			<a href="http://code.google.com/p/simcir/wiki/Usage">Usage</a>
 		</div>
 		
 		<s:button label="Create" click="location.href= contextPath + '/user/edit';"/>
+
+		<c:if test="${isUserLoggedIn}">
+			<div>
+				<a href="http://www.facebook.com/simcir">Then, share your circuit.</a>
+			</div>
+		</c:if>
 		
 		<h3 style="margin-top: 8px;">Gallery</h3>
 
