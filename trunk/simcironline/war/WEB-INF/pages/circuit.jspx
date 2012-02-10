@@ -126,7 +126,7 @@ try {
 }
 			]]></jsp:scriptlet>
 	
-			<s:page title=" - ${circuit.title}" 
+			<s:page title="${circuit.title}" 
 				description="${circuit.title}"
 				thumbnail="${contextPath}/circuit?fmt=tn&amp;key=${circuit.key}">
 		
