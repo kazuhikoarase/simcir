@@ -55,8 +55,16 @@ if (ss.isUserLoggedIn() ) {
 		</c:if>
 		
 		<link rel="icon" href="${contextPath}/assets/simcir_128.png" type="image/png" />
-
-		<title>Simcir<c:out value="${title}"/></title>
+		
+		<c:set var="title">
+			<c:if test="${not empty title}">
+				<c:out value="${title}" escapeXml="false"/>
+				<jsp:text> - </jsp:text>
+			</c:if>
+			<jsp:text>Simcir</jsp:text>
+		</c:set>
+		<title><c:out value="${title}"/></title>
+		
 		<s:style src="/assets/style.css" />
 		<s:style src="/WEB-INF/js/core/ui.css" />
 		<s:script src="/WEB-INF/js/core/domBuilder.js" />
@@ -184,6 +192,10 @@ if (ss.isUserLoggedIn() ) {
 			</div>
 			<div style="float: left;">
 				<jsp:text>&#xa0;&#xa0;-&#xa0;&#xa0;All registered trademarks belong to their respective owners</jsp:text>
+			</div>
+			<div style="float: left;">
+				<jsp:text>&#xa0;&#xa0;-&#xa0;&#xa0;</jsp:text>
+				<a href="${contentType}/terms">Terms</a>
 			</div>
 			<br style="clear: both;"/>
 		</div>
