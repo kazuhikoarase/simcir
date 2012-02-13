@@ -41,16 +41,11 @@ package com.d_project.simcir.core.deviceLoaderClasses {
 
 		override public function start() : void {
 
-			var ctx : LoaderContext = new LoaderContext(
-				_loaderContext.checkPolicyFile,
-				_loaderContext.applicationDomain,
-				_loaderContext.securityDomain);
-
 			_loader = new Loader();
 			_loader.contentLoaderInfo.addEventListener(Event.COMPLETE, loader_completeHandler);
 			_loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, loader_errorHandler);
 			_loader.contentLoaderInfo.addEventListener(SecurityErrorEvent.SECURITY_ERROR, loader_errorHandler);
-			_loader.load(new URLRequest(url), ctx);
+			_loader.load(new URLRequest(url), _loaderContext);
 		}
 
 		private function loader_completeHandler(event : Event) : void {
