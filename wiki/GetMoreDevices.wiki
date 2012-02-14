@@ -58,8 +58,7 @@ Then 'MoreSet' will be added.
 
 http://simcir.googlecode.com/svn/assets/toolbox/AddToolbox3.png
 
-You could deploy custom [ToolboxDefinitionFile Toolbox Definition File]
- on your site.
+You could deploy custom [ToolboxDefinitionFile Toolbox Definition File] on your site.
 Please beware to a [CrossDomain crossdomain.xml] required at host root.
 
 {{{
