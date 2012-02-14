@@ -52,8 +52,7 @@ LED could change a color by the parameter 'color'.
 
 For example, open the toolbox menu and replace 'http://' with '[http://simcironline.appspot.com/MoreSet.xml /MoreSet.xml]' and press plus button.
 
-http://simcir.googlecode.com/svn/assets/toolbox/AddToolbox.png
-http://simcir.googlecode.com/svn/assets/toolbox/AddToolbox2.png
+http://simcir.googlecode.com/svn/assets/toolbox/AddToolbox1_2.png
 
 Then 'MoreSet' will be added.
 
