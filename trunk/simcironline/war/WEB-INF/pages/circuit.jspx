@@ -64,6 +64,7 @@ try {
 {			                        
 	Circuit circuit = (Circuit)pageContext.getAttribute("circuit");
 	byte[] bytes = circuit.getImage();
+	response.reset();
 	response.setContentType("image/png");
 	OutputStream rawOut = response.getOutputStream();
 	try {
@@ -82,6 +83,7 @@ try {
 {			                        
 	Circuit circuit = (Circuit)pageContext.getAttribute("circuit");
 	byte[] bytes = circuit.getThumbnail();
+	response.reset();
 	response.setContentType("image/png");
 	OutputStream rawOut = response.getOutputStream();
 	try {
