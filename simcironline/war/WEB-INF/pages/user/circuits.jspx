@@ -36,6 +36,10 @@ if ("POST".equals(request.getMethod() ) ) {
 		<h3>My Circuits</h3>
 
 		<s:button label="Create" click="location.href='edit';"/>
+		<div>
+			<a href="http://www.facebook.com/simcir">Then, share your circuit.</a>
+		</div>
+
 		<br/>
 
 		<s:script><![CDATA[
