@@ -8,14 +8,14 @@ package com.d_project.simcir.devices.sound {
 	import flash.system.LoaderContext;
 	
 	/**
-	 * Volume
+	 * Knob
 	 * @author kazuhiko arase
 	 */
-	public class Volume extends Device implements SoundSource {
+	public class Knob extends Device implements SoundSource {
 
 		private var _value : Number = 0;
 		
-		public function Volume() {
+		public function Knob() {
 		}
 
 		override public function init(loaderContext : LoaderContext, deviceDef : XML) : void {
@@ -45,7 +45,7 @@ package com.d_project.simcir.devices.sound {
 	}
 }
 
-import com.d_project.simcir.devices.sound.Volume;
+import com.d_project.simcir.devices.sound.Knob;
 import com.d_project.simcir.ui.GraphicsUtil;
 import com.d_project.simcir.ui.UIConstants;
 import com.d_project.ui.UIBase;
@@ -58,12 +58,12 @@ class Control extends UIBase {
 	private static const _MIN_ANGLE : Number = 45;
 	private static const _MAX_ANGLE : Number = 315;
 
-	private var _vol : Volume;
+	private var _device : Knob;
 
 	private var _theta : Number = 0;
 
-	public function Control(vol : Volume) : void {
-		_vol = vol;
+	public function Control(device : Knob) : void {
+		_device = device;
 		angle = 45;
 	}
 	
@@ -72,7 +72,7 @@ class Control extends UIBase {
 		_theta = angleToTheta(Math.max(_MIN_ANGLE,
 			Math.min(value, _MAX_ANGLE) ) );
 		
-		_vol.value = (angle - _MIN_ANGLE) / (_MAX_ANGLE - _MIN_ANGLE);
+		_device.value = (angle - _MIN_ANGLE) / (_MAX_ANGLE - _MIN_ANGLE);
 
 		invalidate();
 	}

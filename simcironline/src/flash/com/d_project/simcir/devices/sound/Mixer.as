@@ -28,6 +28,4 @@ package com.d_project.simcir.devices.sound {
 			return v0 + v1;
 		}
 	}
-	
-
 }

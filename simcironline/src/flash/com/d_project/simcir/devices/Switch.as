@@ -80,12 +80,12 @@ import flash.geom.Matrix;
 
 class Control extends UIBase {
 
-	private var _sw : Switch;
+	private var _device : Switch;
 
 	private var _down : Boolean = false;
 
-	public function Control(sw : Switch) : void {
-		_sw = sw;
+	public function Control(device : Switch) : void {
+		_device = device;
 	}
 
 	override protected function update(g : Graphics) : void {
@@ -111,18 +111,18 @@ class Control extends UIBase {
 
 	override protected function mouseDownHandler(event : MouseEvent) : void {
 		super.mouseDownHandler(event);
-		switch(_sw.type) {
+		switch(_device.type) {
 		case Switch.PUSH_ON :
-			_sw.on = true;
+			_device.on = true;
 			_down = true;
 			break;
 		case Switch.PUSH_OFF :
-			_sw.on = false;
+			_device.on = false;
 			_down = true;
 			break;
 		case Switch.TOGGLE :
-			_sw.on = !_sw.on;
-			_down = _sw.on;
+			_device.on = !_device.on;
+			_down = _device.on;
 			break;
 		default :
 			throw new Error();
@@ -131,17 +131,17 @@ class Control extends UIBase {
 
 	override protected function mouseUpHandler(event : Event) : void {
 		super.mouseUpHandler(event);
-		switch(_sw.type) {
+		switch(_device.type) {
 		case Switch.PUSH_ON :
-			_sw.on = false;
+			_device.on = false;
 			_down = false;
 			break;
 		case Switch.PUSH_OFF :
-			_sw.on = true;
+			_device.on = true;
 			_down = false;
 			break;
 		case Switch.TOGGLE :
-			_down = _sw.on;
+			_down = _device.on;
 			break;
 		default :
 			throw new Error();

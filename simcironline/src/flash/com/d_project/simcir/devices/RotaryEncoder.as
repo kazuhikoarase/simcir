@@ -72,12 +72,12 @@ class Control extends UIBase {
 	private static const _MIN_ANGLE : Number = 45;
 	private static const _MAX_ANGLE : Number = 315;
 
-	private var _vol : RotaryEncoder;
+	private var _device : RotaryEncoder;
 
 	private var _theta : Number = 0;
 
-	public function Control(vol : RotaryEncoder) : void {
-		_vol = vol;
+	public function Control(device : RotaryEncoder) : void {
+		_device = device;
 		angle = 45;
 	}
 	
@@ -86,7 +86,7 @@ class Control extends UIBase {
 		_theta = angleToTheta(Math.max(_MIN_ANGLE,
 			Math.min(value, _MAX_ANGLE) ) );
 		
-		_vol.value = Math.min( ( (angle - _MIN_ANGLE) /
+		_device.value = Math.min( ( (angle - _MIN_ANGLE) /
 			(_MAX_ANGLE - _MIN_ANGLE) * 16), 15);
 
 		invalidate();

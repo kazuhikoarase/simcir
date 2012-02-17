@@ -83,7 +83,7 @@ package com.d_project.simcir.ui.workspaceClasses {
 			var ns : Namespace = DeviceLoader.NS;
 			return _xml.
 				ns::device[index].
-				ns::param.(@name == 'url').@value;
+				ns::param.(@name == "url").@value;
 		}
 		
 		public function get numToolboxes() : int {

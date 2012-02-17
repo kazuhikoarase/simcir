@@ -7,7 +7,7 @@ package {
 	import flash.system.LoaderContext;
 
 	public class SimpleSwitch extends Device {
-		
+
 		override public function init(loaderContext : LoaderContext, deviceDef : XML) : void {
 			super.init(loaderContext, deviceDef);
 			// 1 in, 1 out
@@ -47,17 +47,14 @@ import flash.events.MouseEvent;
 
 class Control extends Sprite {
 	
-	private var _sw : SimpleSwitch;
+	private var _device : SimpleSwitch;
 	private var _color : uint;
 	
-	public function Control(sw : SimpleSwitch) {
+	public function Control(device : SimpleSwitch) {
 
-		_sw = sw;
+		_device = device;
 
-		default xml namespace =
-			new Namespace("http://www.d-project.com/simcir/2012");
-		
-		var color : String = sw.deviceDef.param.(@name == "color").@value;
+		var color : String = device.params["color"];
 		_color =
 			color == "red"?   0xff0000 :
 			color == "green"? 0x00ff00 :
@@ -72,18 +69,18 @@ class Control extends Sprite {
 	}
 
 	private function mouseDownHandler(event : *) : void {
-		_sw.on = true;
+		_device.on = true;
 	}
 
 	private function mouseUpHandler(event : *) : void {
-		_sw.on = false;
+		_device.on = false;
 	}
 	
 	private function enterFrameHandler(event : *) : void {
 		var g : Graphics = graphics;
 		g.clear();
 		g.lineStyle(2, _color);
-		g.beginFill(_sw.on? 0x666666 : 0xcccccc);
+		g.beginFill(_device.on? 0x666666 : 0xcccccc);
 		g.drawCircle(
 			parent.width / 2,
 			parent.height / 2,

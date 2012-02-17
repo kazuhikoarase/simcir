@@ -72,7 +72,6 @@ package com.d_project.simcir.devices {
 	}
 }
 
-import com.d_project.simcir.core.DeviceLoader;
 import com.d_project.simcir.devices.LEDSeg;
 import com.d_project.simcir.ui.GraphicsUtil;
 import com.d_project.simcir.ui.UIConstants;
@@ -102,9 +101,7 @@ class Control extends UIBase {
 		_seg = new Sprite();
 		addChild(_seg);
 
-		var ns : Namespace = DeviceLoader.NS;
-		_hiColor = GraphicsUtil.parseColor(
-			device.deviceDef.ns::param.(@name == "color").@value) || 0xff0000;
+		_hiColor = GraphicsUtil.parseColor(device.params["color"]) || 0xff0000;
 		_loColor = GraphicsUtil.multiplyColor(_hiColor, 0.25);
 	}
 

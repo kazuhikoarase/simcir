@@ -4,9 +4,9 @@
 		xsi:schemaLocation="http://www.d-project.com/simcir/2012 simcir.xsd"
 		title="SoundSet">
 
-	<device factory="SoundSet.swf" type="Knob" />
-	<device factory="SoundSet.swf" type="Speaker" />
-	<device factory="SoundSet.swf" type="VCO" />
-	<device factory="SoundSet.swf" type="Mixer" />
+	<device factory="/SoundSet.swf" type="Volume" />
+	<device factory="/SoundSet.swf" type="Speaker" />
+	<device factory="/SoundSet.swf" type="Wave" />
+	<device factory="/SoundSet.swf" type="Mixer" />
 
 </simcir>

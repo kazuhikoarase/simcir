@@ -37,10 +37,10 @@ ENV
 	
 	*/
 	/**
-	 * Wave
+	 * VCO
 	 * @author kazuhiko arase
 	 */
-	public class Wave extends Device implements SoundSource {
+	public class VCO extends Device implements SoundSource {
 		
 		private static const T : Number = 2 * Math.PI / 44100;
 		

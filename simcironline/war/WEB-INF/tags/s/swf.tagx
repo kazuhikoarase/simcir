@@ -31,7 +31,15 @@
 	</c:if>
 	
 	<jsp:scriptlet><![CDATA[
-                        
+
+if ("localhost".equals(request.getServerName() ) ) {
+	String movie = (String)jspContext.getAttribute("movie");
+	if (movie.indexOf("?") == -1) {
+		jspContext.setAttribute("movie",
+			movie + "?" + System.currentTimeMillis() );
+	}
+}
+	                        
 String assetsPath = request.getContextPath() + "/assets";
 jspContext.setAttribute("assetsPath", assetsPath);
 
