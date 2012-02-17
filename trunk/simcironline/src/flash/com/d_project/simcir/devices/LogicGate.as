@@ -1,7 +1,6 @@
 package com.d_project.simcir.devices {
 
 	import com.d_project.simcir.core.Device;
-	import com.d_project.simcir.core.DeviceLoader;
 	import com.d_project.simcir.core.NodeEvent;
 	
 	import flash.display.DisplayObject;
@@ -63,10 +62,8 @@ package com.d_project.simcir.devices {
 				throw new Error(type);
 			}
 
-			var ns : Namespace = DeviceLoader.NS;
-			
 			// input (variable);
-			var numInputs : int = deviceDef.ns::param.(@name == "numInputs").@value;
+			var numInputs : int = params["numInputs"];
 			numInputs = Math.max(numInputs, (_opFunc != null)? 2 : 1);
 			for (var i : int = 0; i < numInputs; i += 1) {
 				addInput();
@@ -139,14 +136,14 @@ import flash.display.Graphics;
 
 class Control extends UIBase {
 
-	private var _gate : LogicGate;
+	private var _device : LogicGate;
 	private var _draw : Function;
 
-	public function Control(gate : LogicGate) : void {
-		_gate = gate;
+	public function Control(device : LogicGate) : void {
+		_device = device;
 		mouseEnabled = false;
 
-		var type : String = gate.deviceDef.@type;
+		var type : String = device.deviceDef.@type;
 
 		switch(type) {
 		case "BUF" :

@@ -30,11 +30,9 @@ package com.d_project.simcir.core.buildInDevice {
 		override public function init(loaderContext : LoaderContext, deviceDef : XML) : void {
 			super.init(loaderContext, deviceDef);
 
-			var ns : Namespace = DeviceLoader.NS;
-
 			var loader : DeviceLoader = new DeviceLoader(loaderContext);
 			loader.addEventListener(Event.COMPLETE, loader_completeHandler);
-			loader.loadUrl(deviceDef.ns::param.(@name == "url").@value);
+			loader.loadUrl(params["url"]);
 
 			var st : String = new Error().getStackTrace();
 			if (st != null) {

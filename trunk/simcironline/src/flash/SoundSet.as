@@ -2,10 +2,10 @@ package {
 	
 	import com.d_project.simcir.core.Device;
 	import com.d_project.simcir.core.DeviceFactory;
+	import com.d_project.simcir.devices.sound.Knob;
 	import com.d_project.simcir.devices.sound.Mixer;
 	import com.d_project.simcir.devices.sound.Speaker;
-	import com.d_project.simcir.devices.sound.Volume;
-	import com.d_project.simcir.devices.sound.Wave;
+	import com.d_project.simcir.devices.sound.VCO;
 	
 	import flash.display.Sprite;
 
@@ -17,12 +17,12 @@ package {
 		public function createDevice(deviceDef : XML) : Device {
 			var type : String = deviceDef.@type;
 			switch(type) {
-			case "Volume" :
-				return new Volume();
+			case "Knob" :
+				return new Knob();
 			case "Speaker" :
 				return new Speaker();
-			case "Wave" :
-				return new Wave();
+			case "VCO" :
+				return new VCO();
 			case "Mixer" :
 				return new Mixer();
 			default :

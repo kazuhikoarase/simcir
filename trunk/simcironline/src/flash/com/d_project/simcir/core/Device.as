@@ -38,6 +38,8 @@ package com.d_project.simcir.core {
 		private var _outputs : Array = new Array();
 
 		private var _label : String = "";
+
+		private var _params : Object = {};
 		
 		private var _active : Boolean = true;
 		
@@ -72,6 +74,14 @@ package com.d_project.simcir.core {
 			id = _deviceDef.@id;
 			label = _deviceDef.@label.length()?
 				_deviceDef.@label : _deviceDef.@type;
+			
+			var ns : Namespace = DeviceLoader.NS;
+			var paramList : XMLList = deviceDef.ns::param;
+			for (var i : int = 0; i < paramList.length(); i += 1) {
+				var param : XML = paramList[i];
+				_params[String(param.@name)] =
+					String(param.@value);
+			}
 		}
 
 		/**
@@ -104,6 +114,10 @@ package com.d_project.simcir.core {
 		
 		public function get label() : String {
 			return _label;
+		}
+		
+		public function get params() : Object {
+			return _params;
 		}
 		
 		public function set active(value : Boolean) : void {

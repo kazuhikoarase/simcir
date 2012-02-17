@@ -1,7 +1,6 @@
 package {
 
 	import com.adobe.images.PNGEncoder;
-	import com.d_project.simcir.core.DeviceLoader;
 	import com.d_project.simcir.core.buildInDevice.DeviceRef;
 	import com.d_project.simcir.ui.DeviceBody;
 	import com.d_project.simcir.ui.DeviceUI;
@@ -159,9 +158,7 @@ package {
 			}
 
 			// call openCircuitHandler with url.
-			var ns : Namespace = DeviceLoader.NS;
-			var deviceDef : XML = deviceUI.device.deviceDef;
-			var url : String = deviceDef.ns::param.(@name == "url").@value;
+			var url : String = deviceUI.device.params["url"];
 			ExternalInterface.call(o, url);
 		}
 		
