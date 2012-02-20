@@ -61,10 +61,10 @@ http://simcir.googlecode.com/svn/assets/toolbox/AddToolbox3.png
 You could deploy custom [ToolboxDefinitionFile Toolbox Definition File] on your site.
 Please beware to a [CrossDomain crossdomain.xml] required at host root.
 
-<code language="txt">
+{{{
 http://www.example.com/YourSet.xml
                       /crossdomain.xml
-</code>
+}}}
 
 In additionally, you could create a custom device with
 [http://code.google.com/p/simcir/downloads/list SDK].
