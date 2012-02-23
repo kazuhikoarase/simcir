@@ -88,7 +88,7 @@ var delete_clickHandler = function(key) {
 				</form>
 
 				<c:forEach var="item" items="${list}">
-					<div class="list-item">
+					<div class="list-item" style="width: 792px;">
 						<s:circuit circuit="${item.cir}">
 							<s:delete-button click="delete_clickHandler('${item.key}')"/>
 						</s:circuit>

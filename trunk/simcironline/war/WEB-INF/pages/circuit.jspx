@@ -300,15 +300,7 @@ var openCircuitHandler = function(url) {
 							</c:if>
 	
 							<br style="clear: both;"/>
-	
 						</div>
-	
-						<c:if test="${http}">
-							<div style="margin:32px 0px 8px 0px;">
-								<s:socials/>
-							</div>
-						</c:if>
-	
 					</div>
 				</form>
 		

@@ -37,7 +37,7 @@ if ("POST".equals(request.getMethod() ) ) {
 
 		<s:button label="Create" click="location.href='edit';"/>
 		<div>
-			<a href="http://www.facebook.com/simcir">Then, share your circuit.</a>
+			<a href="http://www.facebook.com/simcir">Then, share it.</a>
 		</div>
 
 		<br/>
@@ -96,7 +96,7 @@ var delete_clickHandler = function(key) {
 		<c:out value="${pages}" escapeXml="false"/>
 		
 		<c:forEach var="item" items="${circuitList.list}">
-			<div class="list-item">
+			<div class="list-item" style="width: 792px;">
 				<s:circuit circuit="${item}">
 					<s:delete-button click="delete_clickHandler('${item.key}')"/>
 				</s:circuit>
