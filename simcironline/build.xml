@@ -12,6 +12,7 @@
 			<fileset dir="${build}/flash">
 				<include name="simcir.swf" />
 				<include name="BasicSet.swf" />
+				<include name="SoundSet.swf" />
 			</fileset>
 			<fileset dir="${src}/flash">
 				<include name="simcir.xsd" />
