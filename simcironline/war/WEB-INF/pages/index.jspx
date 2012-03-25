@@ -84,6 +84,10 @@ pageContext.setAttribute("list", list);
 		</div>
 		
 		<s:button label="Create" click="location.href= contextPath + '/user/edit';"/>
+		<c:if test="${not isUserLoggedIn}">
+			<s:button label="Try It Now!" click="location.href= contextPath + '/circuit?try';"/>
+		</c:if>
+
 		<div>
 			<a href="http://www.facebook.com/simcir">Then, share it.</a>
 		</div>
