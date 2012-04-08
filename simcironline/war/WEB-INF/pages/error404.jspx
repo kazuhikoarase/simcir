@@ -6,7 +6,7 @@
 >
 
 	<jsp:directive.page contentType="text/html;charset=UTF-8" isErrorPage="true"/>
-	<s:page>
+	<s:page title="Simcir">
 		<h3>Not Found</h3>
 	</s:page>
 

@@ -12,7 +12,7 @@
 
 	<jsp:directive.page contentType="text/html;charset=UTF-8" />
 
-	<s:page description="try your circuit simulate now" >
+	<s:page title="Simcir" description="try your circuit simulate now" >
 
 		<s:script><![CDATA[
 

@@ -65,7 +65,7 @@ if ("POST".equals(request.getMethod() ) ) {
 			response.setContentType("text/html;charset=UTF-8");
 			]]></jsp:scriptlet>
 	
-			<s:page>
+			<s:page title="Simcir">
 			
 				<h3>My Library</h3>
 	

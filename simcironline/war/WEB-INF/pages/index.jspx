@@ -55,7 +55,7 @@ pageContext.setAttribute("list", list);
 
 	<jsp:directive.page contentType="text/html;charset=UTF-8" />
 
-	<s:page description="Simcir is an online circuit simulator. With this tool, you could create, integrate and extend your circuits for free." >
+	<s:page title="Simcir - online circuit simulator" description="Simcir is an online circuit simulator. With this tool, you could create, integrate and extend your circuits for free." >
 
 		<div style="margin: 8px 0px 8px 0px;">
 			<img
