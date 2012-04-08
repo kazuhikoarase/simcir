@@ -52,7 +52,7 @@ if ("POST".equals(request.getMethod() ) ) {
 	
 	<jsp:directive.page contentType="text/html;charset=UTF-8" />
 
-	<s:page>
+	<s:page title="Simcir">
 
 		<s:script><![CDATA[
 
