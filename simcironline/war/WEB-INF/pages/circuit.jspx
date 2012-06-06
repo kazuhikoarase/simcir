@@ -129,8 +129,7 @@ try {
 			]]></jsp:scriptlet>
 	
 			<s:page title="${circuit.title} - Simcir" 
-				description="${circuit.title}"
-				thumbnail="${contextPath}/circuit?fmt=tn&amp;key=${circuit.key}">
+				description="${circuit.title}">
 		
 				<s:script><![CDATA[
 
@@ -298,9 +297,14 @@ var openCircuitHandler = function(url) {
 									</table>
 								</div>
 							</c:if>
-	
+
 							<br style="clear: both;"/>
 						</div>
+
+						<div style="margin: 32px 0px 8px 0px;">
+							<s:socials/>
+						</div>
+
 					</div>
 				</form>
 		

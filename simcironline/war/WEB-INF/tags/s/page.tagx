@@ -9,7 +9,6 @@
 
 	<jsp:directive.attribute name="title" required="false" />
 	<jsp:directive.attribute name="description" required="false" />
-	<jsp:directive.attribute name="thumbnail" required="false" />
 
 	<jsp:scriptlet><![CDATA[
 
@@ -49,11 +48,7 @@ if (ss.isUserLoggedIn() ) {
 			</c:set>
 			<meta name="description" content="${description}" />
 		</c:if>
-		
-		<c:if test="${not empty thumbnail}">
-			<meta itemprop="image" content="${thumbnail}" />
-		</c:if>
-		
+
 		<link rel="icon" href="${contextPath}/assets/simcir_128.png" type="image/png" />
 		
 		<c:set var="title">
