@@ -88,9 +88,7 @@ public class Circuit implements Serializable {
 
 	public String getKeyParams() throws Exception {
 		StringBuilder qs = new StringBuilder();
-		qs.append("title=");
-		qs.append(URLEncoder.encode(getTitle(), "UTF-8") );
-		qs.append("&key=");
+		qs.append("key=");
 		qs.append(getKey() );
 		return qs.toString();
 	}
