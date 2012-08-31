@@ -29,6 +29,7 @@
     <sourceAttachmentPath/>
   </compiler>
   <applications>
+    <application path="SoundSet.as"/>
     <application path="BasicSet.as"/>
     <application path="simcir.as"/>
   </applications>
