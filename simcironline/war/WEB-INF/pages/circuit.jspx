@@ -20,11 +20,6 @@
 
 	<jsp:scriptlet><![CDATA[
 
-if (request.getParameter("try") != null) {
-	application.getRequestDispatcher("/WEB-INF/pages/try.jspx").forward(request, response);
-	return;
-}
-
 try {
 
 	pageContext.setAttribute("http", "http".equals(request.getScheme() ) );
@@ -102,34 +97,11 @@ try {
 	Circuit circuit = (Circuit)pageContext.getAttribute("circuit");
 //	pageContext.setAttribute("numReferred", circuit.getRefKeys().size() );
 
-	Document doc = Util.parseDocument(circuit.getXml() );
-	NodeList attrList = (NodeList)XPathFactory.
-			newInstance().newXPath().
-			compile("//@title|//@type|//@label").
-			evaluate(doc, XPathConstants.NODESET);
-	Set<String> attrSet = new HashSet<String>();
-	for (int i = 0; i < attrList.getLength(); i += 1) {
-		String attr = attrList.item(i).getNodeValue();
-		if (Util.isEmpty(attr) ) {
-			continue;
-		}
-		attrSet.add(attr);
-	}
-	StringBuilder attrs = new StringBuilder();
-	for (String attr : attrSet) {
-		if (attrs.length() > 0) {
-			attrs.append(' ');
-		}
-		attrs.append(attr);
-	}
-	pageContext.setAttribute("attrs", attrs);
-
 	response.setContentType("text/html;charset=UTF-8");
 }
 			]]></jsp:scriptlet>
 	
-			<s:page title="${circuit.title} - Simcir" 
-				description="${circuit.title}">
+			<s:page title="${circuit.title} - Simcir">
 		
 				<s:script><![CDATA[
 
@@ -238,8 +210,6 @@ var openCircuitHandler = function(url) {
 						</c:set>
 
 						<c:set var="alt">
-
-							<c:out value="${attrs}" />
 
 							<c:set var="altTitle">
 								<c:out value="${circuit.title}" />
