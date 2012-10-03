@@ -164,8 +164,12 @@ package {
 		
 		private function getData() : Object {
 			
-			// validate now for capture.
+			// fixed size, no selection
+			_ws.width = 928;
+			_ws.height = 450;
 			_ws.deselectAll();
+
+			// validate immediately for capture.
 			_ws.validate();
 
 			return {

@@ -419,7 +419,9 @@ public class SimcirstoreServiceGAE extends AbstractSimcirstoreService {
 		if (!image.getFormat().equals(Image.Format.PNG) ||
 				image.getWidth() > width ||
 				image.getHeight() > height) {
-			throw new Exception();
+			throw new Exception(
+					image.getFormat().name() + "," +
+					image.getWidth() + "x" + image.getHeight() );
 		}
 		return imageData;
 	}
