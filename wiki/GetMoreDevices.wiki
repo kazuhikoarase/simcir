@@ -1,4 +1,4 @@
-=Get More Devices=
+= Get More Devices =
 
 Here is a [ToolboxDefinitionFile Toolbox Definition File] of the BasicSet you see at first.
 {{{
@@ -68,5 +68,3 @@ http://www.example.com/YourSet.xml
 
 In additionally, you could create a custom device with
 [http://code.google.com/p/simcir/downloads/list SDK].
-
-<g:plusone size="medium"></g:plusone>
