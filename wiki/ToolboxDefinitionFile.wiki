@@ -1,4 +1,4 @@
-=Toolbox Definition File=
+= Toolbox Definition File =
 
 The Toolbox Definition File defines  [http://simcir.googlecode.com/svn/assets/toolbox/BasicSet.png a list of devices].
 
