@@ -1,4 +1,4 @@
-=Usage=
+= Usage =
 
 Select a device from the toolbox and move to right side.
 
