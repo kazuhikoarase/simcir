@@ -1,6 +1,6 @@
 = simcir.swf =
 
-==FlashVars==
+== FlashVars ==
 
 || *Name* || *Value* || *Default* || *Description* ||
 || e || Editable Flag (true/false) || true || ||
