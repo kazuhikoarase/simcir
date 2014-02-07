@@ -84,10 +84,6 @@ pageContext.setAttribute("list", list);
 		</div>
 		
 		<s:button label="Create" click="location.href= contextPath + '/user/edit';"/>
-
-		<div>
-			<a href="http://www.facebook.com/simcir">Then, share it.</a>
-		</div>
 		
 		<h3 style="margin-top: 8px;">Gallery</h3>
 

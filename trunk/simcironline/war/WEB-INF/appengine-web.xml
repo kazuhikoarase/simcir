@@ -11,5 +11,7 @@
 	<static-files>
 		<exclude path="**.jspx"/>
 	</static-files>
+
+	<threadsafe>true</threadsafe>
 		
 </appengine-web-app>
