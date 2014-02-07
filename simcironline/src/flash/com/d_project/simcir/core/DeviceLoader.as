@@ -166,6 +166,8 @@ package com.d_project.simcir.core {
 
 		private function connectNodes() : void {
 
+			default xml namespace = NS;
+
 			var connectorDefs : XMLList = _xml.connector;
 			var deviceMap : Object = createDeviceMap();
 

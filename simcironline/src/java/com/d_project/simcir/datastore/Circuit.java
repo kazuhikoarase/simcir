@@ -1,7 +1,6 @@
 package com.d_project.simcir.datastore;
 
 import java.io.Serializable;
-import java.net.URLEncoder;
 import java.util.Date;
 
 /**
