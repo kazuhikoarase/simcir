@@ -7,7 +7,6 @@ package com.d_project.simcir.core {
 	import flash.display.Sprite;
 	import flash.events.EventDispatcher;
 	import flash.system.LoaderContext;
-	import flash.utils.getQualifiedClassName;
 
 	use namespace simcir_core;
 
