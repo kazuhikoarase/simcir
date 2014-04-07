@@ -2,7 +2,7 @@ package com.d_project.simcir.devices {
 
 	import com.d_project.simcir.core.Device;
 	import com.d_project.simcir.core.NodeEvent;
-
+	
 	import flash.system.LoaderContext;
 
 	/**
@@ -22,8 +22,10 @@ package com.d_project.simcir.devices {
 
 		override protected function inputValueChangeHandler(event : NodeEvent) : void {
 			var value : Object = inputs[0].value;
+			var valid : Boolean = (value is Array) && 
+					value.length == outputs.length;
 			for (var i : int = 0; i < outputs.length; i += 1) {
-				outputs[i].value = (value is Array)? value[i] : value;
+				outputs[i].value = valid? value[i] : null;
 			}
 		}
 
