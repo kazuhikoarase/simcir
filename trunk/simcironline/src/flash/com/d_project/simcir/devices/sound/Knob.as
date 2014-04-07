@@ -1,10 +1,8 @@
 package com.d_project.simcir.devices.sound {
 	
 	import com.d_project.simcir.core.Device;
-	import com.d_project.simcir.core.NodeEvent;
 	
 	import flash.display.DisplayObject;
-	import flash.events.MouseEvent;
 	import flash.system.LoaderContext;
 	
 	/**
