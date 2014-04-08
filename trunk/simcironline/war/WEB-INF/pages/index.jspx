@@ -18,12 +18,6 @@ pageContext.setAttribute("isUserLoggedIn", ss.isUserLoggedIn() );
 
 String[] keys = new String[]{
 
-	"agxzaW1jaXJvbmxpbmVyKwsSBFVzZXIiFDE4NTgwNDc2NDIyMDEzOTEyNDExDAsSB0NpcmN1aXQYagw",
-	"agxzaW1jaXJvbmxpbmVyKwsSBFVzZXIiFDE4NTgwNDc2NDIyMDEzOTEyNDExDAsSB0NpcmN1aXQYagw",
-	"agxzaW1jaXJvbmxpbmVyKwsSBFVzZXIiFDE4NTgwNDc2NDIyMDEzOTEyNDExDAsSB0NpcmN1aXQYagw",
-	"agxzaW1jaXJvbmxpbmVyKwsSBFVzZXIiFDE4NTgwNDc2NDIyMDEzOTEyNDExDAsSB0NpcmN1aXQYagw",
-//
-
 	"ag5zfnNpbWNpcm9ubGluZXIsCxIEVXNlciIVMTAzMjc3NDY0OTMyNDkyNjkyMzY1DAsSB0NpcmN1aXQYAQw",
 	"ag5zfnNpbWNpcm9ubGluZXItCxIEVXNlciIVMTAzMjc3NDY0OTMyNDkyNjkyMzY1DAsSB0NpcmN1aXQYpx8M",
 	"ag5zfnNpbWNpcm9ubGluZXItCxIEVXNlciIVMTAzMjc3NDY0OTMyNDkyNjkyMzY1DAsSB0NpcmN1aXQY1g8M",
@@ -38,8 +32,9 @@ String[] keys = new String[]{
 	
 	"ag5zfnNpbWNpcm9ubGluZXItCxIEVXNlciIVMTAzMjc3NDY0OTMyNDkyNjkyMzY1DAsSB0NpcmN1aXQYjicM",
 	"ag5zfnNpbWNpcm9ubGluZXItCxIEVXNlciIVMTAzMjc3NDY0OTMyNDkyNjkyMzY1DAsSB0NpcmN1aXQY1w8M",
-	"ag5zfnNpbWNpcm9ubGluZXItCxIEVXNlciIVMTAzMjc3NDY0OTMyNDkyNjkyMzY1DAsSB0NpcmN1aXQYrkYM"
-
+	"ag5zfnNpbWNpcm9ubGluZXItCxIEVXNlciIVMTAzMjc3NDY0OTMyNDkyNjkyMzY1DAsSB0NpcmN1aXQYrkYM",
+	"ag5zfnNpbWNpcm9ubGluZXIzCxIEVXNlciIVMTAzMjc3NDY0OTMyNDkyNjkyMzY1DAsSB0NpcmN1aXQYgICAgIDkkQoM",
+	"ag5zfnNpbWNpcm9ubGluZXIzCxIEVXNlciIVMTAzMjc3NDY0OTMyNDkyNjkyMzY1DAsSB0NpcmN1aXQYgICAgICumQoM"
 };
 
 List<Circuit> list = new ArrayList<Circuit>();
