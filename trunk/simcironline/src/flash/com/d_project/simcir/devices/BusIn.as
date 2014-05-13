@@ -32,5 +32,9 @@ package com.d_project.simcir.devices {
 		override public function get halfPitch() : Boolean {
 			return true;
 		}
+		
+		override public function get visualDevice() : Boolean {
+			return false;
+		}
 	}
 }
