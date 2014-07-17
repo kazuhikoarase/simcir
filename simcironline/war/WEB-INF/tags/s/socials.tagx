@@ -14,14 +14,6 @@
 			out.write("<g:plusone></g:plusone>");
 		]]></jsp:scriptlet>
 	</span>
-	
-	<!-- facebook -->
-	<span style="${s}">
-		<jsp:scriptlet><![CDATA[
-			out.write("<script type='text/javascript' src='http://connect.facebook.net/en_US/all.js#xfbml=1'></script>");
-			out.write("<fb:like width='50' layout='standard' show_faces='true'></fb:like>");
-		]]></jsp:scriptlet>
-	</span>
 
 	<!-- Twitter -->
 	<span style="${s}">
