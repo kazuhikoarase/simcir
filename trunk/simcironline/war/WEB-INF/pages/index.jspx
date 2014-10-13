@@ -72,6 +72,11 @@ pageContext.setAttribute("list", list);
 				<jsp:text>sign on with your Google Account.</jsp:text>
 			</c:if>
 		</div>
+		<div style="margin:16px 0px 16px 0px; font-size: 16pt; font-weight: bold;">
+			<a href="https://kazuhikoarase.github.io/simcirjs/">
+			<jsp:text>SimcirJS is available now.</jsp:text>
+			</a>
+		</div>
 		
 		<div>
 			<jsp:text>&gt;&gt;</jsp:text>
